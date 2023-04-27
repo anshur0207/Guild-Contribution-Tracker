@@ -34,11 +34,21 @@ export default class SignUp extends Component {
     .then((res)=>res.json())
     .then((data)=>{
       console.log(data,"userRegister");
+      if(data.status==="Ok"){
+ alert("Signup Successfully");
+ window.location.href = "./sign-in";
+      }
+     
     });
+   
   }
+
+
   render() {
     return (
+     
       <form onSubmit={this.handleSubmit}>
+       
         <h3>Sign Up</h3>
 
         <div className="mb-3">
@@ -82,8 +92,8 @@ export default class SignUp extends Component {
             Sign Up
           </button>
         </div>
-        <p className="forgot-password text-right">
-          Already registered <a href="/sign-in">sign in?</a>
+        <p className="forgot-password text-center">
+          Already registered ?  <a href="/sign-in">Sign in</a>
         </p>
       </form>
     )

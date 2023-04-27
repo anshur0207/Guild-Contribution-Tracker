@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #1c8ef9 !important;
+  background: white !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -41,7 +41,9 @@ html,
   display: flex;
   justify-content: center;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
+  
+  
 }
 
 .auth-inner {
