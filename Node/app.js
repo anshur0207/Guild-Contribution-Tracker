@@ -55,17 +55,19 @@ const encryptedPassword = await bcrypt.hash(password, 10);
 
 app.post("/login-user",async(req,res)=>{
    
-    const {email,password}=req.body();
+    const {email,password}=req.body;
     const user=await User.findOne({email});
     if(!user){
-        return res.send({error:"User Not Found"});
+        return res.json({error:"User Not Found"});
     }
     if(await bcrypt.compare(password,user.password)){
-        const token = jwt.sign({},JWT_SECRET);
+        const token = jwt.sign({email:user.email},JWT_SECRET,{
+            expiresIn:20,
+        });
     
     
         if(res.status(201)){
-            return res.join({status:"ok",data:token});
+            return res.json({status:"ok",data:token});
         }
         else{
             return res.json({error:"error"});
@@ -77,8 +79,32 @@ app.post("/login-user",async(req,res)=>{
     });
 
 
+app.post("/userData", async(req,res)=>{
+    const {token}=req.body;
 
+    try{
+        const user=jwt.verify(token,JWT_SECRET,(err,res)=>{
+           if(err){
+            return "token expired";
+           }
+           return res;
 
+        }); 
+        console.log(user);
+        if(user == "token expired"){
+            return res.send({status:"error",data:"token expired"});
+        }
+        const useremail=user.email;
+        User.findOne({email:useremail}).then((data)=>{
+            res.send({status:"ok",data:data });
+        })
+    
+    .catch((error)=>{
+        res.send({status:"error",data:error});
+
+    });
+}catch(error){}
+});
 
 
 
