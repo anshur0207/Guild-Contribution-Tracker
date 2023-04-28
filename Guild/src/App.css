@@ -88,13 +88,14 @@ nav {
   font-size: clamp(2rem, 5vw, 4rem);
   color: black;
   /* line-height: 5rem; */
-  max-width: 1200px;
+  /* max-width: 12rem; */
+  max-width: 120rem;
 }
 .primary-text {
   font-family: sans-serif;
   font-size: clamp(1.5rem, 4vw, 2rem);
   max-width: 1200px;
-  color:#4c4c4c ;
+  color: #4c4c4c;
   margin: 1.5rem 0rem;
   margin-left: 5px;
 }
@@ -206,7 +207,6 @@ nav {
   display: flex;
   margin-top: 8rem;
   padding-bottom: 5rem;
-  
 }
 .footer-logo-container {
   max-width: 200px;
@@ -214,8 +214,6 @@ nav {
 }
 .footer-icons {
   margin: 1rem 0.5rem;
-  
-  
 }
 .footer-icons svg {
   font-size: 1.5rem;
@@ -230,13 +228,11 @@ nav {
   display: flex;
   justify-content: space-evenly;
   margin-left: 7vw;
-  
 }
 .footer-section-columns {
   display: flex;
   flex-direction: column;
   min-width: 190px;
-  
 }
 .footer-section-columns span {
   margin: 0.25rem 0rem;
@@ -294,7 +290,7 @@ nav {
   width: 220px;
   min-height: 200px;
   background-color: white;
-  padding: .5rem .5rem;
+  padding: 0.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -447,8 +443,6 @@ nav {
   flex-direction: column;
   text-align: center;
   margin-top: 100px;
-  
-  
 }
 
 .auth-inner {
