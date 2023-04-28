@@ -3,7 +3,9 @@ import BannerBackground from "../Assets/home-banner-background.png";
 import BannerImage from "../Assets/home-banner-image.png";
 import Navbar from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
-
+import Work from "./Work";
+import Contact from "./Contact";
+import Footer from "./Footer";
 const Home = () => {
   return (
     <div className="home-container">
@@ -26,8 +28,13 @@ const Home = () => {
         <div className="home-image-section">
           <img src={BannerImage} style={{marginTop:'100px',marginLeft:'50px'} }alt="" />
         </div>
+        
       </div>
+      <Work />
+      <Contact />
+      <Footer />
     </div>
+    
   );
 };
 

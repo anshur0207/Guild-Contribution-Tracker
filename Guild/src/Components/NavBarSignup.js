@@ -64,7 +64,7 @@ if(isLoggedIn){
       <a href="#">AboutUs</a>
 
         <Link to='/userdetails'>Profile</Link>
-        <button onClick={logout} className="btn btn-light">Logout</button>
+        <button onClick={logout} className="btn btn-primary">Log Out</button>
         
         
       </div>
@@ -104,7 +104,7 @@ if(isLoggedIn){
         
         
         {/* <a target="_blank"><Link to ='/sign-up'>New user</Link></a> */}
-        <Link to ='/sign-in'> <button className="primary-button">Login</button></Link>
+        <Link to ='/sign-up'> <button className="primary-button">Signup</button></Link>
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />

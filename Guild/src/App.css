@@ -1,5 +1,5 @@
 * {
-  margin: 0;
+  margin: 0px 8px;
   padding: 0;
   box-sizing: border-box;
   font-family: "Reem Kufi", sans-serif !important;
@@ -60,6 +60,7 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
 .home-banner-container {
   position: relative;
   display: flex;
@@ -187,7 +188,10 @@ nav {
   display: flex;
   align-items: center;
   padding: 1rem;
+  border-style: solid;
+  border-color: black;
   border-radius: 5rem;
+  border-width: 3px;
 }
 .contact-form-container input {
   flex: 1;
@@ -198,9 +202,11 @@ nav {
   padding: 0.5rem 1rem;
 }
 .footer-wrapper {
-  margin: 6rem 0rem;
+  margin: 6rem 5rem;
   display: flex;
-  margin-top: 10rem;
+  margin-top: 8rem;
+  padding-bottom: 5rem;
+  
 }
 .footer-logo-container {
   max-width: 200px;
@@ -329,7 +335,7 @@ nav {
 }
 @media (max-width: 800px) {
   .nav-logo-container {
-    max-width: 140px;
+    max-width: 200px;
   }
   .navbar-links-container {
     display: none;
@@ -433,4 +439,53 @@ nav {
   .about-background-image-container {
     display: none;
   }
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 100px;
+  
+  
+}
+
+.auth-inner {
+  width: 450px;
+  margin: auto;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+
+.auth-wrapper .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+
+.auth-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+.custom-control-label {
+  font-weight: 400;
+}
+
+.forgot-password,
+.forgot-password a {
+  text-align: right;
+  font-size: 13px;
+  padding-top: 10px;
+  color: #7f7d7d;
+  margin: 0;
+}
+
+.forgot-password a {
+  color: #167bff;
 }
