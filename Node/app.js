@@ -30,7 +30,7 @@ const User = mongoose.model("userInfo");
 
 app.post("/register",async(req,res)=>{
    
-const {fname,lname,email,password} =  req.body;
+const {fname,lname,email,password,userType} =  req.body;
 const encryptedPassword = await bcrypt.hash(password, 10);
 
     try{
@@ -44,6 +44,7 @@ const encryptedPassword = await bcrypt.hash(password, 10);
             lname,
             email,
             password: encryptedPassword,
+            userType
 
         });
         res.send({status:"Ok"});
@@ -106,6 +107,7 @@ app.post("/userData", async(req,res)=>{
 }catch(error){}
 });
 
+  
 
 
 
