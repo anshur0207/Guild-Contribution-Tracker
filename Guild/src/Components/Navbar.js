@@ -61,7 +61,7 @@ if(isLoggedIn){
       </div>
       <div className="navbar-links-container">
       <Link to ='/'>Home</Link>
-      <a href="#">AboutUs</a>
+     
       <Link to ='/Dashboard'>Dashboard</Link>
 
         <Link to='/userdetails'>Profile</Link>

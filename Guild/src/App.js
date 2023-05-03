@@ -1,24 +1,20 @@
 import "./App.css";
 import Home from "./Components/Home";
 import React from "react";
-import Work from "./Components/Work";
+
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 
-import Contact from "./Components/Contact";
-import Footer from "./Components/Footer";
+
 import {Route, BrowserRouter as Router,Routes} from 'react-router-dom';
-import AboutUs from "./AboutUs";
+
 import Login from "./Components/login.component";
 import SignUp from "./Components/signup.component";
-import LoginUi from "./LoginUi";
-import { Link } from "react-router-dom";
-import Navbar from "./Components/Navbar";
-import { Container } from "@mui/material";
-import logo from './Assets/Guild.png';
+
 import UserDetails from "./Components/UserDetails";
 import Dashboard from "./Components/Dashboard";
+import AdminHome from "./Components/adminHome";
 
 
 
@@ -38,6 +34,8 @@ function App() {
         <Route exact path="/sign-up" element={<SignUp />}></Route>
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
         <Route exact path="/dashboard" element={<Dashboard />}></Route>
+        <Route exact path="/adminHome" element={<AdminHome />}></Route>
+
         
       </Routes>
      

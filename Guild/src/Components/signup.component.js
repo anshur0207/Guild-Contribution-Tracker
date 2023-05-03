@@ -1,54 +1,65 @@
-import React, { Component } from 'react'
+import React, { useState } from "react";
 import Navbar from './Navbar';
 import Footer from './Footer';
 import BannerBackground from "../Assets/home-banner-background.png";
-import BannerImage from "../Assets/home-banner-image.png";
-
-export default class SignUp extends Component {
-
-  constructor(props){
-    super(props);
-    this.state={
-      fname:"",
-      lname:"",
-      email:"",
-      password:"",
-    };
-    this.handleSubmit=this.handleSubmit.bind(this);
-  }
-  handleSubmit(e){
-    e.preventDefault();
-    const {fname,lname,email,password}=this.state;
-    console.log(fname,lname,email,password);
-    fetch("http://localhost:4000/register",{
-      method:"POST",
-      crossDomain:true,
-      headers:{
-        "Content-Type":"application/json",
-        Accept:"application/json",
-        "Access-Control-Allow-Origin":"*",
-      },
-      body:JSON.stringify({
-        fname,
-        email,
-        lname,
-        password,
-      }),
-    })
-    .then((res)=>res.json())
-    .then((data)=>{
-      console.log(data,"userRegister");
-      if(data.status==="Ok"){
- alert("Signup Successfully");
- window.location.href = "./sign-in";
-      }
-     
-    });
-   
-  }
 
 
-  render() {
+
+
+export default function SignUp() {
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("");
+  const [secretKey, setSecretKey] = useState("");
+
+  const handleSubmit = (e) => {
+    if (userType === "Admin" && secretKey !== "anshu") {
+      e.preventDefault();
+      alert("Invalid Admin");
+    } else {
+      e.preventDefault();
+
+      console.log(fname, lname, email, password);
+      fetch("http://localhost:4000/register", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          fname,
+          email,
+          lname,
+          password,
+          userType,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data, "userRegister");
+          if (data.status == "Ok") {
+            if(userType == "Admin"){
+              alert("Admin Registration Successful");
+              window.location.href = "./sign-in";
+            }
+            else{
+              alert("User Registration Successful");
+              window.location.href = "./sign-in";
+
+            }
+           
+           
+          } else {
+            alert("Something went wrong");
+          }
+        });
+    }
+  };
+  
     return (
       <div>
         <Navbar />
@@ -59,55 +70,87 @@ export default class SignUp extends Component {
         
         
           <div className="auth-inner">
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={handleSubmit}>
        
-       <h3>Sign Up</h3>
+          <h3>Sign Up</h3>
+          <div>
+            Register As
+            <input
+              type="radio"
+              name="UserType"
+              value="User"
+              onChange={(e) => setUserType(e.target.value)}
+            />
+            User
+            <input
+              type="radio"
+              name="UserType"
+              value="Admin"
+              onChange={(e) => setUserType(e.target.value)}
+            />
+            Admin
+          </div>
+          {userType == "Admin" ? (
+            <div className="mb-3">
+              <label>Secret Key</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Secret Key"
+                onChange={(e) => setSecretKey(e.target.value)}
+              />
+            </div>
+          ) : null}
 
-       <div className="mb-3">
-         <label>First name</label>
-         <input
-           type="text"
-           className="form-control"
-           placeholder="First name"
-           onChange={(e)=>this.setState({fname:e.target.value})}
-         />
-       </div>
+          <div className="mb-3">
+            <label>First name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="First name"
+              onChange={(e) => setFname(e.target.value)}
+            />
+          </div>
 
-       <div className="mb-3">
-         <label>Last name</label>
-         <input type="text" className="form-control" placeholder="Last name" 
-         onChange={(e)=>this.setState({lname:e.target.value})}/>
-       </div>
+          <div className="mb-3">
+            <label>Last name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Last name"
+              onChange={(e) => setLname(e.target.value)}
+            />
+          </div>
 
-       <div className="mb-3">
-         <label>Email address</label>
-         <input
-           type="email"
-           className="form-control"
-           placeholder="Enter email"
-           onChange={(e)=>this.setState({email:e.target.value})}
-         />
-       </div>
+          <div className="mb-3">
+            <label>Email address</label>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-       <div className="mb-3">
-         <label>Password</label>
-         <input
-           type="password"
-           className="form-control"
-           placeholder="Enter password"
-           onChange={(e)=>this.setState({password:e.target.value})}
-         />
-       </div>
+          <div className="mb-3">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-       <div className="d-grid">
-         <button type="submit" className="btn btn-primary">
-           Sign Up
-         </button>
-       </div>
-       <p className="forgot-password text-center">
-         Already registered ?  <a href="/sign-in">Sign in</a>
-       </p>
-     </form>
+          <div className="d-grid">
+            <button type="submit" className="btn btn-primary">
+              Sign Up
+            </button>
+          </div>
+          <p className="forgot-password text-right">
+            Already registered <a href="/sign-in">sign in?</a>
+          </p>
+        </form>
 
           </div>
           </div>
@@ -117,4 +160,8 @@ export default class SignUp extends Component {
       
     )
   }
-}
+
+
+
+
+  
