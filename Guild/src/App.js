@@ -13,8 +13,9 @@ import Login from "./Components/login.component";
 import SignUp from "./Components/signup.component";
 
 import UserDetails from "./Components/UserDetails";
-import Dashboard from "./Components/Dashboard";
 import AdminHome from "./Components/adminHome";
+import Dashboard from "./Components/Dashboard";
+import MailData from "./Components/MailData";
 
 
 
@@ -33,8 +34,12 @@ function App() {
         <Route exact path="/sign-in" element={<Login />}></Route>
         <Route exact path="/sign-up" element={<SignUp />}></Route>
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
-        <Route exact path="/dashboard" element={<Dashboard />}></Route>
+       
+        
         <Route exact path="/adminHome" element={<AdminHome />}></Route>
+        <Route exact path="/Dashboard" element={<Dashboard />}></Route>
+        <Route exact path="/MailData" element={<MailData />}></Route>
+
 
         
       </Routes>

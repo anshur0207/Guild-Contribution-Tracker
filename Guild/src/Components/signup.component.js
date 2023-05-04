@@ -41,14 +41,14 @@ export default function SignUp() {
         .then((res) => res.json())
         .then((data) => {
           console.log(data, "userRegister");
-          if (data.status == "Ok") {
-            if(userType == "Admin"){
+          if (data.status === "Ok") {
+            if(userType === "Admin"){
               alert("Admin Registration Successful");
               window.location.href = "./sign-in";
             }
             else{
               alert("User Registration Successful");
-              window.location.href = "./sign-in";
+              window.location.href = "https://guild-contribution-tracker.netlify.app/sign-in";
 
             }
            
@@ -61,11 +61,11 @@ export default function SignUp() {
   };
   
     return (
-      <div>
+      <div className='login-bg' style={{backgroundColor:"black"}}>
         <Navbar />
       <div className="auth-wrapper">
       <div className="home-bannerImage-container">
-          <img src={BannerBackground} alt="" />
+          <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
         </div>
         
         
@@ -73,9 +73,11 @@ export default function SignUp() {
           <form onSubmit={handleSubmit}>
        
           <h3>Sign Up</h3>
-          <div>
-            Register As
+          Register As :
+          <div className="radio-button" style={{display:"flex",justifyContent:"space-evenly"}}>
+            
             <input
+            
               type="radio"
               name="UserType"
               value="User"
@@ -83,6 +85,7 @@ export default function SignUp() {
             />
             User
             <input
+           
               type="radio"
               name="UserType"
               value="Admin"
@@ -90,7 +93,7 @@ export default function SignUp() {
             />
             Admin
           </div>
-          {userType == "Admin" ? (
+          {userType === "Admin" ? (
             <div className="mb-3">
               <label>Secret Key</label>
               <input
@@ -143,11 +146,11 @@ export default function SignUp() {
           </div>
 
           <div className="d-grid">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className=" secondary-button" style={{marginLeft:"-0.1rem" , marginTop:"0.2rem"}}>
               Sign Up
             </button>
           </div>
-          <p className="forgot-password text-right">
+          <p className="forgot-password text-center">
             Already registered <a href="/sign-in">sign in?</a>
           </p>
         </form>

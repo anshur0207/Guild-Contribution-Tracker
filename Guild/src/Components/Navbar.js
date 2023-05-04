@@ -15,12 +15,18 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import Work from "./Work";
+
 
 import { Link } from "react-router-dom";
+
+
+
+
+
+
 const logout=()=>{
   window.localStorage.clear();
-  window.location.href="./sign-in";
+  window.location.href="/";
 };
 
 
@@ -50,22 +56,22 @@ const Navbar = () => {
     
   ];
 
-if(isLoggedIn){
+if(isLoggedIn ){
 
   
   return (
     
   <nav>
       <div className="nav-logo-container">
-        <img src={Logo} style={{height:'80px',marginLeft:'-15px'}} alt="" />
+        <img src={Logo} style={{height:"50px", marginLeft:"2rem"}} alt="" />
       </div>
-      <div className="navbar-links-container">
+      <div className="navbar-links-container" style={{zIndex:1}}>
       <Link to ='/'>Home</Link>
      
       <Link to ='/Dashboard'>Dashboard</Link>
 
         <Link to='/userdetails'>Profile</Link>
-        <button onClick={logout} className="btn btn-light">Logout</button>
+        <button onClick={logout} className="btn btn-light" style={{marginRight:"1rem"}}>Logout</button>
         
         
       </div>
@@ -97,9 +103,9 @@ if(isLoggedIn){
   return (
     <nav>
       <div className="nav-logo-container">
-        <img src={Logo} style={{height:'80px',marginLeft:'-15px'}} alt="" />
+        <img src={Logo} style={{height:'50px',marginLeft:'2rem'}} alt="" />
       </div>
-      <div className="navbar-links-container">
+      <div className="navbar-links-container"style={{zIndex:1}}>
       <Link to ='/'>Home</Link>
       <a href="#">AboutUs</a>
         

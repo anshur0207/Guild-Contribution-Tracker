@@ -6,6 +6,7 @@ import BannerBackground from "../Assets/home-banner-background.png";
 
 
 
+
 export default class Login extends Component {
   constructor(props){
     super(props);
@@ -39,18 +40,18 @@ export default class Login extends Component {
         
         window.localStorage.setItem("token",data.data);
         window.localStorage.setItem("loggedIn",true);
-        window.location.href = "/Dashboard";
+        window.location.href = "/";
       }
     });
   }
   render() {
     return (
-      <div>
+      <div className='login-bg' style={{backgroundColor:"black"}}>
         <NavBarSignup/>
 
        
         <div className="home-bannerImage-container">
-          <img src={BannerBackground} alt="" />
+          <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
         </div>
         <div className="auth-wrapper">
           
@@ -97,7 +98,7 @@ export default class Login extends Component {
         </div>
 
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className=" secondary-button" style={{marginLeft:"-0.1rem"}}>
             Submit
           </button>
         </div>

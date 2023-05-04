@@ -1,9 +1,11 @@
 * {
-  margin: 0px 8px;
+  margin: 0px 0px;
   padding: 0;
   box-sizing: border-box;
   font-family: "Reem Kufi", sans-serif !important;
+
 }
+
 img {
   max-width: 100%;
   height: auto;
@@ -17,6 +19,7 @@ img {
 body {
   max-width: 100%;
   overflow-x: hidden;
+
 }
 
 body {
@@ -28,9 +31,13 @@ nav {
   align-items: center;
   justify-content: space-between;
   min-height: 90px;
+
+  
 }
+
 .navbar-menu-container {
   display: none;
+
 }
 .navbar-links-container a {
   margin-right: 3rem;
@@ -38,6 +45,11 @@ nav {
   color: black;
   font-size: 1.1rem;
   font-weight: 600;
+  
+
+}
+.navbar-links-container a:hover{
+  color: grey;
 }
 .primary-button {
   padding: 0.9rem 1.75rem;
@@ -60,22 +72,30 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
 }
+.home-container{
+  background-color:black;
+}
 
 .home-banner-container {
   position: relative;
   display: flex;
-  padding-top: 3rem;
+  
+  /* z-index: -1; */
 }
 .home-bannerImage-container {
   position: absolute;
   top: -100px;
   right: -170px;
-  z-index: -2;
-  max-width: 700px;
+  /* z-index: -1; */
+  max-width: 800px;
+ 
+
+
 }
 .home-image-section {
   max-width: 600px;
   flex: 1;
+  z-index: 1;
 }
 .home-text-section {
   flex: 1;
@@ -86,22 +106,23 @@ nav {
 }
 .primary-heading {
   font-size: clamp(2rem, 5vw, 4rem);
-  color: black;
+  color: white;
   /* line-height: 5rem; */
   /* max-width: 12rem; */
   max-width: 120rem;
+  margin-left: 2rem;
 }
 .primary-text {
   font-family: sans-serif;
   font-size: clamp(1.5rem, 4vw, 2rem);
   max-width: 1200px;
-  color: #4c4c4c;
+  color: white;
   margin: 1.5rem 0rem;
-  margin-left: 5px;
+  margin-left: 2rem;
 }
 .secondary-button {
   padding: 1rem 2.5rem;
-  background-color: #fe9e0d;
+  background-color: rgb(142, 17, 166);
   outline: none;
   border: none;
   border-radius: 5rem;
@@ -113,13 +134,17 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 2rem;
 }
+
 .secondary-button svg {
   margin-left: 0.75rem;
   font-size: 1.5rem;
 }
 .secondary-button:hover {
-  background-color: #e48f0f;
+  color: black;
+
+  background-color:grey;
 }
 .about-section-container {
   margin-top: 20rem;
@@ -145,7 +170,7 @@ nav {
 }
 .primary-subheading {
   font-weight: 700;
-  color: #fe9e0d;
+  color: rgb(142, 17, 166);
   font-size: 100px;
 }
 .about-buttons-container {
@@ -218,7 +243,7 @@ nav {
 .footer-icons svg {
   font-size: 1.5rem;
   margin-right: 1.25rem;
-  color: #585858;
+  color: white;
 }
 /* .footer-section-one {
   border: 2px solid blue;
@@ -237,7 +262,7 @@ nav {
 .footer-section-columns span {
   margin: 0.25rem 0rem;
   font-weight: 600;
-  color: #4c4c4c;
+  color: white;
   cursor: pointer;
 }
 .testimonial-section-bottom {
@@ -316,11 +341,14 @@ nav {
   align-items: center;
   font-weight: 600;
 }
-
+.navbar-links-container a {
+  color: white;
+}
 @media (max-width: 1000px) {
   .navbar-links-container a {
     margin-right: 1rem;
     font-size: 1rem;
+    
   }
   .primary-button {
     font-size: 1rem;
@@ -434,6 +462,7 @@ nav {
   .home-bannerImage-container,
   .about-background-image-container {
     display: none;
+    z-index: -1;
   }
 }
 
@@ -482,4 +511,18 @@ nav {
 
 .forgot-password a {
   color: #167bff;
+}
+
+
+.main-card{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5rem;
+}
+.card-1{
+  text-align: center;
+}
+
+.tr-head ,tbody{
+ color: white;
 }

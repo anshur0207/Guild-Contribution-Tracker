@@ -38,29 +38,25 @@ const Title = () => <h1 className="Title text-center " style={{marginTop:'50px',
 export default function UserHome({ userData }) {
 
   return (
-    <div>
-        <Navbar />
-       
-        <div className="home-bannerImage-container">
-      <img src={BannerBackground} alt="" />
-       </div>
-
-
-    
-        {/* <div>
+    <div className='login-bg' style={{backgroundColor:"black"}}>
+      <Navbar />
+      <div className="home-bannerImage-container">
+ <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
+  </div>
+       <div className="auth-wrapper">
+      <div className="auth-inner">
+        <div>
           Name<h1>{userData.fname}</h1>
           Email <h1>{userData.email}</h1>
+          UserType<h1>{userData.userType}</h1>
           <br />
           
-        </div> */}
-        <div><h1 style={{textAlign:"center"}}>Welcome Admin</h1></div>
-        <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-        <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-        <br></br> <br></br> <br></br> <br></br>
-       
-     
-      <Footer />
+        </div>
       </div>
+      <Footer />
+    </div>
+
+    </div>
     
   );
 }

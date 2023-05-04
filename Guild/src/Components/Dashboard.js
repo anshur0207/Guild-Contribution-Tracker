@@ -1,51 +1,45 @@
-import React ,{useState,useEffect}from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import BannerBackground from "../Assets/home-banner-background.png";
+import React, {useEffect, useState } from "react";
+
+import AdminDashboard from "./AdminDashboard";
+import UserDashboard from "./UserDashboard";
 
 
+export default function Dashboard() {
+  const [userData, setUserData] = useState("");
+  const [admin, setAdmin] = useState(false);
 
-
-
-
-
-export default function Dashboard({ userType }) {
-    
-
-            return (
-                <div>
-                   <Navbar />
-        
-                   
-                   <h1 style={{textAlign:'center',marginTop:'50px'}}>This is Your Dashboard</h1>
-                   <div className="home-bannerImage-container">
-                  <img src={BannerBackground} alt="" />
-                </div>
-                {/* <AdminHome /> */}
-                
-                
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                   <Footer />
-                </div>
-                
-            )
-         
+  useEffect(() => {
+    fetch("http://localhost:4000/userData", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        token: window.localStorage.getItem("token"),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userData");
+        if (data.data.userType === "Admin") {
+          setAdmin(true);
+        //   window.location.href("/Admindashboard");
         }
-      
 
-    
-    
-;
+        setUserData(data.data);
+
+        if (data.data === "token expired") {
+          alert("Token expired login again");
+          window.localStorage.clear();
+          window.location.href = "./sign-in";
+        }
+      });
+  }, []);
+return admin ? <AdminDashboard /> : <UserDashboard />;
+// return (
+//     admin ? <div>this is admin Dashboard .....</div> : <div>This is user Dashboard.....</div>
+// )
+}

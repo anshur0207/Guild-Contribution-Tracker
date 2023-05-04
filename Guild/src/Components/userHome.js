@@ -1,31 +1,62 @@
-import React from "react";
+import React, { Component, useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import BannerBackground from "../Assets/home-banner-background.png";
 import Footer from "./Footer";
-const Title = () => <h1 className="Title text-center " style={{marginTop:'50px', marginBottom:'-20px'}}>Profile Page</h1>;
+import BannerBackground from "../Assets/home-banner-background.png";
+
+// function userHome(userData){
+//     return (
+//         <div className='login-bg' style={{backgroundColor:"black"}}>
+//   <Navbar />
+ 
+//   <div className="home-bannerImage-container">
+// <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
+//  </div>
+
+
+// <div className="auth-wrapper">
+// <div className="auth-inner">
+//   <div>
+//     Name<h1>{userData.fname}</h1>
+//     Email <h1>{userData.email}</h1>
+//     <br />
+    
+//   </div>
+ 
+// </div>
+// <Footer />
+// </div></div>
+
+//     )
+// }
+
+// export default userHome;
+
+
 export default function UserHome({ userData }) {
-
+  const logOut = () => {
+    window.localStorage.clear();
+    window.location.href = "./sign-in";
+  };
   return (
-    <div>
-        <Navbar />
-        <Title />
-        <div className="home-bannerImage-container">
-      <img src={BannerBackground} alt="" />
-       </div>
-
-
-    <div className="auth-wrapper">
+    <div className='login-bg' style={{backgroundColor:"black"}}>
+      <Navbar />
+      <div className="home-bannerImage-container">
+ <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
+  </div>
+       <div className="auth-wrapper">
       <div className="auth-inner">
         <div>
           Name<h1>{userData.fname}</h1>
           Email <h1>{userData.email}</h1>
+          UserType<h1>{userData.userType}</h1>
           <br />
           
         </div>
-       
       </div>
       <Footer />
-      </div></div>
-    
+    </div>
+
+    </div>
+   
   );
 }

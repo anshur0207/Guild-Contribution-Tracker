@@ -1,11 +1,9 @@
 import React, {useEffect, useState } from "react";
-import UserHome from "./userHome";
 import AdminHome from "./adminHome";
-
-
-
-
-
+import AdminDashboard from "./AdminDashboard";
+import UserDashboard from "./UserDashboard";
+import UserHome from "./userHome";
+import Dashboard from "./Dashboard";
 
 export default function UserDetails() {
   const [userData, setUserData] = useState("");
@@ -29,8 +27,6 @@ export default function UserDetails() {
         console.log(data, "userData");
         if (data.data.userType === "Admin") {
           setAdmin(true);
-          window.location.href = "./adminHome";
-
         }
 
         setUserData(data.data);
@@ -43,9 +39,7 @@ export default function UserDetails() {
       });
   }, []);
 
-  return admin ? <AdminHome /> : <UserHome userData={userData} />;
-  // return admin ? <AdminHome /> : <UserHome userData={userType} />;
-}
-
-    
   
+  <Dashboard />
+  return admin ? <AdminHome userData={userData} />: <AdminHome userData={userData}/>;
+}

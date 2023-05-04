@@ -57,9 +57,9 @@ if(isLoggedIn){
     
   <nav>
       <div className="nav-logo-container">
-        <img src={Logo} style={{height:'80px',marginLeft:'-15px'}} alt="" />
+        <img src={Logo} style={{height:'50px',marginLeft:'2rem'}} alt="" />
       </div>
-      <div className="navbar-links-container">
+      <div className="navbar-links-container" style={{zIndex:1}}>
       <Link to ='/'>Home</Link>
       <a href="#">AboutUs</a>
 
@@ -96,9 +96,9 @@ if(isLoggedIn){
   return (
     <nav>
       <div className="nav-logo-container">
-        <img src={Logo} style={{height:'80px',marginLeft:'-15px'}} alt="" />
+        <img src={Logo} style={{height:'50px',marginLeft:'2rem'}} alt="" />
       </div>
-      <div className="navbar-links-container">
+      <div className="navbar-links-container" style={{zIndex:1}}>
       <Link to ='/'>Home</Link>
       <a href="#">AboutUs</a>
         
