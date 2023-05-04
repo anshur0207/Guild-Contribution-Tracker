@@ -107,6 +107,14 @@ app.post("/userData", async(req,res)=>{
 }catch(error){}
 });
 
+app.get("/getAllUser", async (req, res) => {
+    try {
+      const allUser = await User.find({});
+      res.send({ status: "ok", data: allUser });
+    } catch (error) {
+      console.log(error);
+    }
+  });
   
 
 
@@ -119,7 +127,16 @@ app.listen(4000,()=>{
 
 
 
+//index.js
+var gmail = require("./Gmail");
+gmail.readInboxContent("Contribution_Type:").then((data)=>{
+    console.log("All Contributions:");
+  console.log(data);
+   
 
+}).catch((error)=>{
+    console.log(error);
+});
 
 
 
