@@ -3,7 +3,8 @@ var qs = require("qs");
 
 
 const mongoose= require("mongoose");
-
+require("./userDetails");
+const User = mongoose.model("UserInfo");
 require("./contributionDetails");
 const contribute = mongoose.model("Contribution");
 
@@ -97,20 +98,22 @@ class GmailAPI {
 
   readInboxContent = async (searchText) => {
     const threadId = await this.searchGmail(searchText);
-    var messages = [];
+    
     var newMessages = [];
     for(let i = 0;i<threadId.length;i++){
         const message = await this.readGmailContent(threadId[i]);
         const encodedMessage =await message.payload.body.data;
 
         if(encodedMessage){
-            //email body
+            //1. email body
             const decodedStr = Buffer.from(encodedMessage, "base64").toString("ascii");
-
-            //contribution type
+            const decodedStr1 = decodedStr.split(/\r?\n/)[1];
+            console.log(decodedStr1);
+           
+            //2. contribution type
             const contributionType = decodedStr.split(/Contribution_Type:/i)[1].split("\r\n")[0].trim();
           
-            //email Id
+            //3. email Id
             var header = message.payload.headers
             for(let i=0;i<header.length;i++){
               if(header[i].name === "From"){
@@ -120,40 +123,51 @@ class GmailAPI {
               }
             }
             
+            //4. user
+            const user = await User.findOne({email:str}) ;
+            
+            //5.community_points
+            const community_points = 500;
            
             
-              //pushing into array 
-              messages.push({
-                contribution_type:contributionType,
-                body:decodedStr,
-                email:str
-              });
-              
-           
-            
-
 
             //pushing data into db
             try {
               const oldUser = await contribute.findOne({
                 contribution_type:contributionType,
                 email:str});
-              if(!oldUser){
-                await contribute.create({    
-                  contribution_type: contributionType,
-                  body:decodedStr,
+
+              if(!oldUser&&user){
+
+                const contributionDetails = {
+                  contribution_type:contributionType,
+                  body:decodedStr1,
                   email:str,
-              })
-              newMessages.push({
-                contribution_type:contributionType,
-                body:decodedStr,
-                email:str
-              });
-              console.log("New Contributions:");
-                console.log(newMessages);
-                console.log("User inserted");
-              }
+                  community_points,
+                  userFName:user.fname,
+                  userLName:user.lname,
+                  }
+                  
+                //store details in object
+                await contribute.create(contributionDetails)
                 
+                //Pushing contribution into user
+              
+                const doc = await contribute.findOne(contributionDetails);
+                user.contributions.push(doc);
+                user.save();
+                //console.log("User Details: "+user);
+                
+
+                // New Contributions
+                newMessages.push(contributionDetails);
+            
+              }
+              else {console.log("Loading.....");}
+              
+              
+              var c = await contribute.find();
+
             } catch (error) {
               console.log({status:"error",data:error})
             }
@@ -163,9 +177,9 @@ class GmailAPI {
         
         
     }
-
-
-    return messages;
+    console.log("New Contributions:");
+    console.log(newMessages);
+    return c;
   };
 }
 

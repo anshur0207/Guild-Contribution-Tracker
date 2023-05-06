@@ -25,8 +25,12 @@ connect(mongourl,{
 
 
 require("./userDetails");
+require("./contributionDetails");
+ 
 
-const User = mongoose.model("userInfo");
+const Mails= mongoose.model("Contribution");
+
+const User = mongoose.model("UserInfo");
 
 app.post("/register",async(req,res)=>{
    
@@ -63,7 +67,7 @@ app.post("/login-user",async(req,res)=>{
     }
     if(await bcrypt.compare(password,user.password)){
         const token = jwt.sign({email:user.email},JWT_SECRET,{
-            expiresIn:1000,
+            expiresIn:100000,
         });
     
     
@@ -107,7 +111,16 @@ app.post("/userData", async(req,res)=>{
 }catch(error){}
 });
 
-app.get("/getAllUser", async (req, res) => {
+app.get("/getAllData", async (req, res) => {
+    try {
+      const allData = await Mails.find({});
+      res.send({ status: "ok", data: allData });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  app.get("/getAllUsers", async (req, res) => {
     try {
       const allUser = await User.find({});
       res.send({ status: "ok", data: allUser });
@@ -115,8 +128,41 @@ app.get("/getAllUser", async (req, res) => {
       console.log(error);
     }
   });
+
+
   
 
+app.post("/deleteUsers", async (req, res) => {
+    try {
+        const {userid} =req.body;
+      const deleteUsers = await User.deleteOne({_id:userid });
+      res.send({ status: "Ok", data: "Deleted" });
+      console.log({ status: "Ok", data: "Deleted" });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+
+  app.post("/changeStatus",async (req,res) => { 
+    const {email,contribution_type,status} =  req.body;
+
+    try{
+        const contribution=await Mails.findOne({email,contribution_type});
+
+        if(contribution){
+            Mails.status="Approved"
+            Mails.save();
+            return res.send({status:"Ok"});
+
+        }
+        console.log("No Contribution found");
+
+    }
+    catch(err){
+        console.log(err);
+    }
+  })
 
 
 
