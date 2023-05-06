@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import BannerBackground from "../Assets/home-banner-background.png";
@@ -33,10 +33,7 @@ import BannerBackground from "../Assets/home-banner-background.png";
 
 
 export default function UserHome({ userData }) {
-  const logOut = () => {
-    window.localStorage.clear();
-    window.location.href = "./sign-in";
-  };
+  
   return (
     <div className='login-bg' style={{backgroundColor:"black"}}>
       <Navbar />
@@ -45,10 +42,10 @@ export default function UserHome({ userData }) {
   </div>
        <div className="auth-wrapper">
       <div className="auth-inner">
-        <div>
-          Name<h1>{userData.fname}</h1>
-          Email <h1>{userData.email}</h1>
-          UserType<h1>{userData.userType}</h1>
+      <div>
+          Full Name<h1>{userData.fname} &nbsp;{userData.lname}</h1>
+          Email <h3>{userData.email}</h3>
+          UserType<h3>{userData.userType}</h3>
           <br />
           
         </div>

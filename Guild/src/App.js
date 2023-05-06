@@ -16,15 +16,14 @@ import UserDetails from "./Components/UserDetails";
 import AdminHome from "./Components/adminHome";
 import Dashboard from "./Components/Dashboard";
 import MailData from "./Components/MailData";
+import UserData from "./Components/UserData";
+import UserContribution from "./Components/UserContribution"
 
 
 
 
 function App() {
-  const openInNewTab = (url) => {
-    window.open(url, '_blank', 'noreferrer');
-  };
-  const isLoggedIn=window.localStorage.getItem("loggedIn");
+
   return (
     
         <Router>
@@ -39,6 +38,8 @@ function App() {
         <Route exact path="/adminHome" element={<AdminHome />}></Route>
         <Route exact path="/Dashboard" element={<Dashboard />}></Route>
         <Route exact path="/MailData" element={<MailData />}></Route>
+        <Route exact path="/UserData" element={<UserData />}></Route>
+        <Route exact path="/UserContribution" element={<UserContribution />}></Route>
 
 
         

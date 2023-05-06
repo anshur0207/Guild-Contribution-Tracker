@@ -1,31 +1,54 @@
 import React ,{ useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import Button from 'react-bootstrap/Button';
 
 
 
 import Footer from "./Footer";
 
 
-export default function MailData({getAllData}){
+
+
+export default function UserData({getAllUser}){
 
     const [data,setData] = useState([]);
 
    useEffect(() => {
-    fetch("http://localhost:4000/getAllData",{
+    fetch("http://localhost:4000/getAllUsers",{
         method:"GET",
     })
 
     .then((res) => res.json())
     .then((data)=>{
-        console.log(data,"getAllData");
+        console.log(data,"userData");
         setData(data.data);
     });
-    
-   }
-   );
-  
+   });
 
+
+   const deleteUser = (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}`)) {
+      fetch("http://localhost:4000/deleteUsers", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          userid: id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+        //   alert(data.data);
+          getAllUser();
+        });
+    } else {
+    }
+  };
 
       
     
@@ -41,19 +64,17 @@ export default function MailData({getAllData}){
         <MDBTable align='middle' style={{color:"white",marginTop:"5rem"}}>
       <MDBTableHead>
         <tr>
-          <th scope='col'>EMAIL</th>
-          <th scope='col'>CONTRIBUTION TYPE</th>
-          <th scope='col'>STATUS</th>
-         
-          <th scope='col' style={{textAlign:"center"}}>Actions</th>
+          <th scope='col'>First Name</th>
+          <th scope='col'>Last Name</th>
+          <th scope='col'>Email</th>
+         <th scope="col">User Type</th>
+          <th scope='col'>Action</th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
         {data.map(i =>{
             return (
-              
                 <tr>
-                    
           <td>
             <div className='d-flex align-items-center'>
               {/* <img
@@ -63,30 +84,25 @@ export default function MailData({getAllData}){
                 className='rounded-circle'
               /> */}
               <div className='ms-3'>
-              <p className=' fw-bold mb-1'>{i.userFName} &nbsp;&nbsp;&nbsp;&nbsp;{i.userLName}</p>
-                <p className='text-muted mb-0'>{i.email}</p>
-               
+                <p className='fw-bold mb-1'>{i.fname}</p>
+                
               </div>
             </div>
           </td>
           <td>
-            <p className='fw-normal mb-1'>{i.body}</p>
-            <p className='text-muted mb-0'>{i.contribution_type}</p>
+            
+          <p className='text-normal mb-0'>{i.lname}</p>
           </td>
+          <td><p className='fw-normal mb-1'>{i.email}</p></td>
+          
           <td>
-          {/* <p className='text-normal mb-0' style={{color:"yellow"}}>{i.status}</p> */}
-            <MDBBadge style={{padding:"0.8rem",color:"black"}} color='info' pill>
-              {i.status}
-            </MDBBadge>
+          <p className='text-normal mb-0'>{i.userType}</p>
           </td>
           
-          <td style={{justifyContent:"space-evenly"}}>
-          <MDBBadge style={{padding:"0.8rem",color:"black", marginRight:".5rem" }} color='success' pill>
-             Accept
-            </MDBBadge>
-            <MDBBadge style={{padding:"0.8rem",color:"black",marginRight:"-2.2rem"}} color='danger' pill>
-             Reject
-            </MDBBadge>
+          <td>
+          <Button className="dashboard-btn"  onClick={() => deleteUser(i._id, i.fname)}>
+             Delete
+            </Button>
           </td>
         </tr>
 

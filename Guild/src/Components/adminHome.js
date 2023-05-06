@@ -34,7 +34,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import BannerBackground from "../Assets/home-banner-background.png";
 import Footer from "./Footer";
-const Title = () => <h1 className="Title text-center " style={{marginTop:'50px', marginBottom:'-20px'}}>Profile Page</h1>;
+
 export default function UserHome({ userData }) {
 
   return (
@@ -46,9 +46,9 @@ export default function UserHome({ userData }) {
        <div className="auth-wrapper">
       <div className="auth-inner">
         <div>
-          Name<h1>{userData.fname}</h1>
-          Email <h1>{userData.email}</h1>
-          UserType<h1>{userData.userType}</h1>
+          Full Name<h1>{userData.fname} &nbsp;{userData.lname}</h1>
+          Email <h3>{userData.email}</h3>
+          UserType<h3>{userData.userType}</h3>
           <br />
           
         </div>

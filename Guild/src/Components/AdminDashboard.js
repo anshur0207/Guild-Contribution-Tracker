@@ -5,7 +5,7 @@ import BannerBackground from "../Assets/home-banner-background.png";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
-import MailData from "./MailData";
+
 
 
 
@@ -45,16 +45,18 @@ export default function Dashboard() {
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
-        <Card.Title>All Details</Card.Title>
+        <Card.Title>All Registerd Users</Card.Title>
         <Card.Text>
-          Mail Data
+          Users Data
         </Card.Text>
+        <Link to ='/UserData'>
         <Button className="dashboard-btn">Show Data</Button>
+        </Link>
       </Card.Body>
     </Card>
 
     </div>
-    <div className="card-1">
+    {/* <div className="card-1">
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
@@ -66,7 +68,7 @@ export default function Dashboard() {
       </Card.Body>
     </Card>
 
-    </div>
+    </div> */}
     </div>
         
        

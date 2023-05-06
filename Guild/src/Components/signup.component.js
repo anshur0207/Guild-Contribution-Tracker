@@ -48,7 +48,7 @@ export default function SignUp() {
             }
             else{
               alert("User Registration Successful");
-              window.location.href = "https://guild-contribution-tracker.netlify.app/sign-in";
+              window.location.href = "./sign-in";
 
             }
            
