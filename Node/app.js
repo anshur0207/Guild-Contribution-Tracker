@@ -142,22 +142,44 @@ app.post("/deleteUsers", async (req, res) => {
       console.log(err);
     }
   });
+  // app.post("/deleteContribution", async (req, res) => {
+  //   try {
+  //       const {contribution_type} =req.body;
+  //     const deleteMails = await Mails.deleteOne({_id:contribution_type });
+  //     res.send({ status: "Ok", data: "Deleted" });
+  //     console.log({ status: "Ok", data: "Deleted" });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // });
 
 
   app.post("/changeStatus",async (req,res) => { 
     const {email,contribution_type,status} =  req.body;
 
     try{
-        const contribution=await Mails.findOne({email,contribution_type});
+        // const contribution=await Mails.findOne({email,contribution_type});
 
-        if(contribution){
-            Mails.status="Approved"
-            Mails.save();
-            return res.send({status:"Ok"});
+        // if(contribution){
+        //     Mails.status="Approved"
+        //     Mails.save();
+        //     return res.send({status:"Ok"});
 
+        // }
+
+        // console.log("No Contribution found");
+        const filter = { email,contribution_type };
+        if(status==="Accept"){
+            const update = { status: "Approved" };
+            const doc = await Mails.findOneAndUpdate(filter, update, { new: true});
+            res.send(doc)
+        }else if(status==="Reject"){
+            const update = { status: "Rejected" };
+            const doc = await Mails.findOneAndUpdate(filter, update, { new: true});
+            res.send(doc)
         }
-        console.log("No Contribution found");
-
+        
+        
     }
     catch(err){
         console.log(err);
@@ -183,9 +205,4 @@ gmail.readInboxContent("Contribution_Type:").then((data)=>{
 }).catch((error)=>{
     console.log(error);
 });
-
-
-
-
-
 
