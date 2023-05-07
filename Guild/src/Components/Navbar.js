@@ -79,7 +79,7 @@ const [data,setData] = useState([]);
         console.log(data,"userData");
         setData(data.data);
     });
-   });
+   },[]);
 
   
 
@@ -124,6 +124,7 @@ if(isLoggedIn ){
           <Link to ='/Dashboard'>Dashboard</Link>
     
             <Link to='/userdetails'>Profile</Link>
+            
             <button onClick={logout} className="btn btn-light" style={{marginRight:"1rem"}}>Logout</button>
             
             
@@ -167,6 +168,9 @@ if(isLoggedIn ){
               <Link to ='/Dashboard'>Dashboard</Link>
         
                 <Link to='/userdetails'>Profile</Link>
+                
+
+                
                 {data.map(i =>{
 
 if(userData.email===i.email){
@@ -221,6 +225,7 @@ if(userData.email===i.email){
       </div>
       <div className="navbar-links-container"style={{zIndex:1}}>
       <Link to ='/'>Home</Link>
+      
       <a href="#">AboutUs</a>
         
         

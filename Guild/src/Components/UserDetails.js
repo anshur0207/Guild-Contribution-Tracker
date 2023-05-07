@@ -3,6 +3,8 @@ import AdminHome from "./adminHome";
 
 import Dashboard from "./Dashboard";
 import UserContribution from "./UserContribution";
+import UserHome from "./adminHome";
+import ProfilePage from "./ProfilePage";
 
 export default function UserDetails() {
   const [userData, setUserData] = useState("");
@@ -41,5 +43,5 @@ export default function UserDetails() {
   
   <Dashboard />
   
-  return admin ? <AdminHome userData={userData} />: <AdminHome userData={userData}/>;
+  return admin ? <ProfilePage userData={userData} />: <ProfilePage userData={userData}/>;
 }

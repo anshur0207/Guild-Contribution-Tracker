@@ -74,24 +74,32 @@ export default function SignUp() {
        
           <h3>Sign Up</h3>
           Register As :
+          <div class="wrapper">
           <div className="radio-button" style={{display:"flex",justifyContent:"space-evenly"}}>
             
             <input
-            
+              id="option-1"
               type="radio"
               name="UserType"
               value="User"
               onChange={(e) => setUserType(e.target.value)}
             />
-            User
+           <label for="option-1" class="option option-1">
+     <div class="dot"></div>
+      <span style={{color:"black"}}>User</span>
+      </label>
             <input
-           
+            id="option-2"
               type="radio"
               name="UserType"
               value="Admin"
               onChange={(e) => setUserType(e.target.value)}
             />
-            Admin
+           <label for="option-2" class="option option-2">
+     <div class="dot"></div>
+      <span style={{color:"black"}}>Admin</span>
+   </label>
+          </div>
           </div>
           {userType === "Admin" ? (
             <div className="mb-3">
@@ -104,6 +112,8 @@ export default function SignUp() {
               />
             </div>
           ) : null}
+          
+          
 
           <div className="mb-3">
             <label>First name</label>

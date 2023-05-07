@@ -1,6 +1,6 @@
 import React ,{ useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import Button from 'react-bootstrap/Button';
 
 
@@ -24,7 +24,8 @@ export default function UserData({getAllUser}){
         console.log(data,"userData");
         setData(data.data);
     });
-   });
+   },[]
+   );
 
 
    const deleteUser = (id, name) => {

@@ -9,6 +9,55 @@ import Footer from "./Footer";
 
 export default function MailData({getAllData}){
 
+  // const deleteContribution = (id, contribution_type) => {
+  //   if (window.confirm(`Are you sure you want to delete ${contribution_type}`)) {
+  //     fetch("http://localhost:4000/deleteContribution", {
+  //       method: "POST",
+  //       crossDomain: true,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //       body: JSON.stringify({
+  //         _id: id,
+  //       }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         alert(data.data);
+  //         console.log("Data is Deleted")
+  //        // getAllUser();
+  //       });
+  //   } else {
+  //   }
+  // };
+
+  
+  const chStatus = (email,contribution_type,status) =>{
+    console.log(email+" "+contribution_type+" "+status);
+      fetch("http://localhost:4000/changeStatus", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        email,contribution_type,status
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+          console.log(data);
+          window.location.reload(true);
+      });
+
+     
+
+  }
+
     const [data,setData] = useState([]);
 
    useEffect(() => {
@@ -23,6 +72,7 @@ export default function MailData({getAllData}){
     });
     
    }
+   ,[]
    );
   
 
@@ -81,12 +131,21 @@ export default function MailData({getAllData}){
           </td>
           
           <td style={{justifyContent:"space-evenly"}}>
-          <MDBBadge style={{padding:"0.8rem",color:"black", marginRight:".5rem" }} color='success' pill>
+          {/* <MDBBadge style={{padding:"0.8rem",color:"black", marginRight:".5rem" }} color='success' pill>
              Accept
             </MDBBadge>
             <MDBBadge style={{padding:"0.8rem",color:"black",marginRight:"-2.2rem"}} color='danger' pill>
              Reject
-            </MDBBadge>
+            </MDBBadge> */}
+            <button className="btn btn-primary" style={{padding:"0.3rem",color:"black", marginRight:".5rem" }}  onClick={() => chStatus(i.email,i.contribution_type,"Accept")}>
+                 Approve
+                </button>
+                <button className="btn btn-danger"  style={{padding:"0.3rem",color:"black", marginRight:".5rem" }} onClick={() => chStatus(i.email,i.contribution_type,"Reject")}>
+                 Reject
+                </button>
+                <button className="btn btn-warning" style={{padding:"0.3rem",color:"black", marginRight:".5rem" }} >
+                 Delete
+                </button>
           </td>
         </tr>
 

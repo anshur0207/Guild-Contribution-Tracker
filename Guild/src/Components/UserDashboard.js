@@ -63,16 +63,9 @@ export default function Dashboard() {
             <br></br>
             <br></br>
             <br></br>
+        
             <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+       
            <Footer />
         </div>
         

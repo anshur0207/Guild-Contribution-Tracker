@@ -13,11 +13,8 @@ import Footer from "./Footer";
 export default function UserContribution({getAllData}){
 
 
-
-
-
-
     const chStatus = (email,contribution_type,status) =>{
+      console.log(email+" "+contribution_type+" "+status);
         fetch("http://localhost:4000/changeStatus", {
         method: "POST",
         crossDomain: true,
@@ -33,13 +30,14 @@ export default function UserContribution({getAllData}){
         .then((res) => res.json())
         .then((data) => {
             console.log(data);
+            window.location.reload(true);
         });
 
        
 
     }
 
-    const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState("");
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
@@ -85,8 +83,7 @@ export default function UserContribution({getAllData}){
         setData(data.data);
     });
     
-   }
-   );
+   },[]);
   
 
 
@@ -108,7 +105,7 @@ export default function UserContribution({getAllData}){
           <th scope='col'>CONTRIBUTION TYPE</th>
           <th scope='col'>STATUS</th>
          
-          <th scope='col' style={{textAlign:"center"}}>Actions</th>
+          {/* <th scope='col' style={{textAlign:"center"}}>Actions</th> */}
         </tr>
       </MDBTableHead>
       <MDBTableBody>
@@ -140,6 +137,8 @@ export default function UserContribution({getAllData}){
               </td>
               <td>
               {/* <p className='text-normal mb-0' style={{color:"yellow"}}>{i.status}</p> */}
+
+
                 <MDBBadge style={{padding:"0.8rem",color:"black"}} color='info' pill>
                   {i.status}
                 </MDBBadge>
@@ -152,12 +151,12 @@ export default function UserContribution({getAllData}){
                 <MDBBadge style={{padding:"0.8rem",color:"black",marginRight:"-2.2rem"}} color='danger' pill>
                  Reject
                 </MDBBadge> */}
-                <button className="btn btn-primary"  onClick={chStatus(i.email,i.contribution_type,i.status) }>
+                {/* <button className="btn btn-primary"  onClick={() => chStatus(i.email,i.contribution_type,"Approve")}>
                  Accept
                 </button>
-                <MDBBadge style={{padding:"0.8rem",color:"black",marginRight:"-2.2rem"}} color='danger' >
+                <button className="btn btn-danger"  onClick={() => chStatus(i.email,i.contribution_type,"Reject")}>
                  Reject
-                </MDBBadge>
+                </button> */}
 
               </td>
             </tr>
@@ -166,7 +165,7 @@ export default function UserContribution({getAllData}){
                 )
                 
             }
-            
+           
   
         })}
         
@@ -198,5 +197,4 @@ export default function UserContribution({getAllData}){
 
 
 };
-
 
