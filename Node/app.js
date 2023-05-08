@@ -8,7 +8,14 @@ app.use(cors());
 
 const jwt=require("jsonwebtoken");
 
+
 const JWT_SECRET="DFGHJKLK,MNBVCCVGHJKJHGFfghjkmnbvfrtyu9876";
+const MongoClient = require("mongodb").MongoClient;
+
+ 
+ 
+// Database name
+const databasename = "test";
 
 
 const mongourl = "mongodb+srv://anshu:anshu@cluster0.tulmyqc.mongodb.net/test" 
@@ -142,16 +149,16 @@ app.post("/deleteUsers", async (req, res) => {
       console.log(err);
     }
   });
-  // app.post("/deleteContribution", async (req, res) => {
-  //   try {
-  //       const {contribution_type} =req.body;
-  //     const deleteMails = await Mails.deleteOne({_id:contribution_type });
-  //     res.send({ status: "Ok", data: "Deleted" });
-  //     console.log({ status: "Ok", data: "Deleted" });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // });
+  app.post("/deleteContribution", async (req, res) => {
+    try {
+        const {id} =req.body;
+      const deleteMails = await Mails.deleteOne({_id:id });
+      res.send({ status: "Ok", data: "Deleted" });
+      console.log({ status: "Ok", data: "Deleted" });
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
 
   app.post("/changeStatus",async (req,res) => { 
@@ -186,6 +193,36 @@ app.post("/deleteUsers", async (req, res) => {
     }
   })
 
+  //Fetching data from database
+//   app.post("/totaldata",async (req,res) => { 
+
+   
+//     MongoClient.connect(mongourl).then((client) => {
+//       const connect = client.db(databasename);
+     
+//       // Connect to collection
+//       const collection = connect.collection("Contribution");
+     
+//       // Count the total documents
+//      collection.countDocuments({"status" : "Approved"}).then((count_documents) => {
+  
+//         // console.log(count_documents);
+//          res.send(count_documents);
+  
+//       }).catch((err) => {
+//         console.log(err.Message);
+//       })
+          
+//     }).catch((err) => {
+//       // Printing the error message
+//       console.log(err.Message);
+//     })
+  
+//   });
+
+
+
+
 
 
 app.listen(4000,()=>{
@@ -200,6 +237,13 @@ var gmail = require("./Gmail");
 gmail.readInboxContent("Contribution_Type:").then((data)=>{
     console.log("All Contributions:");
   console.log(data);
+
+
+
+
+
+
+
    
 
 }).catch((error)=>{
