@@ -13,29 +13,7 @@ import Footer from "./Footer";
 export default function UserContribution({getAllData}){
 
 
-    const chStatus = (email,contribution_type,status) =>{
-      console.log(email+" "+contribution_type+" "+status);
-        fetch("http://localhost:4000/changeStatus", {
-        method: "POST",
-        crossDomain: true,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          email,contribution_type,status
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            window.location.reload(true);
-        });
 
-       
-
-    }
 
   const [userData, setUserData] = useState("");
   const [admin, setAdmin] = useState(false);
@@ -84,6 +62,7 @@ export default function UserContribution({getAllData}){
     });
     
    },[]);
+
   
 
 
@@ -96,7 +75,8 @@ export default function UserContribution({getAllData}){
           
 
         </div>
-        <h1 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>Your Contributions &nbsp;{userData.fname}</h1>
+        <h1 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>Your Contributions </h1>
+        <h4 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>Total Contributions :{data.rows}- </h4>
         <div className="container ">
         <MDBTable align='middle' style={{color:"white",marginTop:"5rem"}}>
       <MDBTableHead>
@@ -105,10 +85,11 @@ export default function UserContribution({getAllData}){
           <th scope='col'>CONTRIBUTION TYPE</th>
           <th scope='col'>STATUS</th>
          
-          {/* <th scope='col' style={{textAlign:"center"}}>Actions</th> */}
+          <th scope='col' style={{textAlign:"center"}}>Actions</th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
+        
         {data.map(i =>{
 
             if(userData.email===i.email){
@@ -138,19 +119,28 @@ export default function UserContribution({getAllData}){
               <td>
               {/* <p className='text-normal mb-0' style={{color:"yellow"}}>{i.status}</p> */}
 
-
-                <MDBBadge style={{padding:"0.8rem",color:"black"}} color='info' pill>
-                  {i.status}
+                         {(i.status==="Approved") ? <MDBBadge style={{padding:"0.8rem",color:"black"}} color='success' pill>
+                  Approved
+                </MDBBadge> 
+                : (i.status==="Pending")
+                 ? <MDBBadge style={{padding:"0.8rem",color:"black"}} color='warning' pill>
+                Pending
                 </MDBBadge>
+                :
+                <MDBBadge style={{padding:"0.8rem",color:"black"}} color='danger' pill>
+                Rejected
+                </MDBBadge>
+                 }
+                
               </td>
               
               <td style={{justifyContent:"space-evenly"}}>
-              {/* <MDBBadge style={{padding:"0.8rem",color:"black", marginRight:".5rem" }} color='success' pill onClick={chStatus(i.email,i.contribution_type,i.status) }>
-                 Accept
+              <MDBBadge style={{padding:"0.8rem",color:"black",marginLeft:"9rem", width:"100px",display: "flex",
+  justifyContent: "center",
+  alignItems: "center" }} color='warning' pill>
+                 Edit
                 </MDBBadge>
-                <MDBBadge style={{padding:"0.8rem",color:"black",marginRight:"-2.2rem"}} color='danger' pill>
-                 Reject
-                </MDBBadge> */}
+                
                 {/* <button className="btn btn-primary"  onClick={() => chStatus(i.email,i.contribution_type,"Approve")}>
                  Accept
                 </button>

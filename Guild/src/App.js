@@ -14,13 +14,13 @@ import Login from "./Components/login.component";
 import SignUp from "./Components/signup.component";
 
 import UserDetails from "./Components/UserDetails";
-import AdminHome from "./Components/adminHome";
+
 import Dashboard from "./Components/Dashboard";
 import MailData from "./Components/MailData";
 import UserData from "./Components/UserData";
 import UserContribution from "./Components/UserContribution";
 import ProfilePage from "./Components/ProfilePage";
-import EmailSend from "./Components/EmailSend"
+
 
 
 
@@ -38,13 +38,13 @@ function App() {
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
        
         
-        <Route exact path="/adminHome" element={<AdminHome />}></Route>
+       
         <Route exact path="/Dashboard" element={<Dashboard />}></Route>
         <Route exact path="/MailData" element={<MailData />}></Route>
         <Route exact path="/UserData" element={<UserData />}></Route>
         <Route exact path="/UserContribution" element={<UserContribution />}></Route>
         <Route exact path="/ProfilePage" element={<ProfilePage />}></Route>
-        <Route exact path="/EmailSend" element={<EmailSend />}></Route>
+      
 
 
         

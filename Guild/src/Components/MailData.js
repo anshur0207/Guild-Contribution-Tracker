@@ -1,6 +1,6 @@
 import React ,{ useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { MDBBadge,  MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 
 
 
@@ -9,29 +9,30 @@ import Footer from "./Footer";
 
 export default function MailData({getAllData}){
 
-  // const deleteContribution = (id, contribution_type) => {
-  //   if (window.confirm(`Are you sure you want to delete ${contribution_type}`)) {
-  //     fetch("http://localhost:4000/deleteContribution", {
-  //       method: "POST",
-  //       crossDomain: true,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Accept: "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //       body: JSON.stringify({
-  //         _id: id,
-  //       }),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         alert(data.data);
-  //         console.log("Data is Deleted")
-  //        // getAllUser();
-  //       });
-  //   } else {
-  //   }
-  // };
+  const deleteContribution = (id, contribution_type) => {
+    if (window.confirm(`Are you sure you want to delete ${contribution_type}`)) {
+      fetch("http://localhost:4000/deleteContribution", {
+        method: "POST",
+        crossDomain: true,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // alert(data.data);
+          console.log("Data is Deleted");
+          window.location.reload(true);
+         // getAllUser();
+        });
+    } else {
+    }
+  };
 
   
   const chStatus = (email,contribution_type,status) =>{
@@ -57,6 +58,7 @@ export default function MailData({getAllData}){
      
 
   }
+  
 
     const [data,setData] = useState([]);
 
@@ -125,9 +127,21 @@ export default function MailData({getAllData}){
           </td>
           <td>
           {/* <p className='text-normal mb-0' style={{color:"yellow"}}>{i.status}</p> */}
-            <MDBBadge style={{padding:"0.8rem",color:"black"}} color='info' pill>
+            {/* <MDBBadge style={{padding:"0.8rem",color:"black"}} color='info' pill>
               {i.status}
-            </MDBBadge>
+            </MDBBadge> */}
+            {(i.status==="Approved") ? <MDBBadge style={{padding:"0.8rem",color:"black"}} color='success' pill>
+                  Approved
+                </MDBBadge> 
+                : (i.status==="Pending")
+                 ? <MDBBadge style={{padding:"0.8rem",color:"black"}} color='warning' pill>
+                Pending
+                </MDBBadge>
+                :
+                <MDBBadge style={{padding:"0.8rem",color:"black"}} color='danger' pill>
+                Rejected
+                </MDBBadge>
+                 }
           </td>
           
           <td style={{justifyContent:"space-evenly"}}>
@@ -143,7 +157,7 @@ export default function MailData({getAllData}){
                 <button className="btn btn-danger"  style={{padding:"0.3rem",color:"black", marginRight:".5rem" }} onClick={() => chStatus(i.email,i.contribution_type,"Reject")}>
                  Reject
                 </button>
-                <button className="btn btn-warning" style={{padding:"0.3rem",color:"black", marginRight:".5rem" }} >
+                <button className="btn btn-warning" style={{padding:"0.3rem",color:"black", marginRight:".5rem"}} onClick={() =>deleteContribution(i._id,i.contribution_type)} >
                  Delete
                 </button>
           </td>

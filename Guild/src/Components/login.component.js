@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import NavBarSignup from './NavBarSignup'
 import Footer from './Footer';
 import BannerBackground from "../Assets/home-banner-background.png";
 
+import 'bootstrap/dist/css/bootstrap.min.css';  
+import {Container , Alert} from 'react-bootstrap'  
 
 
 
 
 export default class Login extends Component {
+  
+
+  
   constructor(props){
     super(props);
     this.state={
@@ -16,6 +21,8 @@ export default class Login extends Component {
     };
     this.handleSubmit=this.handleSubmit.bind(this);
   }
+
+  
   handleSubmit(e){
     e.preventDefault();
     const {email,password}=this.state;
@@ -42,6 +49,10 @@ export default class Login extends Component {
         window.localStorage.setItem("loggedIn",true);
         window.location.href = "/";
       }
+//       else{
+// <Container className='p-4'>  
+//    <Alert variant="danger" >Login Failed</Alert>  </Container>
+//       }
     });
   }
   render() {
@@ -53,7 +64,10 @@ export default class Login extends Component {
         <div className="home-bannerImage-container">
           <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
         </div>
+        
         <div className="auth-wrapper">
+        {/* <Container className='p-4'>  
+   <Alert variant="danger" >Login Failed</Alert>  </Container> */}
           
         
         

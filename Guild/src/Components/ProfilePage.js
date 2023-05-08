@@ -13,6 +13,7 @@ import {
 import Navbar from './Navbar';
 import Footer from './Footer';
 import BannerBackground from "../Assets/home-banner-background.png";
+import User from "../Assets/user.png"
 
 export default function ProfilePage({ userData }) {
   return (
@@ -34,16 +35,18 @@ export default function ProfilePage({ userData }) {
 
         <MDBRow>
           <MDBCol lg="4">
-            <MDBCard className="mb-4">
+            <MDBCard className="mb-4" style={{height:"19.5rem"}}>
               <MDBCardBody className="text-center">
                 <MDBCardImage
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                  src={User}
                   alt="avatar"
-                  className="rounded-circle"
-                  style={{ width: '150px' }}
+                  className="square"
+                  style={{ width: '200px' }}
                   fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                  <br/>
+                <p className="text-normal mb-1">{userData.userType}</p>
+                
+               
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn>Edit</MDBBtn>
                   <MDBBtn outline className="ms-1">Contributions : </MDBBtn>

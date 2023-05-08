@@ -1,9 +1,9 @@
 import React, {useEffect, useState } from "react";
-import AdminHome from "./adminHome";
+
 
 import Dashboard from "./Dashboard";
-import UserContribution from "./UserContribution";
-import UserHome from "./adminHome";
+
+
 import ProfilePage from "./ProfilePage";
 
 export default function UserDetails() {

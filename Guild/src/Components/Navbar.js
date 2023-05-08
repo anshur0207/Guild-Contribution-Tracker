@@ -39,6 +39,9 @@ const Navbar = () => {
   const [userData, setUserData] = useState("");
 const [admin, setAdmin] = useState(false);
 
+const [points,setPoints]=useState(0);
+
+
 useEffect(() => {
   fetch("http://localhost:4000/userData", {
     method: "POST",
@@ -124,6 +127,18 @@ if(isLoggedIn ){
           <Link to ='/Dashboard'>Dashboard</Link>
     
             <Link to='/userdetails'>Profile</Link>
+            {data.map(i =>{
+
+if(userData.email===i.email){
+    return (
+
+
+                <Link to='#' onClick={i.points}>{points}&nbsp; Points </Link>
+
+
+    )}
+    }
+                )}
             
             <button onClick={logout} className="btn btn-light" style={{marginRight:"1rem"}}>Logout</button>
             
@@ -177,7 +192,7 @@ if(userData.email===i.email){
     return (
 
 
-                <Link to='#'>{i.points}&nbsp; Points </Link>
+                <Link to='#' onClick={i.points}>{points}&nbsp; Points </Link>
 
 
     )}
