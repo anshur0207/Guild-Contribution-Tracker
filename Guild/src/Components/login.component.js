@@ -1,10 +1,10 @@
-import React, { Component,useState } from 'react';
+import React, { Component} from 'react';
 import NavBarSignup from './NavBarSignup'
 import Footer from './Footer';
 import BannerBackground from "../Assets/home-banner-background.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';  
-import {Container , Alert} from 'react-bootstrap'  
+
 
 
 

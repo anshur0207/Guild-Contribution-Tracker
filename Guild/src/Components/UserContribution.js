@@ -1,6 +1,6 @@
 import React ,{ useEffect, useState } from "react";
 import Navbar from "./Navbar";
-import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { MDBBadge,  MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 
 
 
@@ -63,6 +63,19 @@ export default function UserContribution({getAllData}){
     
    },[]);
 
+  //  useEffect(() => {
+  //   fetch("http://localhost:4000/sendData",{
+  //       method:"GET",
+  //   })
+
+  //   .then((res) => res.json())
+  //   .then((rows)=>{
+  //       console.log(data,"sendData");
+  //       setData(rows.data);
+  //   });
+    
+  //  },[]);
+
   
 
 
@@ -76,7 +89,7 @@ export default function UserContribution({getAllData}){
 
         </div>
         <h1 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>Your Contributions </h1>
-        <h4 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>Total Contributions :{data.rows}- </h4>
+        <h4 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>Total Contributions :- </h4>
         <div className="container ">
         <MDBTable align='middle' style={{color:"white",marginTop:"5rem"}}>
       <MDBTableHead>
@@ -86,6 +99,7 @@ export default function UserContribution({getAllData}){
           <th scope='col'>STATUS</th>
          
           <th scope='col' style={{textAlign:"center"}}>Actions</th>
+          <th scope='col' style={{textAlign:"center"}}>Points</th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
@@ -148,6 +162,20 @@ export default function UserContribution({getAllData}){
                  Reject
                 </button> */}
 
+              </td>
+              <td>
+              {(i.status==="Approved") ? <MDBBadge style={{padding:"0.8rem",color:"black"}} color='success' pill>
+                  +500
+                </MDBBadge> 
+                : (i.status==="Pending")
+                 ? <MDBBadge style={{padding:"0.8rem",color:"black"}} color='warning' pill>
+                0
+                </MDBBadge>
+                :
+                <MDBBadge style={{padding:"0.8rem",color:"black"}} color='danger' pill>
+                0
+                </MDBBadge>
+                 }
               </td>
             </tr>
     
