@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import {
   MDBBadge,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
 } from "mdb-react-ui-kit";
+import TextField from '@mui/material/TextField';
 
-import Footer from "./Footer";
+
 
 export default function MailData({ getAllData }) {
+
+
+
   const deleteContribution = (id, contribution_type) => {
     if (
       window.confirm(`Are you sure you want to delete ${contribution_type}`)
@@ -119,6 +124,9 @@ export default function MailData({ getAllData }) {
               <th scope="col" style={{ textAlign: "center" }}>
                 Actions
               </th>
+              <th>
+                Notes/Message
+              </th>
             </tr>
           </MDBTableHead>
           <MDBTableBody>
@@ -224,6 +232,9 @@ export default function MailData({ getAllData }) {
                       Delete
                     </button>
                   </td>
+         <td><TextField id="outlined-basic"style={{background:"white"}} variant="outlined" /><button className="btn btn-primary" style={{marginLeft:"2rem" ,marginTop:"0.5rem"}}>Add</button></td>
+         
+   
                 </tr>
               );
             })}
