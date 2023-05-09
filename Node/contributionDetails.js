@@ -7,6 +7,7 @@ const ContributionDetailSchema = new mongoose.Schema({
     userFName:String,
     userLName:String,
     email: String,
+    notes:{type:String,default:""},
     status:{type:String,default:"Pending"},
     community_points:{type:Number,default:0},
     user:{

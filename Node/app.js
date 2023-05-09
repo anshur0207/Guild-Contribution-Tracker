@@ -205,33 +205,67 @@ app.post("/sendData", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-})
+});
 
-  app.post("/changePoints", async (req, res) => {
-    const { email } = req.body;
+app.post("/changePoints", async (req, res) => {
+  const { email } = req.body;
 
-    var tpoints = 0;
+  var tpoints = 0;
 
-    for (const i of await Mails.find({ email })) {
-        
-      if (i.status === "Approved") {
-        tpoints = tpoints + i.community_points;
-      }
+  for (const i of await Mails.find({ email })) {
+    if (i.status === "Approved") {
+      tpoints = tpoints + i.community_points;
     }
+  }
 
-    try {
-      const doc = await User.findOneAndUpdate(
-        { email },
-        { points: tpoints },
-        { new: true }
-      );
+  try {
+    const doc = await User.findOneAndUpdate(
+      { email },
+      { points: tpoints },
+      { new: true }
+    );
 
-      res.send({ data: doc, status: "ok" });
-    } catch (err) {
-      res.send({ status: "Failed" });
-    }
-  });
+    res.send({ data: doc, status: "ok" });
+  } catch (err) {
+    res.send({ status: "Failed" });
+  }
+});
 
+app.post("/updateContribution", async (req, res) => {
+  const { body, contribution_type, email } = req.body;
+
+  try {
+    const doc = await Mails.findOneAndUpdate(
+      { email, contribution_type },
+
+      { body },
+
+      { new: true }
+    );
+
+    res.send({ data: doc, status: "ok" });
+  } catch (err) {
+    res.send({ status: "Failed" });
+  }
+});
+
+app.post("/updateNotes", async (req, res) => {
+  const { notes, contribution_type, email } = req.body;
+
+  try {
+    const doc = await Mails.findOneAndUpdate(
+      { email, contribution_type },
+
+      { notes },
+
+      { new: true }
+    );
+
+    res.send({ data: doc, status: "ok" });
+  } catch (err) {
+    res.send({ status: "Failed" });
+  }
+});
 
 app.listen(4000, () => {
   console.log("Server Started");
