@@ -171,6 +171,7 @@ if(isLoggedIn ){
               <Link to ='/Dashboard'>Dashboard</Link>
         
                 <Link to='/userdetails'>Profile</Link>
+                <Link to='/EmailDemo'>Contact us</Link>
                 
 
                 

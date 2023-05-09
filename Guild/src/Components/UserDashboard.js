@@ -44,11 +44,12 @@ export default function Dashboard() {
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
+        
         <Card.Title>Your Points</Card.Title>
         {/* <Card.Text>
           Mail Data
         </Card.Text> */}
-        <Link to ='/MailData'>
+        <Link to ='/TotalContributionPoints'>
         <Button className="dashboard-btn" >Show</Button></Link>
       </Card.Body>
     </Card>

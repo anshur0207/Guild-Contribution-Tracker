@@ -4,7 +4,7 @@ import React from "react";
 
 
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -12,6 +12,7 @@ import {Route, BrowserRouter as Router,Routes} from 'react-router-dom';
 
 import Login from "./Components/login.component";
 import SignUp from "./Components/signup.component";
+import { EmailDemo } from "./Components/EmailDemo";
 
 import UserDetails from "./Components/UserDetails";
 
@@ -20,6 +21,7 @@ import MailData from "./Components/MailData";
 import UserData from "./Components/UserData";
 import UserContribution from "./Components/UserContribution";
 import ProfilePage from "./Components/ProfilePage";
+import TotalContributionPoints from "./Components/TotalContributionPoints";
 
 
 
@@ -44,8 +46,8 @@ function App() {
         <Route exact path="/UserData" element={<UserData />}></Route>
         <Route exact path="/UserContribution" element={<UserContribution />}></Route>
         <Route exact path="/ProfilePage" element={<ProfilePage />}></Route>
-      
-
+        <Route exact path="/EmailDemo" element={<EmailDemo />}></Route>
+        <Route exact path="/TotalContributionPoints" element={<TotalContributionPoints />}></Route>
 
         
       </Routes>

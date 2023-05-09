@@ -44,8 +44,8 @@ export default function UserData({getAllUser}){
       })
         .then((res) => res.json())
         .then((data) => {
-        //   alert(data.data);
-          getAllUser();
+          window.location.reload(true);
+          
         });
     } else {
     }

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import Navbar from './Navbar';
 import Footer from './Footer';
 import BannerBackground from "../Assets/home-banner-background.png";
+import emailjs from '@emailjs/browser';
 
 
 
@@ -14,9 +15,25 @@ export default function SignUp() {
   const [userType, setUserType] = useState("");
   const [secretKey, setSecretKey] = useState("");
 
+
+  
+    const form = useRef();
+  
+    const sendEmail = (e) => {
+     
+  
+      emailjs.sendForm('service_07ujrao', 'template_94m5kf7', form.current, 'vgguXfjv1yFTRn47S')
+        .then((result) => {
+            console.log(result.text);
+            console.log("message Sent");
+        }, (error) => {
+            console.log(error.text);
+        });
+    };
+
   const handleSubmit = (e) => {
     if (userType === "Admin" && secretKey !== "anshu") {
-      e.preventDefault();
+      
       alert("Invalid Admin");
     } else {
       e.preventDefault();
@@ -43,10 +60,12 @@ export default function SignUp() {
           console.log(data, "userRegister");
           if (data.status === "Ok") {
             if(userType === "Admin"){
+              sendEmail();
               alert("Admin Registration Successful");
               window.location.href = "./sign-in";
             }
             else{
+              sendEmail();
               alert("User Registration Successful");
               window.location.href = "./sign-in";
 
@@ -70,7 +89,9 @@ export default function SignUp() {
         
         
           <div className="auth-inner">
-          <form onSubmit={handleSubmit}>
+          {/* <form onSubmit={handleSubmit} > */}
+          <form onSubmit={handleSubmit}
+                           ref={form}>
        
           <h3>Sign Up</h3>
           Register As :
@@ -119,6 +140,7 @@ export default function SignUp() {
             <label>First name</label>
             <input
               type="text"
+              name="fname"
               className="form-control"
               placeholder="First name"
               onChange={(e) => setFname(e.target.value)}
@@ -129,6 +151,7 @@ export default function SignUp() {
             <label>Last name</label>
             <input
               type="text"
+              name="lname"
               className="form-control"
               placeholder="Last name"
               onChange={(e) => setLname(e.target.value)}
@@ -139,6 +162,7 @@ export default function SignUp() {
             <label>Email address</label>
             <input
               type="email"
+              name="user_email"
               className="form-control"
               placeholder="Enter email"
               onChange={(e) => setEmail(e.target.value)}
