@@ -1,5 +1,6 @@
 var axios = require("axios");
 var qs = require("qs");
+var nodemailer = require("nodemailer");
 
 
 const mongoose= require("mongoose");
@@ -7,6 +8,8 @@ require("./userDetails");
 const User = mongoose.model("UserInfo");
 require("./contributionDetails");
 const contribute = mongoose.model("Contribution");
+require("./contributionType")
+const Type = mongoose.model("ContributionType");
 
 class GmailAPI {
   accessToken = "";
@@ -20,7 +23,7 @@ class GmailAPI {
         "942020892524-r7f01k20k952a92djkgh0n636nfo57dh.apps.googleusercontent.com",
       client_secret: "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",
       refresh_token:
-        "1//0gblwp4TJ7C0XCgYIARAAGBASNwF-L9IruFkCRtBJBif69v8PZxQLnbCzjeLZbTVisSz2NNfcLfHevoER7ENuG_YQHcvhh1gnvT4",
+        "1//0gIEHYVr5YTraCgYIARAAGBASNwF-L9IrVbuBbfeEHaEQMuTDnjMLyb7csdBn07u93gTowhZ6uft_3xzGegW5_W0vqvrJdMofvEw",
       grant_type: "refresh_token",
     });
     var config = {
@@ -100,6 +103,7 @@ class GmailAPI {
     const threadId = await this.searchGmail(searchText);
     
     var newMessages = [];
+    console.log("Loading.....Kindly Wait");
     for(let i = 0;i<threadId.length;i++){
         const message = await this.readGmailContent(threadId[i]);
         const encodedMessage =await message.payload.body.data;
@@ -107,12 +111,20 @@ class GmailAPI {
         if(encodedMessage){
             //1. email body
             const decodedStr = Buffer.from(encodedMessage, "base64").toString("ascii");
-            const decodedStr1 = decodedStr.split(/\r?\n/)[1];
-            console.log(decodedStr1);
+            const decodedStr1 = decodedStr.split(/\r?\n/).slice(1).join(" ");
+           
            
             //2. contribution type
-            const contributionType = decodedStr.split(/Contribution_Type:/i)[1].split("\r\n")[0].trim();
-          
+            const contributionType1 = decodedStr.split(/Contribution_Type:/i)[1].split("\r\n")[0].trim();
+            var contributionType = ""
+            const type = ["Case Study Submission","Interviews","Webinar","Support","Mentoring","Utility","Asset","Session"];
+            const includesValue = type.some(element => {
+              return element.toLowerCase() === contributionType1.toLowerCase();
+            });
+            if(includesValue){
+              contributionType = decodedStr.split(/Contribution_Type:/i)[1].split("\r\n")[0].trim();
+            }
+            else contributionType = "Others"
             //3. email Id
             var header = message.payload.headers
             for(let i=0;i<header.length;i++){
@@ -127,7 +139,8 @@ class GmailAPI {
             const user = await User.findOne({email:str}) ;
             
             //5.community_points
-            const community_points = 500;
+            const p = await Type.findOne({contribution_type:contributionType})
+            const community_points = p.community_points;
            
             
 
@@ -155,15 +168,44 @@ class GmailAPI {
               
                 const doc = await contribute.findOne(contributionDetails);
                 user.contributions.push(doc);
+
                 user.save();
                 //console.log("User Details: "+user);
                 
 
                 // New Contributions
                 newMessages.push(contributionDetails);
+                var transporter = nodemailer.createTransport({
+                  service: "gmail",
+                  auth: {
+                    user: "contributions123@gmail.com",
+                    pass: "hnlywmfafqejjbqi",
+                  },
+                });
             
+                var mailOptions = {
+                  from: "contributions123@gmail.com",
+                  to:str,
+                  subject: "New Contribution is submitted  ",
+                  text:
+                  "Thank you "+user.fname+ " for submitting contribution of "+contributionType+". This is added against your name in the portal."+
+                  "You can review and edit the same on portal, And You will get "+community_points+" Community Points ."
+                };
+            
+                transporter.sendMail(mailOptions, function (error, info) {
+                  if (error) {
+                    console.log(error);
+                  } else {
+                    console.log("Email sent: " + info.response);
+                  }
+                });
+                
               }
-              else {console.log("Loading.....");}
+              else {
+
+
+
+              }
               
               
               var c = await contribute.find();
@@ -179,7 +221,10 @@ class GmailAPI {
     }
     console.log("New Contributions:");
     console.log(newMessages);
+    
+
     return c;
+    
   };
 }
 

@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 app.use(cors());
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+var nodemailer = require("nodemailer");
 
 const jwt = require("jsonwebtoken");
 
@@ -15,6 +18,8 @@ const MongoClient = require("mongodb").MongoClient;
 const databasename = "test";
 
 const mongourl = "mongodb+srv://anshu:anshu@cluster0.tulmyqc.mongodb.net/test";
+require("./contributionType");
+const Type = mongoose.model("ContributionType");
 
 mongoose
   .connect(mongourl, {
@@ -50,6 +55,29 @@ app.post("/register", async (req, res) => {
       userType,
     });
     res.send({ status: "Ok" });
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "contributions123@gmail.com",
+        pass: "hnlywmfafqejjbqi",
+      },
+    });
+
+    var mailOptions = {
+      from: "contributions123@gmail.com",
+      to: email,
+      subject: "Thank You For Register with us",
+      text: "Hi<b>"+fname+ "</b>,Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    console.log("Email Send");
   } catch (error) {
     res.send({ status: "error" });
   }
@@ -109,6 +137,92 @@ app.get("/getAllData", async (req, res) => {
     console.log(error);
   }
 });
+app.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const oldUser = await User.findOne({ email });
+    if (!oldUser) {
+      return res.json({ status: "User Not Exists!!" });
+    }
+    const secret = JWT_SECRET + oldUser.password;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
+      expiresIn: "5m",
+    });
+    const link = `http://localhost:4000/reset-password/${oldUser._id}/${token}`;
+    console.log(link);
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "contributions123@gmail.com",
+        pass: "hnlywmfafqejjbqi",
+      },
+    });
+
+    var mailOptions = {
+      from: "contributions123@gmail.com",
+      to: "anshur0202@gmail.com",
+      subject: "Password Reset",
+      text: link,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    // console.log(link);
+    
+  } catch (error) {}
+});
+
+app.get("/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  console.log(req.params);
+  const oldUser = await User.findOne({ _id: id });
+  if (!oldUser) {
+    return res.json({ status: "User Not Exists!!" });
+  }
+  const secret = JWT_SECRET + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    res.render("index", { email: verify.email, status: "Not Verified" });
+  } catch (error) {
+    console.log(error);
+    res.send("Not Verified");
+  }
+});
+
+app.post("/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+
+  const oldUser = await User.findOne({ _id: id });
+  if (!oldUser) {
+    return res.json({ status: "User Not Exists!!" });
+  }
+  const secret = JWT_SECRET + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    await User.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          password: encryptedPassword,
+        },
+      }
+    );
+
+    res.render("index", { email: verify.email, status: "verified" });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "Something Went Wrong" });
+  }
+});
 
 app.get("/getAllUsers", async (req, res) => {
   try {
@@ -131,9 +245,31 @@ app.post("/deleteUsers", async (req, res) => {
 });
 app.post("/deleteContribution", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id, contribution_type, email } = req.body;
     const deleteMails = await Mails.deleteOne({ _id: id });
     res.send({ status: "Ok", data: "Deleted" });
+    // var transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     user: "contributions123@gmail.com",
+    //     pass: "hnlywmfafqejjbqi",
+    //   },
+    // });
+
+    // var mailOptions = {
+    //   from: "contributions123@gmail.com",
+    //   to: email,
+    //   subject: "Your Contribution is Deleted",
+    //   text: "Dear User Your Contribution type" +contribution_type+ " is Deleted by Admin , Kindly Submit Again with Correct data  Thank you , Team: Guild Contribution tracker",
+    // };
+
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //   if (error) {
+    //     console.log(error);
+    //   } else {
+    //     console.log("Email sent: " + info.response);
+    //   }
+    // });
     console.log({ status: "Ok", data: "Deleted" });
   } catch (err) {
     console.log(err);
@@ -158,11 +294,62 @@ app.post("/changeStatus", async (req, res) => {
     if (status === "Accept") {
       const update = { status: "Approved" };
       const doc = await Mails.findOneAndUpdate(filter, update, { new: true });
+
       res.send(doc);
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "contributions123@gmail.com",
+          pass: "hnlywmfafqejjbqi",
+        },
+      });
+
+      var mailOptions = {
+        from: "contributions123@gmail.com",
+        to: email,
+        subject: "Hurray !! Contribution Accepted ",
+        text:
+        "<b>Hii , user </b> user We are so happy to say that your Contribution type " +
+          contribution_type +
+          " is Accepted By our Admin And your Community Points is also credited , Team: Guild Contribution Tracker",
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
     } else if (status === "Reject") {
       const update = { status: "Rejected" };
       const doc = await Mails.findOneAndUpdate(filter, update, { new: true });
       res.send(doc);
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "contributions123@gmail.com",
+          pass: "hnlywmfafqejjbqi",
+        },
+      });
+
+      var mailOptions = {
+        from: "contributions123@gmail.com",
+        to: email,
+        subject: "Oh no ! Your Contribution is rejected",
+        html:
+        "<b>Hii , user </b>" +
+          contribution_type +
+          " is rejected , Kindly Contribute Again to get Community Points Thank You ! Team: Guild Contribution Tracker",
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
     }
   } catch (err) {
     console.log(err);
@@ -171,28 +358,28 @@ app.post("/changeStatus", async (req, res) => {
 
 //Fetching data from database
 
-MongoClient.connect(mongourl)
-  .then((client) => {
-    const connect = client.db(databasename);
+// MongoClient.connect(mongourl)
+//   .then((client) => {
+//     const connect = client.db(databasename);
 
-    // Connect to collection
-    const collection = connect.collection("Contribution");
+//     // Connect to collection
+//     const collection = connect.collection("Contribution");
 
-    // Count the total documents
-    collection
-      .countDocuments({ status: "Approved" })
-      .then((count_documents) => {
-        console.log(count_documents);
-        //  res.send(count_documents);
-      })
-      .catch((err) => {
-        console.log(err.Message);
-      });
-  })
-  .catch((err) => {
-    // Printing the error message
-    console.log(err.Message);
-  });
+//     // Count the total documents
+//     collection
+//       .countDocuments({ status: "Approved" })
+//       .then((count_documents) => {
+//         console.log(count_documents);
+//         //  res.send(count_documents);
+//       })
+//       .catch((err) => {
+//         console.log(err.Message);
+//       });
+//   })
+//   .catch((err) => {
+//     // Printing the error message
+//     console.log(err.Message);
+//   });
 
 //   });
 
@@ -212,9 +399,15 @@ app.post("/changePoints", async (req, res) => {
 
   var tpoints = 0;
 
+  // for (const i of await Mails.find({ email })) {
+  //   if (i.status === "Approved") {
+  //     tpoints = tpoints + i.community_points;
+  //   }
+  // }
   for (const i of await Mails.find({ email })) {
+    const cp = await Type.findOne({ contribution_type: i.contribution_type });
     if (i.status === "Approved") {
-      tpoints = tpoints + i.community_points;
+      tpoints = tpoints + cp.community_points;
     }
   }
 
