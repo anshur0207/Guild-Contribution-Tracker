@@ -1,6 +1,7 @@
 import "./App.css";
 import Home from "./Components/Home";
 import React from "react";
+import ResetPass from "./Components/ResetPass";
 
 
 
@@ -27,6 +28,7 @@ import TotalContributionPoints from "./Components/TotalContributionPoints";
 
 
 
+
 function App() {
 
   return (
@@ -40,7 +42,7 @@ function App() {
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
        
         
-       
+        <Route exact path="/ResetPass" element={<ResetPass />}></Route>
         <Route exact path="/Dashboard" element={<Dashboard />}></Route>
         <Route exact path="/MailData" element={<MailData />}></Route>
         <Route exact path="/UserData" element={<UserData />}></Route>
@@ -48,6 +50,7 @@ function App() {
         <Route exact path="/ProfilePage" element={<ProfilePage />}></Route>
         <Route exact path="/EmailDemo" element={<EmailDemo />}></Route>
         <Route exact path="/TotalContributionPoints" element={<TotalContributionPoints />}></Route>
+
 
         
       </Routes>

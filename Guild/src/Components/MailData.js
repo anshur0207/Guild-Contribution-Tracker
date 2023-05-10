@@ -287,7 +287,7 @@ export default function MailData({ getAllUser }) {
                       Delete
                     </button>
                   </td>
-                  <td>
+                  <td style={{ justifyContent: "space-evenly",textAlign:"center" }}>
                     {/* <TextField
                       id="outlined-basic"
                       style={{ background: "white" }}
@@ -369,6 +369,7 @@ export default function MailData({ getAllUser }) {
           </MDBTableBody>
         </MDBTable>
       </div>
+      <br></br><br></br>
 
       <Footer />
     </div>

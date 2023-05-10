@@ -141,7 +141,7 @@ export default function UserContribution({ getAllData }) {
             <tr>
               <th scope="col" style={{textAlign:"center"}}>EMAIL</th>
               <th scope="col" style={{textAlign:"center"}}>CONTRIBUTION TYPE</th>
-              <th scope="col">STATUS</th>
+              <th scope="col"style={{textAlign:"center"}}>STATUS</th>
 
               <th scope="col" style={{ textAlign: "center" }}>
                 Actions
@@ -168,7 +168,7 @@ export default function UserContribution({ getAllData }) {
                     className='rounded-circle'
                   /> */}
                         <div className="ms-3" style={{marginLeft:"2rem"}}>
-                          <p className=" fw-bold mb-1 " >
+                          <p className=" fw-bold mb-1 " style={{textAlign:"center"}} >
                             {i.userFName} &nbsp;&nbsp;&nbsp;&nbsp;{i.userLName}
                           </p>
                           <p className="text-muted mb-0">{i.email}</p>
@@ -179,32 +179,32 @@ export default function UserContribution({ getAllData }) {
                       <p className="fw-normal mb-1">{i.body}</p>
                       <p className="text-muted mb-0">{i.contribution_type}</p>
                     </td>
-                    <td>
+                    <td> 
                       {/* <p className='text-normal mb-0' style={{color:"yellow"}}>{i.status}</p> */}
 
                       {i.status === "Approved" ? (
                         <MDBBadge
-                          style={{ padding: "0.8rem", color: "black" }}
+                          style={{ paddingTop: "0.8rem", color: "white"  }}
                           color="success"
                           pill
                         >
-                          Approved
+                          <h6>Approved</h6>
                         </MDBBadge>
                       ) : i.status === "Pending" ? (
                         <MDBBadge
-                          style={{ padding: "0.8rem", color: "black" }}
+                          style={{ paddingTop: "0.8rem", color: "white" }}
                           color="warning"
                           pill
                         >
-                          Pending
+                          <h6>Pending</h6>
                         </MDBBadge>
                       ) : (
                         <MDBBadge
-                          style={{ padding: "0.8rem", color: "black" }}
+                          style={{ paddingTop: "0.8rem", color: "white" }}
                           color="danger"
                           pill
                         >
-                          Rejected
+                          <h6>Rejected</h6>
                         </MDBBadge>
                       )}
                     </td>
@@ -266,6 +266,9 @@ export default function UserContribution({ getAllData }) {
                               >
                                 Update
                               </Button>
+                              <Button variant="secondary" style={{marginLeft:"1rem"}} onClick={handleClose}>
+            Close
+          </Button>
                             </div>
                           </Form>
                         </Box>
@@ -285,7 +288,7 @@ export default function UserContribution({ getAllData }) {
                           color="success"
                           pill
                         >
-                          <h6>+500</h6>
+                          <h6>{i.community_points}</h6>
                         </MDBBadge>
                       ) : i.status === "Pending" ? (
                         <MDBBadge

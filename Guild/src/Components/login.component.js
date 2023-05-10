@@ -119,6 +119,9 @@ export default class Login extends Component {
         <p className="forgot-password text-center">
           Don't have an Account ? <a href="/sign-up">Signup</a>
         </p>
+        <p className="forgot-password text-center">
+          Forget Password ? <a href="/ResetPass">Click here !</a>
+        </p>
       </form>
 
 

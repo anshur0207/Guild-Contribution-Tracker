@@ -19,17 +19,17 @@ export default function SignUp() {
   
     const form = useRef();
   
-    const sendEmail = (e) => {
+    // const sendEmail = (e) => {
      
   
-      emailjs.sendForm('service_07ujrao', 'template_94m5kf7', form.current, 'vgguXfjv1yFTRn47S')
-        .then((result) => {
-            console.log(result.text);
-            console.log("message Sent");
-        }, (error) => {
-            console.log(error.text);
-        });
-    };
+    //   emailjs.sendForm('service_07ujrao', 'template_94m5kf7', form.current, 'vgguXfjv1yFTRn47S')
+    //     .then((result) => {
+    //         console.log(result.text);
+    //         console.log("message Sent");
+    //     }, (error) => {
+    //         console.log(error.text);
+    //     });
+    // };
 
   const handleSubmit = (e) => {
     if (userType === "Admin" && secretKey !== "anshu") {
@@ -60,12 +60,12 @@ export default function SignUp() {
           console.log(data, "userRegister");
           if (data.status === "Ok") {
             if(userType === "Admin"){
-              sendEmail();
+              // sendEmail();
               alert("Admin Registration Successful");
               window.location.href = "./sign-in";
             }
             else{
-              sendEmail();
+              // sendEmail();
               alert("User Registration Successful");
               window.location.href = "./sign-in";
 

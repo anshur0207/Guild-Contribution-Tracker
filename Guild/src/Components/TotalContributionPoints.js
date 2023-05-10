@@ -88,7 +88,7 @@ function TotalContributionPoints(){
                       ) : i.status === "Pending" ? (
                         <h5 style={{color:"white",textAlign:"center"}}>0</h5>
                       ) : (
-                        <h5 style={{color:"white",textAlign:"center"}}>0</h5>
+                        <h5 style={{color:"white",textAlign:"center"}}>Rejected</h5>
                     
                       )}
                     </td>

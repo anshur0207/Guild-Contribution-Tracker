@@ -25,12 +25,12 @@ export const EmailDemo = () => {
     flexDirection: "column",
     width: "100%",
     fontSize: "16px"}}>
-    <label>Name</label>
-    <input type="text" name="user_name" />
+    <label>Contribution Type</label>
+    <input type="text" name="contri-type" />
     <label>Email</label>
     <input type="email" name="user_email" />
-    <label>Message</label>
-    <textarea name="message" />
+    <label>Body</label>
+    <textarea name="body" />
     <input type="submit" value="Send" />
   </form>
 
