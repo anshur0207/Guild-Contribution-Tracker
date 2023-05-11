@@ -5,6 +5,8 @@ import BannerBackground from "../Assets/home-banner-background.png";
 
 
 export default class ResetPass extends Component{
+
+
     constructor(props){
         super(props);
         this.state ={
@@ -13,7 +15,9 @@ export default class ResetPass extends Component{
         };
         this.handleSubmit =this.handleSubmit.bind(this);
     }
-    handleSubmit(e){
+
+   
+     handleSubmit(e){
         e.preventDefault();
 
         const {email} = this.state;
@@ -32,9 +36,14 @@ export default class ResetPass extends Component{
     })
       .then((res) => res.json())
       .then((data) => {
-        alert("Enter your Mail First");
-        console.log(data,"userRegister"); 
+        // alert("Enter your Mail First");
+        // console.log(data,"userRegister"); 
+        // window.location.href = "./CheckMail";
         // alert(data.status);
+        if (data.status === "Ok") {
+            alert("Check Your Mail");
+            window.location.href = "./CheckMail";
+          }
        
       });
   };
@@ -66,7 +75,7 @@ export default class ResetPass extends Component{
                     />
                 </div>
                 <div className="d-grid">
-                    <button type="submit" className="btn btn-primary"> 
+                    <button type="submit" className="secondary-button"  > 
                         Submit
                     </button>
                 </div>

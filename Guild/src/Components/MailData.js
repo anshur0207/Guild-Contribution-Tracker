@@ -39,7 +39,7 @@ export default function MailData({ getAllUser }) {
 
 
 
-  const deleteContribution = (id, contribution_type) => {
+  const deleteContribution = (id, contribution_type,email) => {
     if (
       window.confirm(`Are you sure you want to delete ${contribution_type}`)
     ) {
@@ -59,8 +59,9 @@ export default function MailData({ getAllUser }) {
         .then((data) => {
           // alert(data.data);
           console.log("Data is Deleted");
+          changePoints(email);
           window.location.reload(true);
-          //getAllUser();
+         
         });
     } else {
     }
@@ -281,7 +282,7 @@ export default function MailData({ getAllUser }) {
                         marginRight: ".5rem",
                       }}
                       onClick={() =>
-                        deleteContribution(i._id, i.contribution_type)
+                        deleteContribution(i._id, i.contribution_type,i.email)
                       }
                     >
                       Delete
@@ -314,7 +315,7 @@ export default function MailData({ getAllUser }) {
                           handleOpen();
                         }}
                       >
-                        Edit
+                       Add
                       </Button>
                       <Modal
                         open={open}

@@ -2,6 +2,7 @@ import "./App.css";
 import Home from "./Components/Home";
 import React from "react";
 import ResetPass from "./Components/ResetPass";
+import Checkmail from "./Components/CheckMail";
 
 
 
@@ -13,10 +14,10 @@ import {Route, BrowserRouter as Router,Routes} from 'react-router-dom';
 
 import Login from "./Components/login.component";
 import SignUp from "./Components/signup.component";
-import { EmailDemo } from "./Components/EmailDemo";
+
 
 import UserDetails from "./Components/UserDetails";
-
+import ContributePage from "./Components/ContributePage";
 import Dashboard from "./Components/Dashboard";
 import MailData from "./Components/MailData";
 import UserData from "./Components/UserData";
@@ -40,15 +41,15 @@ function App() {
         <Route exact path="/sign-in" element={<Login />}></Route>
         <Route exact path="/sign-up" element={<SignUp />}></Route>
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
-       
-        
+        <Route exact path="/CheckMail" element={<Checkmail/>}></Route>
+        <Route exact path="/ContributePage" element={<ContributePage/>}></Route>
         <Route exact path="/ResetPass" element={<ResetPass />}></Route>
         <Route exact path="/Dashboard" element={<Dashboard />}></Route>
         <Route exact path="/MailData" element={<MailData />}></Route>
         <Route exact path="/UserData" element={<UserData />}></Route>
         <Route exact path="/UserContribution" element={<UserContribution />}></Route>
         <Route exact path="/ProfilePage" element={<ProfilePage />}></Route>
-        <Route exact path="/EmailDemo" element={<EmailDemo />}></Route>
+      
         <Route exact path="/TotalContributionPoints" element={<TotalContributionPoints />}></Route>
 
 

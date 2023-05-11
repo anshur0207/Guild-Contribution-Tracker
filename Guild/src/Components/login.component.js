@@ -42,7 +42,7 @@ export default class Login extends Component {
     }) 
     .then((res)=>res.json())
     .then((data)=>{
-      console.log(data,"userRegister");
+      // console.log(data,"userRegister");
       if(data.status === "ok"){
         
         window.localStorage.setItem("token",data.data);

@@ -7,6 +7,7 @@ import Work from "./Work";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 const Home = () => {
 
   const isLoggedIn=window.localStorage.getItem("loggedIn");
@@ -118,9 +119,12 @@ useEffect(() => {
          <p className="primary-text">
              Want to get Community Points ? &nbsp;&nbsp;&nbsp;&nbsp;Just Contribute 
           </p>
-         <button className="secondary-button">
-             Contribute <FiArrowRight />{" "}
-           </button>
+          
+          <a href="mailto:contributions123@gmail.com">
+          <button className="secondary-button">
+             Contribute <FiArrowRight />
+           </button></a>
+        
          </div>
         <div className="home-image-section">
            <img src={BannerImage} style={{marginTop:'100px',marginLeft:'50px'} }alt="" />
@@ -153,9 +157,10 @@ useEffect(() => {
          <p className="primary-text">
              Want to get Community Points ? &nbsp;&nbsp;&nbsp;&nbsp;Just Contribute 
           </p>
-         <button className="secondary-button">
-             Contribute <FiArrowRight />{" "}
-           </button>
+          <Link to='/ContributePage' > <button className="secondary-button">
+             Contribute <FiArrowRight />
+           </button></Link>
+        
          </div>
         <div className="home-image-section">
            <img src={BannerImage} style={{marginTop:'100px',marginLeft:'50px'} }alt="" />

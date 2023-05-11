@@ -193,7 +193,7 @@ export default function UserContribution({ getAllData }) {
                       ) : i.status === "Pending" ? (
                         <MDBBadge
                           style={{ paddingTop: "0.8rem", color: "white" }}
-                          color="warning"
+                          color="info"
                           pill
                         >
                           <h6>Pending</h6>
@@ -292,15 +292,15 @@ export default function UserContribution({ getAllData }) {
                         </MDBBadge>
                       ) : i.status === "Pending" ? (
                         <MDBBadge
-                          style={{ paddingTop: "0.6rem", color: "black" }}
-                          color="warning"
+                          style={{ paddingTop: "0.6rem", color: "white" }}
+                          color="info"
                           pill
                         >
                          <h6>0</h6>
                         </MDBBadge>
                       ) : (
                         <MDBBadge
-                          style={{ paddingTop: "0.6rem", color: "black" }}
+                          style={{ paddingTop: "0.6rem", color: "white" }}
                           color="danger"
                           pill
                         >

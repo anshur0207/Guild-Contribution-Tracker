@@ -2,7 +2,7 @@ import React, { useState,useRef } from "react";
 import Navbar from './Navbar';
 import Footer from './Footer';
 import BannerBackground from "../Assets/home-banner-background.png";
-import emailjs from '@emailjs/browser';
+
 
 
 

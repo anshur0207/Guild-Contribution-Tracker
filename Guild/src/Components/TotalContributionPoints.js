@@ -1,17 +1,16 @@
 import React,{useEffect,useState} from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import BannerBackground from "../Assets/home-banner-background.png";
+
 import Table from 'react-bootstrap/Table';
-import {
-    MDBBadge,
-   
-  } from "mdb-react-ui-kit";
+
 
 
 function TotalContributionPoints(){
     const [userData, setUserData] = useState("");
   const [admin, setAdmin] = useState(false);
+
+
 
   
     useEffect(() => {
@@ -84,16 +83,18 @@ function TotalContributionPoints(){
           <td style={{color:"white",textAlign:"center"}}>{i.contribution_type}</td>
           <td>
                       {i.status === "Approved" ? (
-                        <h5 style={{color:"white",textAlign:"center"}}>+500</h5>
-                      ) : i.status === "Pending" ? (
-                        <h5 style={{color:"white",textAlign:"center"}}>0</h5>
-                      ) : (
+                        <h5 style={{color:"white",textAlign:"center"}}>{i.community_points}</h5>
+                      ) : i.status === "Rejected" ? (
                         <h5 style={{color:"white",textAlign:"center"}}>Rejected</h5>
+                      ) : (
+                        <h5 style={{color:"white",textAlign:"center"}}>Pending</h5>
                     
                       )}
                     </td>
-          <td style={{color:"white",textAlign:"center"}}>NA</td>
+          <td style={{color:"white",textAlign:"center"}}>{i.date}</td>
+          
         </tr>
+       
                 )}
       }
       )
