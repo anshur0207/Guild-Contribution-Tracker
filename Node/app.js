@@ -8,6 +8,7 @@ app.use(cors());
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 var nodemailer = require("nodemailer");
+const Mailgen = require("mailgen");
 
 const jwt = require("jsonwebtoken");
 
@@ -67,7 +68,10 @@ app.post("/register", async (req, res) => {
       from: "contributions123@gmail.com",
       to: email,
       subject: "Thank You For Register with us",
-      text: "Hi<b>"+fname+ "</b>,Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
+      text:
+        "Hi<b>" +
+        fname +
+        "</b>,Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -113,7 +117,7 @@ app.post("/userData", async (req, res) => {
       }
       return res;
     });
-    console.log(user);
+    // console.log(user);
     if (user == "token expired") {
       return res.send({ status: "error", data: "token expired" });
     }
@@ -157,12 +161,46 @@ app.post("/forgot-password", async (req, res) => {
         pass: "hnlywmfafqejjbqi",
       },
     });
+    let MailGenerator = new Mailgen({
+      theme: "default",
+
+      product: {
+        name: "Guild Contribution Tracker",
+
+        link: "https://mailgen.js/",
+      },
+    });
+
+    let response2 = {
+      body: {
+        intro:
+          "You have received this email because a password reset request for your account was received.",
+        action: {
+          instructions: "Click the button below to reset your password:",
+          button: {
+            color: "#DC4D2F",
+
+            text: "Reset your password",
+
+            link: link,
+          },
+        },
+
+        outro:
+          "If you did not request a password reset, no further action is required on your part.",
+      },
+    };
+
+    let mail = MailGenerator.generate(response2);
 
     var mailOptions = {
       from: "contributions123@gmail.com",
-      to: "anshur0202@gmail.com",
+
+      to: email,
+
       subject: "Password Reset",
-      text: link,
+
+      html: mail,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -170,10 +208,11 @@ app.post("/forgot-password", async (req, res) => {
         console.log(error);
       } else {
         console.log("Email sent: " + info.response);
+        alert("Check Your Mail");
+            window.location.href = "./CheckMail";
       }
     });
     // console.log(link);
-    
   } catch (error) {}
 });
 
@@ -291,11 +330,13 @@ app.post("/changeStatus", async (req, res) => {
 
     // console.log("No Contribution found");
     const filter = { email, contribution_type };
+    var users = await User.findOne({ email });
     if (status === "Accept") {
       const update = { status: "Approved" };
       const doc = await Mails.findOneAndUpdate(filter, update, { new: true });
 
       res.send(doc);
+
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -303,16 +344,44 @@ app.post("/changeStatus", async (req, res) => {
           pass: "hnlywmfafqejjbqi",
         },
       });
+      let MailGenerator = new Mailgen({
+        theme: "default",
+
+        product: {
+          name: "Guild Contribution Tracker",
+
+          link: "https://mailgen.js/",
+        },
+      });
+
+      let response3 = {
+        body: {
+          name: users.fname,
+
+          intro: `We are so happy to say that your Contribution type <span style="color:#303030">${contribution_type}</span>
+        
+is accepted by your Admin and  <span style="color:#303030">${doc.community_points}</span> Community Points is also credited in your account.`,
+        },
+      };
+
+      let mail = MailGenerator.generate(response3);
 
       var mailOptions = {
         from: "contributions123@gmail.com",
+
         to: email,
+
         subject: "Hurray !! Contribution Accepted ",
-        text:
-        "<b>Hii , user </b> user We are so happy to say that your Contribution type " +
-          contribution_type +
-          " is Accepted By our Admin And your Community Points is also credited , Team: Guild Contribution Tracker",
+
+        html: mail,
       };
+
+      // var mailOptions = {
+      //   from: "contributions123@gmail.com",
+      //   to: email,
+      //   subject: "Hurray !! Contribution Accepted ",
+      //   html:""
+      // };
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -322,9 +391,11 @@ app.post("/changeStatus", async (req, res) => {
         }
       });
     } else if (status === "Reject") {
+      var users = await User.findOne({ email });
       const update = { status: "Rejected" };
       const doc = await Mails.findOneAndUpdate(filter, update, { new: true });
       res.send(doc);
+
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -332,15 +403,36 @@ app.post("/changeStatus", async (req, res) => {
           pass: "hnlywmfafqejjbqi",
         },
       });
+      let MailGenerator = new Mailgen({
+        theme: "default",
+
+        product: {
+          name: "Guild Contribution Tracker",
+
+          link: "https://mailgen.js/",
+        },
+      });
+
+      let response4 = {
+        body: {
+          name: users.fname,
+
+          intro: `We are sorry to say that your Contribution type ${contribution_type} is rejected by your Admin.
+        
+       Kindly Contribute Again to get Community Points Thank You !.`,
+        },
+      };
+
+      let mail = MailGenerator.generate(response4);
 
       var mailOptions = {
         from: "contributions123@gmail.com",
+
         to: email,
+
         subject: "Oh no ! Your Contribution is rejected",
-        html:
-        "<b>Hii , user </b>" +
-          contribution_type +
-          " is rejected , Kindly Contribute Again to get Community Points Thank You ! Team: Guild Contribution Tracker",
+
+        html: mail,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
@@ -355,33 +447,6 @@ app.post("/changeStatus", async (req, res) => {
     console.log(err);
   }
 });
-
-//Fetching data from database
-
-// MongoClient.connect(mongourl)
-//   .then((client) => {
-//     const connect = client.db(databasename);
-
-//     // Connect to collection
-//     const collection = connect.collection("Contribution");
-
-//     // Count the total documents
-//     collection
-//       .countDocuments({ status: "Approved" })
-//       .then((count_documents) => {
-//         console.log(count_documents);
-//         //  res.send(count_documents);
-//       })
-//       .catch((err) => {
-//         console.log(err.Message);
-//       });
-//   })
-//   .catch((err) => {
-//     // Printing the error message
-//     console.log(err.Message);
-//   });
-
-//   });
 
 app.post("/sendData", async (req, res) => {
   const { id } = req.body;
@@ -399,11 +464,6 @@ app.post("/changePoints", async (req, res) => {
 
   var tpoints = 0;
 
-  // for (const i of await Mails.find({ email })) {
-  //   if (i.status === "Approved") {
-  //     tpoints = tpoints + i.community_points;
-  //   }
-  // }
   for (const i of await Mails.find({ email })) {
     const cp = await Type.findOne({ contribution_type: i.contribution_type });
     if (i.status === "Approved") {
@@ -457,6 +517,37 @@ app.post("/updateNotes", async (req, res) => {
     res.send({ data: doc, status: "ok" });
   } catch (err) {
     res.send({ status: "Failed" });
+  }
+});
+
+app.post("/submitContribution", async (req, res) => {
+  const { email, contribution_type, body } = req.body;
+
+  try {
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "contributions123@gmail.com",
+        pass: "hnlywmfafqejjbqi",
+      },
+    });
+
+    var mailOptions = {
+      from: email,
+      to: "contributions123@gmail.com",
+      subject: "Contribution Submitted",
+      html: "contribution_type: " + contribution_type + "\r\n" + body,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    console.log("Email Send");
+  } catch (error) {
+    res.send({ status: "error" });
   }
 });
 
