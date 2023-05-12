@@ -91,6 +91,7 @@ app.post("/login-user", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
+    // return res.json({ error: "User Not Found" });
     return res.json({ error: "User Not Found" });
   }
   if (await bcrypt.compare(password, user.password)) {
@@ -209,7 +210,7 @@ app.post("/forgot-password", async (req, res) => {
       } else {
         console.log("Email sent: " + info.response);
         alert("Check Your Mail");
-            window.location.href = "./CheckMail";
+        window.location.href = "./CheckMail";
       }
     });
     // console.log(link);
@@ -282,38 +283,23 @@ app.post("/deleteUsers", async (req, res) => {
     console.log(err);
   }
 });
-app.post("/deleteContribution", async (req, res) => {
-  try {
-    const { id, contribution_type, email } = req.body;
-    const deleteMails = await Mails.deleteOne({ _id: id });
-    res.send({ status: "Ok", data: "Deleted" });
-    // var transporter = nodemailer.createTransport({
-    //   service: "gmail",
-    //   auth: {
-    //     user: "contributions123@gmail.com",
-    //     pass: "hnlywmfafqejjbqi",
-    //   },
-    // });
+// app.post("/deleteContribution", async (req, res) => {
+//   try {
+//     const { id } = req.body; //const deleteMails = await Mails.deleteOne({ _id: id });
 
-    // var mailOptions = {
-    //   from: "contributions123@gmail.com",
-    //   to: email,
-    //   subject: "Your Contribution is Deleted",
-    //   text: "Dear User Your Contribution type" +contribution_type+ " is Deleted by Admin , Kindly Submit Again with Correct data  Thank you , Team: Guild Contribution tracker",
-    // };
+//     const doc = await Mails.findOneAndUpdate(
+//       { _id: id },
+//       { isDeleted: true },
+//       { new: true }
+//     );
 
-    // transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //   } else {
-    //     console.log("Email sent: " + info.response);
-    //   }
-    // });
-    console.log({ status: "Ok", data: "Deleted" });
-  } catch (err) {
-    console.log(err);
-  }
-});
+//     res.send({ status: "Ok", data: doc });
+
+//     console.log({ status: "Ok", data: "Deleted" });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 app.post("/changeStatus", async (req, res) => {
   const { email, contribution_type, status } = req.body;
@@ -466,6 +452,7 @@ app.post("/changePoints", async (req, res) => {
 
   for (const i of await Mails.find({ email })) {
     const cp = await Type.findOne({ contribution_type: i.contribution_type });
+
     if (i.status === "Approved") {
       tpoints = tpoints + cp.community_points;
     }

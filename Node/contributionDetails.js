@@ -8,6 +8,7 @@ const ContributionDetailSchema = new mongoose.Schema({
     userLName:String,
     email: String,
     date:{type:Date},
+    isDeleted:{type:Boolean, default:false},
     notes:{type:String,default:""},
     status:{type:String,default:"Pending"},
     community_points:{type:Number,default:0},
