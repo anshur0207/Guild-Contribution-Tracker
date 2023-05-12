@@ -17,7 +17,7 @@ import SignUp from "./Components/signup.component";
 
 
 import UserDetails from "./Components/UserDetails";
-import ContributePage from "./Components/ContributePage";
+
 import Dashboard from "./Components/Dashboard";
 import MailData from "./Components/MailData";
 import UserData from "./Components/UserData";
@@ -42,7 +42,7 @@ function App() {
         <Route exact path="/sign-up" element={<SignUp />}></Route>
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
         <Route exact path="/CheckMail" element={<Checkmail/>}></Route>
-        <Route exact path="/ContributePage" element={<ContributePage/>}></Route>
+        
         <Route exact path="/ResetPass" element={<ResetPass />}></Route>
         <Route exact path="/Dashboard" element={<Dashboard />}></Route>
         <Route exact path="/MailData" element={<MailData />}></Route>

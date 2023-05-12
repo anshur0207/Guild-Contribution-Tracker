@@ -61,7 +61,7 @@ export default function UserData({getAllUser}){
 
         </div>
         <h1 style={{textAlign:"center",color:"white",marginTop:"3.5rem"}}>All Data fetched By Database</h1>
-        <div className="container ">
+        <div className="container " style={{textAlign:"center"}}>
         <MDBTable align='middle' style={{color:"white",marginTop:"5rem"}}>
       <MDBTableHead>
         <tr>
@@ -77,15 +77,15 @@ export default function UserData({getAllUser}){
             return (
                 <tr>
           <td>
-            <div className='d-flex align-items-center'>
+            <div className='align-items-center'>
               {/* <img
                 src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                 alt=''
                 style={{ width: '45px', height: '45px' }}
                 className='rounded-circle'
               /> */}
-              <div className='ms-3'>
-                <p className='fw-bold mb-1'>{i.fname}</p>
+              <div className='ms-3' >
+                {i.fname}
                 
               </div>
             </div>

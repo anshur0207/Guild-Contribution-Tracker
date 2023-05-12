@@ -120,7 +120,7 @@ useEffect(() => {
              Want to get Community Points ? &nbsp;&nbsp;&nbsp;&nbsp;Just Contribute 
           </p>
           
-          <a href="mailto:contributions123@gmail.com">
+          <a style={{textDecoration:"none"}} href="mailto:Contributions123@gmail.com?subject=Contribution Towards Guild Contribution tracker !&body=Contribution_Type:">
           <button className="secondary-button">
              Contribute <FiArrowRight />
            </button></a>
@@ -157,9 +157,9 @@ useEffect(() => {
          <p className="primary-text">
              Want to get Community Points ? &nbsp;&nbsp;&nbsp;&nbsp;Just Contribute 
           </p>
-          <Link to='/ContributePage' > <button className="secondary-button">
+          <a href="/sign-in" style={{textDecoration:"none"}}><button className="secondary-button" >
              Contribute <FiArrowRight />
-           </button></Link>
+           </button></a>
         
          </div>
         <div className="home-image-section">

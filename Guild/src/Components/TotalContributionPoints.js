@@ -3,6 +3,9 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
 
 
 
@@ -61,9 +64,42 @@ function TotalContributionPoints(){
            <Navbar />
 
 
+
            
-           <h1 style={{textAlign:'center',marginTop:'50px', color:"white"}}>Total Points:  {userData.points} </h1>
+          
+           
            <br />
+           <div className="main-card">
+    <div className="card-1">
+    <Card style={{ width: '18rem' }}>
+      
+      <Card.Body>
+        <Card.Title>Your Quarter Points </Card.Title>
+        <Card.Text>
+        {userData.points}
+        </Card.Text>
+    
+      
+      </Card.Body>
+    </Card>
+
+    </div>
+    <div className="card-1">
+    <Card style={{ width: '18rem' }}>
+      
+      <Card.Body>
+        <Card.Title>Your Yearly Points </Card.Title>
+        <Card.Text>
+        {userData.points}
+        </Card.Text>
+    
+      
+      </Card.Body>
+    </Card>
+
+    </div>
+    </div>
+    <h1 style={{textAlign:'center',marginTop:'50px', color:"white"}}>Points Summary:  {userData.points} </h1>
          <div className="container" >
          <Table striped>
       <thead style={{color:"white"}}>

@@ -39,33 +39,33 @@ export default function MailData({ getAllUser }) {
 
 
 
-  const deleteContribution = (id, contribution_type,email) => {
-    if (
-      window.confirm(`Are you sure you want to delete ${contribution_type}`)
-    ) {
-      fetch("http://localhost:4000/deleteContribution", {
-        method: "POST",
-        crossDomain: true,
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          id,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // alert(data.data);
-          console.log("Data is Deleted");
-          changePoints(email);
-          window.location.reload(true);
+  // const deleteContribution = (id,contribution_type) => {
+  //   if (
+  //     window.confirm(`Are you sure you want to delete ${contribution_type}`)
+  //   ) {
+  //     fetch("http://localhost:4000/deleteContribution", {
+  //       method: "POST",
+  //       crossDomain: true,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Accept: "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //       body: JSON.stringify({
+  //         id,
+  //       }),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         // alert(data.data);
+  //         console.log("Data is Deleted");
+  //         changePoints(email);
+  //         //window.location.reload(true);
          
-        });
-    } else {
-    }
-  };
+  //       });
+  //   } else {
+  //   }
+  // };
 
   const chStatus = (email, contribution_type, status) => {
     console.log(email + " " + contribution_type + " " + status);
@@ -87,7 +87,7 @@ export default function MailData({ getAllUser }) {
       .then((data) => {
         console.log(data);
         changePoints(email);
-        window.location.reload(true);
+        // window.location.reload(true);
       });
   };
 
@@ -108,14 +108,10 @@ export default function MailData({ getAllUser }) {
   const changePoints = (email) => {
     fetch("http://localhost:4000/changePoints", {
       method: "POST",
-
       crossDomain: true,
-
       headers: {
         "Content-Type": "application/json",
-
         Accept: "application/json",
-
         "Access-Control-Allow-Origin": "*",
       },
 
@@ -124,9 +120,9 @@ export default function MailData({ getAllUser }) {
       }),
     })
       .then((res) => res.json())
-
       .then((data) => {
         console.log(data);
+         window.location.reload(true);
       });
   };
   const [notes, setNotes] = useState("");
@@ -171,26 +167,29 @@ export default function MailData({ getAllUser }) {
         All Data fetched By Database
       </h1>
 
-      <div className="container ">
+      <div className="container " style={{ textAlign: "center" }}>
         <MDBTable align="middle" style={{ color: "white", marginTop: "5rem" }}>
           <MDBTableHead>
             <tr>
               <th scope="col">EMAIL</th>
               <th scope="col">CONTRIBUTION TYPE</th>
-              <th scope="col">STATUS</th>
+              <th scope="col" style={{ textAlign: "center" }}>STATUS</th>
 
               <th scope="col" style={{ textAlign: "center" }}>
                 Actions
               </th>
-              <th>Notes/Message</th>
+              <th style={{ textAlign: "center" }}>Add Notes</th>
+              <th style={{ textAlign: "center" }}>View Notes</th>
+
             </tr>
           </MDBTableHead>
           <MDBTableBody>
             {data.map((i) => {
+             
               return (
                 <tr>
                   <td>
-                    <div className="d-flex align-items-center">
+                    <div className=" align-items-center">
                       {/* <img
                 src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                 alt=''
@@ -225,7 +224,7 @@ export default function MailData({ getAllUser }) {
                     ) : i.status === "Pending" ? (
                       <MDBBadge
                         style={{ padding: "0.8rem", color: "black" }}
-                        color="warning"
+                        color="info"
                         pill
                       >
                         Pending
@@ -241,13 +240,8 @@ export default function MailData({ getAllUser }) {
                     )}
                   </td>
 
-                  <td style={{ justifyContent: "space-evenly" }}>
-                    {/* <MDBBadge style={{padding:"0.8rem",color:"black", marginRight:".5rem" }} color='success' pill>
-             Accept
-            </MDBBadge>
-            <MDBBadge style={{padding:"0.8rem",color:"black",marginRight:"-2.2rem"}} color='danger' pill>
-             Reject
-            </MDBBadge> */}
+                  <td style={{ justifyContent: "space-evenly",textAlign:"center"}}>
+                    
                     <button
                       className="btn btn-primary"
                       style={{
@@ -274,7 +268,7 @@ export default function MailData({ getAllUser }) {
                     >
                       Reject
                     </button>
-                    <button
+                    {/* <button
                       className="btn btn-warning"
                       style={{
                         padding: "0.3rem",
@@ -282,32 +276,14 @@ export default function MailData({ getAllUser }) {
                         marginRight: ".5rem",
                       }}
                       onClick={() =>
-                        deleteContribution(i._id, i.contribution_type,i.email)
+                        deleteContribution(i._id,i.contribution_type)
                       }
                     >
                       Delete
-                    </button>
+                    </button> */}
                   </td>
                   <td style={{ justifyContent: "space-evenly",textAlign:"center" }}>
-                    {/* <TextField
-                      id="outlined-basic"
-                      style={{ background: "white" }}
-                      variant="outlined"
-                      placeholder="Add Notes"
-                      value={i.notes}
-                      required="true"
-                      onChange={(event) => setNotes(event.target.value)}
-                    />
                     
-                    <button
-                      className="btn btn-primary"
-                      style={{ marginLeft: "2rem", marginTop: "0.5rem" }}
-                      onClick={() => {
-                        addNotes(i.contribution_type, i.email);
-                      }}
-                    >
-                      Add
-                    </button> */}
                     <Button
                         onClick={() => {
                           setType(i.contribution_type);
@@ -364,6 +340,7 @@ export default function MailData({ getAllUser }) {
                       </Modal>
                       
                   </td>
+                  <td style={{ textAlign: "center" }}>{i.notes}</td>
                 </tr>
               );
             })}

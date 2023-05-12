@@ -80,6 +80,7 @@ const [data,setData] = useState([]);
     .then((data)=>{
         console.log(data,"userData");
         setData(data.data);
+       
     });
    },[]);
 

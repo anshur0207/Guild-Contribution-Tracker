@@ -156,11 +156,12 @@ export default function UserContribution({ getAllData }) {
           </MDBTableHead>
           <MDBTableBody>
             {data.map((i) => {
+              
               if (userData.email === i.email) {
                 return (
                   <tr style={{textAlign:"center"}}>
                     <td >
-                      <div className="d-flex align-items-center">
+                      <div className=" align-items-center">
                         {/* <img
                     src='https://mdbootstrap.com/img/new/avatars/8.jpg'
                     alt=''
@@ -199,22 +200,30 @@ export default function UserContribution({ getAllData }) {
                           <h6>Pending</h6>
                         </MDBBadge>
                       ) : (
-                        <MDBBadge
-                          style={{ paddingTop: "0.8rem", color: "white" }}
-                          color="danger"
-                          pill
-                        >
-                          <h6>Rejected</h6>
-                        </MDBBadge>
+                        <div><MDBBadge
+                        style={{ paddingTop: "0.8rem", color: "white" }}
+                        color="danger"
+                        pill
+                      >
+                        <h6>Rejected</h6>
+                        
+                      </MDBBadge>
+                      
+                      </div>
+                        
+                        
                       )}
                     </td>
 
                     <td style={{ justifyContent: "space-evenly",textAlign:"center" }}>
-                      {/* <MDBBadge style={{padding:"0.8rem",color:"black",marginLeft:"9rem", width:"100px",display: "flex",
-  justifyContent: "center",
-  alignItems: "center" }} color='warning' pill>
-                 Edit
-                </MDBBadge> */}
+                    {i.status === "Approved" ? (
+                    <button type="button" class="btn btn-primary" disabled>Edit</button>
+                        
+                      ) : i.status === "Pending" ? (
+                        <button type="button" class="btn btn-primary" disabled>Edit</button>
+                        
+                      ) : (
+                       
                       <Button
                         onClick={() => {
                           setType(i.contribution_type);
@@ -224,6 +233,11 @@ export default function UserContribution({ getAllData }) {
                       >
                         Edit
                       </Button>
+                      
+                        
+                        
+                      )}
+                      
                       <Modal
                         open={open}
                         onClose={handleClose}

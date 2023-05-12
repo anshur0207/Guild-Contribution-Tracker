@@ -49,10 +49,10 @@ export default class Login extends Component {
         window.localStorage.setItem("loggedIn",true);
         window.location.href = "/";
       }
-//       else{
-// <Container className='p-4'>  
-//    <Alert variant="danger" >Login Failed</Alert>  </Container>
-//       }
+      else{
+
+      alert("Logging Failed Because Your Credentials Might be Wrong");
+      }
     });
   }
   render() {
