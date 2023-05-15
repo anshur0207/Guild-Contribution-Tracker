@@ -10,6 +10,7 @@ const contribute = mongoose.model("Contribution");
 require("./contributionType");
 const Type = mongoose.model("ContributionType");
 const Mailgen = require("mailgen");
+const moment = require("moment");
 
 class GmailAPI {
   accessToken = "";
@@ -156,6 +157,7 @@ class GmailAPI {
         //5.community_points
         const p = await Type.findOne({ contribution_type: contributionType });
         const community_points = p.community_points;
+        let dates = moment(curr_date).format('D/MM/YYYY');
 
         //pushing data into db
         try {
@@ -169,7 +171,7 @@ class GmailAPI {
               contribution_type: contributionType,
               body: decodedStr1,
               email: str,
-              date: curr_date,
+              date: dates,
               community_points,
               userFName: user.fname,
               userLName: user.lname,

@@ -28,6 +28,16 @@ mongoose
   })
   .then(() => {
     console.log("connected to database");
+    var gmail = require("./Gmail");
+gmail
+  .readInboxContent("Contribution_Type:")
+  .then((data) => {
+    console.log("All Contributions:");
+    console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
   })
   .catch((e) => console.log(e));
 
@@ -429,6 +439,61 @@ is accepted by your Admin and  <span style="color:#303030">${doc.community_point
         }
       });
     }
+    else{
+      var users = await User.findOne({ email });
+      const update = { status: "Pending" };
+      const doc = await Mails.findOneAndUpdate(filter, update, { new: true });
+      res.send(doc);
+
+    //   var transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //       user: "contributions123@gmail.com",
+    //       pass: "hnlywmfafqejjbqi",
+    //     },
+    //   });
+    //   let MailGenerator = new Mailgen({
+    //     theme: "default",
+
+    //     product: {
+    //       name: "Guild Contribution Tracker",
+
+    //       link: "https://mailgen.js/",
+    //     },
+    //   });
+
+    //   let response4 = {
+    //     body: {
+    //       name: users.fname,
+
+    //       intro: `We are sorry to say that your Contribution type ${contribution_type} is rejected by your Admin.
+        
+    //    Kindly Contribute Again to get Community Points Thank You !.`,
+    //     },
+    //   };
+
+    //   let mail = MailGenerator.generate(response4);
+
+    //   var mailOptions = {
+    //     from: "contributions123@gmail.com",
+
+    //     to: email,
+
+    //     subject: "Oh no ! Your Contribution is rejected",
+
+    //     html: mail,
+    //   };
+
+    //   transporter.sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log("Email sent: " + info.response);
+    //     }
+    //   });
+    // }
+
+    }
   } catch (err) {
     console.log(err);
   }
@@ -543,13 +608,4 @@ app.listen(4000, () => {
 });
 
 //index.js
-var gmail = require("./Gmail");
-gmail
-  .readInboxContent("Contribution_Type:")
-  .then((data) => {
-    console.log("All Contributions:");
-    console.log(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+
