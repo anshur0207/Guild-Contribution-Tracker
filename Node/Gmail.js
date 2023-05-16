@@ -24,7 +24,7 @@ class GmailAPI {
         "942020892524-r7f01k20k952a92djkgh0n636nfo57dh.apps.googleusercontent.com",
       client_secret: "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",
       refresh_token:
-        "1//0gIEHYVr5YTraCgYIARAAGBASNwF-L9IrVbuBbfeEHaEQMuTDnjMLyb7csdBn07u93gTowhZ6uft_3xzGegW5_W0vqvrJdMofvEw",
+        "1//0gKKFkUusKiPoCgYIARAAGBASNwF-L9Ir7LMaaK70V7qAG1YbpZxg3g2CZZWMy3VKt3IWgWNUkVFEoM8quzcYonuKBUYmykhAAO0",
       grant_type: "refresh_token",
     });
     var config = {
@@ -134,11 +134,8 @@ class GmailAPI {
           return element.toLowerCase() === contributionType1.toLowerCase();
         });
         if (includesValue) {
-          contributionType = decodedStr
-            .split(/Contribution_Type:/i)[1]
-            .split("\r\n")[0]
-            .trim();
-        } else contributionType = "Others";
+          contributionType = contributionType1.toLowerCase();
+        } else contributionType = "others";
         //3. email Id
         var header = message.payload.headers;
         for (let i = 0; i < header.length; i++) {
@@ -223,7 +220,7 @@ class GmailAPI {
 
               to: str,
 
-              subject: "New Contribution is submitted  ",
+              subject: "New Contribution is submitted  ",
 
               html: mail,
             };
@@ -232,7 +229,7 @@ class GmailAPI {
               if (error) {
                 console.log(error);
               } else {
-                console.log("Email sent: " + info.response);
+                console.log(" Contribution Submission Email sent: " + info.response);
               }
             });
             var transporter = nodemailer.createTransport({
@@ -259,7 +256,7 @@ class GmailAPI {
               if (error) {
                 console.log(error);
               } else {
-                console.log("Email sent: " + info.response);
+                console.log(" Admin Submssion notification Email sent: " + info.response);
               }
             });
           } else {

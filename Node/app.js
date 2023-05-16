@@ -218,7 +218,7 @@ app.post("/forgot-password", async (req, res) => {
       if (error) {
         console.log(error);
       } else {
-        console.log("Email sent: " + info.response);
+        console.log(" Password Reset Email sent: " + info.response);
         alert("Check Your Mail");
         window.location.href = "./CheckMail";
       }
@@ -383,7 +383,7 @@ is accepted by your Admin and  <span style="color:#303030">${doc.community_point
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          console.log(" Accepted Email sent: " + info.response);
         }
       });
     } else if (status === "Reject") {
@@ -435,66 +435,12 @@ is accepted by your Admin and  <span style="color:#303030">${doc.community_point
         if (error) {
           console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          console.log("Rejection Email sent: " + info.response);
         }
       });
     }
-    else{
-      var users = await User.findOne({ email });
-      const update = { status: "Pending" };
-      const doc = await Mails.findOneAndUpdate(filter, update, { new: true });
-      res.send(doc);
-
-    //   var transporter = nodemailer.createTransport({
-    //     service: "gmail",
-    //     auth: {
-    //       user: "contributions123@gmail.com",
-    //       pass: "hnlywmfafqejjbqi",
-    //     },
-    //   });
-    //   let MailGenerator = new Mailgen({
-    //     theme: "default",
-
-    //     product: {
-    //       name: "Guild Contribution Tracker",
-
-    //       link: "https://mailgen.js/",
-    //     },
-    //   });
-
-    //   let response4 = {
-    //     body: {
-    //       name: users.fname,
-
-    //       intro: `We are sorry to say that your Contribution type ${contribution_type} is rejected by your Admin.
-        
-    //    Kindly Contribute Again to get Community Points Thank You !.`,
-    //     },
-    //   };
-
-    //   let mail = MailGenerator.generate(response4);
-
-    //   var mailOptions = {
-    //     from: "contributions123@gmail.com",
-
-    //     to: email,
-
-    //     subject: "Oh no ! Your Contribution is rejected",
-
-    //     html: mail,
-    //   };
-
-    //   transporter.sendMail(mailOptions, function (error, info) {
-    //     if (error) {
-    //       console.log(error);
-    //     } else {
-    //       console.log("Email sent: " + info.response);
-    //     }
-    //   });
-    // }
-
-    }
-  } catch (err) {
+  }
+     catch (err) {
     console.log(err);
   }
 });
@@ -543,7 +489,8 @@ app.post("/updateContribution", async (req, res) => {
     const doc = await Mails.findOneAndUpdate(
       { email, contribution_type },
 
-      { body },
+      { body,status:"Pending" },
+
 
       { new: true }
     );
