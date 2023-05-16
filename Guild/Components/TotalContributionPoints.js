@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 
@@ -74,11 +75,73 @@ function TotalContributionPoints(){
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
-        <Card.Title>Your Quarter Points </Card.Title>
+      <Carousel>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="https://images.squarespace-cdn.com/content/v1/5409fb84e4b024050575d55a/1448294248871-4MTPBZQEE8B5XITD0ZOZ/image-asset.png"
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          
+          
+        </Carousel.Caption>
         <Card.Text>
-        {userData.points}
+        {userData.points} Points
         </Card.Text>
     
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="https://images.squarespace-cdn.com/content/v1/5409fb84e4b024050575d55a/1448306925282-BJOPIR761AOTZCQCB5PY/image-asset.png"
+          alt="Second slide"
+        />
+
+        <Carousel.Caption>
+        
+         
+        </Carousel.Caption>
+        <Card.Text>
+        1000 Points
+        </Card.Text>
+    
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="https://images.squarespace-cdn.com/content/v1/5409fb84e4b024050575d55a/1448307491075-AUGS0DFI0OACM1JI34S7/image-asset.jpeg"
+          alt="Third slide"
+        />
+
+        <Carousel.Caption>
+         
+         
+        </Carousel.Caption>
+        <Card.Text>
+        2000 Points
+        </Card.Text>
+    
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="https://images.squarespace-cdn.com/content/v1/5409fb84e4b024050575d55a/1448307843429-NBBINO7KRPDHPUHOLMY3/image-asset.png"
+          alt="Third slide"
+        />
+
+        <Carousel.Caption>
+         
+          
+        </Carousel.Caption>
+        <Card.Text>
+        750 Points
+        </Card.Text>
+    
+      </Carousel.Item>
+    </Carousel>
+        
+       
       
       </Card.Body>
     </Card>
@@ -88,9 +151,9 @@ function TotalContributionPoints(){
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
-        <Card.Title>Your Yearly Points </Card.Title>
+        <Card.Title>Current Year  </Card.Title>
         <Card.Text>
-        {userData.points}
+        {userData.points} Points 
         </Card.Text>
     
       

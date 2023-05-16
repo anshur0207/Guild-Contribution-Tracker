@@ -41,29 +41,29 @@ export default function UserContribution({ getAllData }) {
   const [type, setType] = useState("");
   const [email, setEmail] = useState("");
 
-  const chStatus = (status) => {
+  // const chStatus = (status) => {
    
-    fetch("http://localhost:4000/changeStatus", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        email,
-        contribution_type:type,
-        status,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+  //   fetch("http://localhost:4000/changeStatus", {
+  //     method: "POST",
+  //     crossDomain: true,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //     body: JSON.stringify({
+  //       email,
+  //       contribution_type:type,
+  //       status,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
        
-        // window.location.reload(true);
-      });
-  };
+  //       // window.location.reload(true);
+  //     });
+  // };
 
 
   const handleSubmit = () => {
@@ -93,8 +93,6 @@ export default function UserContribution({ getAllData }) {
       .then((data) => {
         console.log(data); //window.location.reload();
 
-        chStatus("Pending")
-        console.log("pending");
       });
   };
 
@@ -256,7 +254,9 @@ export default function UserContribution({ getAllData }) {
                         onClick={() => {
                           setType(i.contribution_type);
                           setEmail(i.email);
+                          setBody(i.body);
                           handleOpen();
+
                         }}
                       >
                         Edit
@@ -292,6 +292,7 @@ export default function UserContribution({ getAllData }) {
                                   id="body"
                                   as="textarea"
                                   rows={3}
+                                  value={body}
                                   onChange={(event) => {
                                     setBody(event.target.value);
                                   }}

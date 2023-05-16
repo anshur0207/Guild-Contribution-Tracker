@@ -595,3 +595,17 @@ input[type="radio"]{
 #option-2:checked:checked ~ .option-2 span{
   color: #fff;
 }
+.long-text{
+  width: 30ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.long-text-2{
+  width:5ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

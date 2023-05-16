@@ -205,7 +205,7 @@ export default function MailData({ getAllUser }) {
                     </div>
                   </td>
                   <td>
-                    <p className="fw-normal mb-1">{i.body}</p>
+                    <p className="fw-normal mb-1 long-text " style={{textAlign:"center"}}>{i.body}</p>
                     <p className="text-muted mb-0">{i.contribution_type}</p>
                   </td>
                   <td>
@@ -241,21 +241,37 @@ export default function MailData({ getAllUser }) {
                   </td>
 
                   <td style={{ justifyContent: "space-evenly",textAlign:"center"}}>
-                    
-                    <button
-                      className="btn btn-primary"
-                      style={{
-                        padding: "0.3rem",
-                        color: "black",
-                        marginRight: ".5rem",
-                      }}
-                      onClick={() =>
-                        chStatus(i.email, i.contribution_type, "Accept")
-                      }
-                    >
-                      Approve
-                    </button>
-                    <button
+                  {i.status === "Approved" ? (
+
+<div> <button type="button" className="btn btn-primary"
+                        style={{
+                          padding: "0.3rem",
+                          color: "black",
+                          marginRight: ".5rem"}} disabled>Approve</button>
+<button type="button" className="btn btn-danger"
+                        style={{
+                          padding: "0.3rem",
+                          color: "black",
+                          marginRight: ".5rem"}} disabled>Reject</button>
+                    </div>
+                   
+                        
+                      ) : i.status === "Pending" ? (
+                        <div>
+                          <button
+                        className="btn btn-primary"
+                        style={{
+                          padding: "0.3rem",
+                          color: "black",
+                          marginRight: ".5rem",
+                        }}
+                        onClick={() =>
+                          chStatus(i.email, i.contribution_type, "Accept")
+                        }
+                      >
+                        Approve
+                      </button>
+                      <button
                       className="btn btn-danger"
                       style={{
                         padding: "0.3rem",
@@ -268,6 +284,37 @@ export default function MailData({ getAllUser }) {
                     >
                       Reject
                     </button>
+
+
+                        </div>
+                        
+
+
+
+                        
+                        
+                      ) : (
+                        <div>
+                          <button type="button" className="btn btn-primary"
+                        style={{
+                          padding: "0.3rem",
+                          color: "black",
+                          marginRight: ".5rem"}} disabled>Approve</button>
+<button type="button" className="btn btn-danger"
+                        style={{
+                          padding: "0.3rem",
+                          color: "black",
+                          marginRight: ".5rem"}} disabled>Reject</button>
+                        </div>
+                       
+                    
+                      
+                        
+                        
+                      )}
+                    
+                   
+                    
                     {/* <button
                       className="btn btn-warning"
                       style={{
@@ -288,6 +335,7 @@ export default function MailData({ getAllUser }) {
                         onClick={() => {
                           setType(i.contribution_type);
                           setEmail(i.email);
+                          setNotes(i.notes);
                           handleOpen();
                         }}
                       >
@@ -314,6 +362,7 @@ export default function MailData({ getAllUser }) {
                                   id="body"
                                   as="textarea"
                                   rows={3}
+                                  value={notes}
                                   onChange={(event) => {
                                     setNotes(event.target.value);
                                   }}
@@ -340,7 +389,7 @@ export default function MailData({ getAllUser }) {
                       </Modal>
                       
                   </td>
-                  <td style={{ textAlign: "center" }}>{i.notes}</td>
+                  <td className="long-text-2" style={{ textAlign: "center" }}>{i.notes}</td>
                 </tr>
               );
             })}

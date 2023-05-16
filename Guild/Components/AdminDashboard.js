@@ -33,7 +33,7 @@ export default function Dashboard() {
       <Card.Body>
         <Card.Title>All Details</Card.Title>
         <Card.Text>
-          Mail Data
+         Contribution Data
         </Card.Text>
         <Link to ='/MailData'>
         <Button className="dashboard-btn" >Show Data</Button></Link>
@@ -47,7 +47,7 @@ export default function Dashboard() {
       <Card.Body>
         <Card.Title>All Registerd Users</Card.Title>
         <Card.Text>
-          Users Data
+          Registered Users Data
         </Card.Text>
         <Link to ='/UserData'>
         <Button className="dashboard-btn">Show Data</Button>
