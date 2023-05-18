@@ -18,7 +18,7 @@ const MongoClient = require("mongodb").MongoClient;
 // Database name
 const databasename = "test";
 
-const mongourl = "mongodb+srv://anshu:anshu@cluster0.tulmyqc.mongodb.net/test";
+const mongourl = "mongodb+srv://harshal:harshal@cluster0.egi2lbu.mongodb.net/";
 require("./contributionType");
 const Type = mongoose.model("ContributionType");
 
@@ -29,15 +29,15 @@ mongoose
   .then(() => {
     console.log("connected to database");
     var gmail = require("./Gmail");
-gmail
-  .readInboxContent("Contribution_Type:")
-  .then((data) => {
-    console.log("All Contributions:");
-    console.log(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    gmail
+      .readInboxContent("Contribution_Type:")
+      .then((data) => {
+        console.log("All Contributions:");
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   })
   .catch((e) => console.log(e));
 
@@ -439,8 +439,7 @@ is accepted by your Admin and  <span style="color:#303030">${doc.community_point
         }
       });
     }
-  }
-     catch (err) {
+  } catch (err) {
     console.log(err);
   }
 });
@@ -455,24 +454,112 @@ app.post("/sendData", async (req, res) => {
     console.log(err);
   }
 });
+app.post("/quaterDetails", async (req, res) => {
+  const { year, quater, email } = req.body;
+  console.log(year + " " + quater + " ");
+  let total = 0;
+  for (const i of await Mails.find({ email })) {
+    const cp = await Type.findOne({ contribution_type: i.contribution_type });
+    // year
+    const d = new Date(i.fullDate);
+    let c_year = d.getFullYear();
+    console.log(i.quater);
+    if (i.status === "Approved" && c_year === year && i.quater === quater) {
+      total = total + cp.community_points;
+    }
+  }
+  try {
+    res.send({ data: total, status: "ok" });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.post("/changePoints", async (req, res) => {
   const { email } = req.body;
 
-  var tpoints = 0;
+  var tpoints = 0,
+    q1 = 0,
+    q2 = 0,
+    q3 = 0,
+    q4 = 0,
+    curr_yr_points = 0,
+    prev_yr_points = 0;
 
   for (const i of await Mails.find({ email })) {
     const cp = await Type.findOne({ contribution_type: i.contribution_type });
 
     if (i.status === "Approved") {
       tpoints = tpoints + cp.community_points;
+
+      // year
+      const d = new Date(i.fullDate);
+      let year = d.getFullYear();
+      console.log(year);
+
+      //month
+      const month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let month_name = month[d.getMonth()];
+      console.log(month_name);
+      const d1 = new Date();
+      let curr_year = d1.getFullYear();
+
+      //quater calculation
+      if (year === curr_year) {
+        if (
+          month_name === "April" ||
+          month_name === "May" ||
+          month_name === "June"
+        ) {
+          q1 = q1 + cp.community_points;
+        } else if (
+          month_name === "July" ||
+          month_name === "August" ||
+          month_name === "September"
+        ) {
+          q2 = q2 + cp.community_points;
+        } else if (
+          month_name === "October" ||
+          month_name === "November" ||
+          month_name === "December"
+        ) {
+          q3 = q3 + cp.community_points;
+        } else if (
+          month_name === "January" ||
+          month_name === "February" ||
+          month_name === "March"
+        ) {
+          q4 = q4 + cp.community_points;
+        }
+      }
+
+      //year calculation
+
+      if (year === curr_year) {
+        curr_yr_points = curr_yr_points + cp.community_points;
+      } else if (year === curr_year - 1) {
+        prev_yr_points = prev_yr_points + cp.community_points;
+      }
     }
   }
 
   try {
     const doc = await User.findOneAndUpdate(
       { email },
-      { points: tpoints },
+      { points: tpoints, q1, q2, q3, q4, prev_yr_points, curr_yr_points },
       { new: true }
     );
 
@@ -489,8 +576,7 @@ app.post("/updateContribution", async (req, res) => {
     const doc = await Mails.findOneAndUpdate(
       { email, contribution_type },
 
-      { body,status:"Pending" },
-
+      { body, status: "Pending" },
 
       { new: true }
     );
@@ -555,4 +641,3 @@ app.listen(4000, () => {
 });
 
 //index.js
-

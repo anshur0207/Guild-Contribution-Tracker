@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Reem Kufi", sans-serif !important;
-
 }
 
 img {
@@ -19,7 +18,6 @@ img {
 body {
   max-width: 100%;
   overflow-x: hidden;
-
 }
 
 body {
@@ -31,13 +29,10 @@ nav {
   align-items: center;
   justify-content: space-between;
   min-height: 90px;
-
-  
 }
 
 .navbar-menu-container {
   display: none;
-
 }
 .navbar-links-container a {
   margin-right: 3rem;
@@ -45,10 +40,8 @@ nav {
   color: black;
   font-size: 1.1rem;
   font-weight: 600;
-  
-
 }
-.navbar-links-container a:hover{
+.navbar-links-container a:hover {
   color: grey;
 }
 .primary-button {
@@ -72,14 +65,14 @@ nav {
   font-size: 1.5rem;
   cursor: pointer;
 }
-.home-container{
-  background-color:black;
+.home-container {
+  background-color: black;
 }
 
 .home-banner-container {
   position: relative;
   display: flex;
-  
+
   /* z-index: -1; */
 }
 .home-bannerImage-container {
@@ -88,9 +81,6 @@ nav {
   right: -170px;
   /* z-index: -1; */
   max-width: 800px;
- 
-
-
 }
 .home-image-section {
   max-width: 600px;
@@ -144,7 +134,7 @@ nav {
 .secondary-button:hover {
   color: black;
 
-  background-color:grey;
+  background-color: grey;
 }
 .about-section-container {
   margin-top: 20rem;
@@ -348,7 +338,6 @@ nav {
   .navbar-links-container a {
     margin-right: 1rem;
     font-size: 1rem;
-    
   }
   .primary-button {
     font-size: 1rem;
@@ -513,18 +502,16 @@ nav {
   color: #167bff;
 }
 
-
-.main-card{
+.main-card {
   display: flex;
   justify-content: space-evenly;
   margin-top: 5rem;
 }
-.card-1{
+.card-1 {
   text-align: center;
 }
 
-
-.wrapper{
+.wrapper {
   display: inline-flex;
   background: #fff;
   height: 100px;
@@ -533,10 +520,9 @@ nav {
   justify-content: space-evenly;
   border-radius: 5px;
   padding: 20px 15px;
-  
 }
 
-.wrapper .option{
+.wrapper .option {
   background: #fff;
   height: 100%;
   width: 100%;
@@ -550,14 +536,14 @@ nav {
   border: 2px solid lightgrey;
   transition: all 0.3s ease;
 }
-.wrapper .option .dot{
+.wrapper .option .dot {
   height: 20px;
   width: 20px;
   background: white;
   border-radius: 50%;
   position: relative;
 }
-.wrapper .option .dot::before{
+.wrapper .option .dot::before {
   position: absolute;
   content: "";
   top: 4px;
@@ -570,28 +556,39 @@ nav {
   transform: scale(1.5);
   transition: all 0.3s ease;
 }
-input[type="radio"]{
+input[type="radio"] {
   display: none;
 }
 #option-1:checked:checked ~ .option-1,
-#option-2:checked:checked ~ .option-2{
+#option-2:checked:checked ~ .option-2 {
   border-color: #0069d9;
   background: #0069d9;
 }
 #option-1:checked:checked ~ .option-1 .dot,
-#option-2:checked:checked ~ .option-2 .dot{
+#option-2:checked:checked ~ .option-2 .dot {
   background: #fff;
 }
 #option-1:checked:checked ~ .option-1 .dot::before,
-#option-2:checked:checked ~ .option-2 .dot::before{
+#option-2:checked:checked ~ .option-2 .dot::before {
   opacity: 1;
   transform: scale(1);
 }
-.wrapper .option span{
+.wrapper .option span {
   font-size: 20px;
   color: #808080;
 }
 #option-1:checked:checked ~ .option-1 span,
-#option-2:checked:checked ~ .option-2 span{
+#option-2:checked:checked ~ .option-2 span {
   color: #fff;
+}
+.card-container {
+  display: block;
+  width: 52rem;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: -2rem;
+  justify-content: space-evenly;
+}
+.card-0 {
+  /* justify-content: space-evenly; */
 }

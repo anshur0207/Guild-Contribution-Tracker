@@ -102,6 +102,7 @@ class GmailAPI {
     const threadId = await this.searchGmail(searchText);
 
     var newMessages = [];
+
     console.log("Loading.....Kindly Wait");
     for (let i = 0; i < threadId.length; i++) {
       const message = await this.readGmailContent(threadId[i]);
@@ -154,21 +155,70 @@ class GmailAPI {
         //5.community_points
         const p = await Type.findOne({ contribution_type: contributionType });
         const community_points = p.community_points;
-        let dates = moment(curr_date).format('D/MM/YYYY');
+
+        //6. date
+        let dates = moment(curr_date).format("D/MM/YYYY");
+
+        //7.quaters
+        const d = new Date(curr_date);
+        const month = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        let month_name = month[d.getMonth()];
+
+        var quater = 0;
+        if (
+          month_name === "April" ||
+          month_name === "May" ||
+          month_name === "June"
+        ) {
+          quater = "Q1";
+        } else if (
+          month_name === "July" ||
+          month_name === "August" ||
+          month_name === "September"
+        ) {
+          quater = "Q2";
+        } else if (
+          month_name === "October" ||
+          month_name === "November" ||
+          month_name === "December"
+        ) {
+          quater = "Q3";
+        } else if (
+          month_name === "January" ||
+          month_name === "February" ||
+          month_name === "March"
+        ) {
+          quater = "Q4";
+        }
+
+        const oldUser = await contribute.findOne({
+          contribution_type: contributionType,
+          email: str,
+        });
 
         //pushing data into db
         try {
-          const oldUser = await contribute.findOne({
-            contribution_type: contributionType,
-            email: str,
-          });
-
           if (!oldUser && user) {
             const contributionDetails = {
               contribution_type: contributionType,
               body: decodedStr1,
               email: str,
               date: dates,
+              fullDate: curr_date,
+              quater,
               community_points,
               userFName: user.fname,
               userLName: user.lname,
@@ -229,7 +279,9 @@ class GmailAPI {
               if (error) {
                 console.log(error);
               } else {
-                console.log(" Contribution Submission Email sent: " + info.response);
+                console.log(
+                  " Contribution Submission Email sent: " + info.response
+                );
               }
             });
             var transporter = nodemailer.createTransport({
@@ -256,7 +308,9 @@ class GmailAPI {
               if (error) {
                 console.log(error);
               } else {
-                console.log(" Admin Submssion notification Email sent: " + info.response);
+                console.log(
+                  " Admin Submssion notification Email sent: " + info.response
+                );
               }
             });
           } else {

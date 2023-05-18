@@ -41,7 +41,7 @@ const Work = () => {
         <h3 className="primary-heading">
           How It Works- Because we worked 24/7
         </h3>
-        <p className="primary-text">We worked very Hard for this.</p>
+        <p className="primary-text">Nothing for now</p>
       </div>
       <div className="work-section-bottom">
         {workInfoData.map((data) => (
