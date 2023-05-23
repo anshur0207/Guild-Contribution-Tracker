@@ -1,332 +1,710 @@
 var axios = require("axios");
+
 var qs = require("qs");
+
 var nodemailer = require("nodemailer");
 
+
+
+
 const mongoose = require("mongoose");
+
 require("./userDetails");
+
 const User = mongoose.model("UserInfo");
+
 require("./contributionDetails");
+
 const contribute = mongoose.model("Contribution");
+
 require("./contributionType");
+
 const Type = mongoose.model("ContributionType");
+
 const Mailgen = require("mailgen");
+
 const moment = require("moment");
 
+
+
+
 class GmailAPI {
-  accessToken = "";
-  constructor() {
-    this.accessToken = this.getAcceToken();
-  }
 
-  getAcceToken = async () => {
-    var data = qs.stringify({
-      client_id:
-        "942020892524-r7f01k20k952a92djkgh0n636nfo57dh.apps.googleusercontent.com",
-      client_secret: "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",
-      refresh_token:
-        "1//0gKKFkUusKiPoCgYIARAAGBASNwF-L9Ir7LMaaK70V7qAG1YbpZxg3g2CZZWMy3VKt3IWgWNUkVFEoM8quzcYonuKBUYmykhAAO0",
-      grant_type: "refresh_token",
-    });
-    var config = {
-      method: "post",
-      url: "https://accounts.google.com/o/oauth2/token",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      data: data,
-    };
+  accessToken = "";
 
-    let accessToken = "";
+  constructor() {
 
-    await axios(config)
-      .then(async function (response) {
-        accessToken = await response.data.access_token;
+    this.accessToken = this.getAcceToken();
 
-        // console.log("Access Token " + accessToken);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  }
 
-    return accessToken;
-  };
 
-  searchGmail = async (searchItem) => {
-    var config1 = {
-      method: "get",
-      url:
-        "https://www.googleapis.com/gmail/v1/users/me/messages?q=" + searchItem,
-      headers: {
-        Authorization: `Bearer ${await this.accessToken} `,
-      },
-    };
 
-    var Ids = [];
-    await axios(config1)
-      .then(async function (response) {
-        var details = await response.data["messages"];
 
-        Ids.push(...details.map((detail) => detail.id));
-        //console.log(Ids);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  getAcceToken = async () => {
 
-    return Ids;
-  };
+    var data = qs.stringify({
 
-  readGmailContent = async (messageId) => {
-    var config = {
-      method: "get",
-      url: `https://gmail.googleapis.com/gmail/v1/users/me/messages/${messageId}`,
-      headers: {
-        Authorization: `Bearer ${await this.accessToken}`,
-      },
-    };
+      client_id:
 
-    var data = {};
+        "942020892524-r7f01k20k952a92djkgh0n636nfo57dh.apps.googleusercontent.com",
 
-    await axios(config)
-      .then(async function (response) {
-        data = await response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      client_secret: "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",
 
-    return data;
-  };
+      refresh_token:
 
-  readInboxContent = async (searchText) => {
-    const threadId = await this.searchGmail(searchText);
+        "1//0gdbVAEbJngnECgYIARAAGBASNwF-L9IrGLwfSuNalRim99UY2BTMKz5o2Szbh7dOJvTzFjVH4uyBAUzFIAZUQUZmUn4LQCo2Dqo",
 
-    var newMessages = [];
+      grant_type: "refresh_token",
 
-    console.log("Loading.....Kindly Wait");
-    for (let i = 0; i < threadId.length; i++) {
-      const message = await this.readGmailContent(threadId[i]);
-      const encodedMessage = await message.payload.body.data;
+    });
 
-      if (encodedMessage) {
-        //1. email body
-        const decodedStr = Buffer.from(encodedMessage, "base64").toString(
-          "ascii"
-        );
-        const decodedStr1 = decodedStr.split(/\r?\n/).slice(1).join(" ");
+    var config = {
 
-        //2. contribution type
-        const contributionType1 = decodedStr
-          .split(/Contribution_Type:/i)[1]
-          .split("\r\n")[0]
-          .trim();
-        var contributionType = "";
-        const type = [
-          "Case Study Submission",
-          "Interviews",
-          "Webinar",
-          "Support",
-          "Mentoring",
-          "Utility",
-          "Asset",
-          "Session",
-        ];
-        const includesValue = type.some((element) => {
-          return element.toLowerCase() === contributionType1.toLowerCase();
-        });
-        if (includesValue) {
-          contributionType = contributionType1.toLowerCase();
-        } else contributionType = "others";
-        //3. email Id
-        var header = message.payload.headers;
-        for (let i = 0; i < header.length; i++) {
-          if (header[i].name === "From") {
-            var str = header[i].value;
-            str = str.substring(str.indexOf("<") + 1, str.lastIndexOf(">"));
-          }
-          if (header[i].name === "Date") {
-            var curr_date = header[i].value;
-          }
-        }
+      method: "post",
 
-        //4. user
-        const user = await User.findOne({ email: str });
+      url: "https://accounts.google.com/o/oauth2/token",
 
-        //5.community_points
-        const p = await Type.findOne({ contribution_type: contributionType });
-        const community_points = p.community_points;
+      headers: {
 
-        //6. date
-        let dates = moment(curr_date).format("D/MM/YYYY");
+        "Content-Type": "application/x-www-form-urlencoded",
 
-        //7.quaters
-        const d = new Date(curr_date);
-        const month = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        let month_name = month[d.getMonth()];
+      },
 
-        var quater = 0;
-        if (
-          month_name === "April" ||
-          month_name === "May" ||
-          month_name === "June"
-        ) {
-          quater = "Q1";
-        } else if (
-          month_name === "July" ||
-          month_name === "August" ||
-          month_name === "September"
-        ) {
-          quater = "Q2";
-        } else if (
-          month_name === "October" ||
-          month_name === "November" ||
-          month_name === "December"
-        ) {
-          quater = "Q3";
-        } else if (
-          month_name === "January" ||
-          month_name === "February" ||
-          month_name === "March"
-        ) {
-          quater = "Q4";
-        }
+      data: data,
 
-        const oldUser = await contribute.findOne({
-          contribution_type: contributionType,
-          email: str,
-        });
+    };
 
-        //pushing data into db
-        try {
-          if (!oldUser && user) {
-            const contributionDetails = {
-              contribution_type: contributionType,
-              body: decodedStr1,
-              email: str,
-              date: dates,
-              fullDate: curr_date,
-              quater,
-              community_points,
-              userFName: user.fname,
-              userLName: user.lname,
-            };
 
-            //store details in object
-            await contribute.create(contributionDetails);
 
-            //Pushing contribution into user
 
-            const doc = await contribute.findOne(contributionDetails);
-            user.contributions.push(doc);
+    let accessToken = "";
 
-            user.save();
-            //console.log("User Details: "+user);
 
-            // New Contributions
-            newMessages.push(contributionDetails);
-            var transporter = nodemailer.createTransport({
-              service: "gmail",
-              auth: {
-                user: "contributions123@gmail.com",
-                pass: "hnlywmfafqejjbqi",
-              },
-            });
 
-            let MailGenerator = new Mailgen({
-              theme: "default",
 
-              product: {
-                name: "Guild Contribution Tracker",
+    await axios(config)
 
-                link: "https://mailgen.js/",
-              },
-            });
+      .then(async function (response) {
 
-            let response2 = {
-              body: {
-                intro: `Thank you ${user.fname} for submitting contribution of ${contributionType}. This is added against your name in the portal.
-                  
-                   You can review and edit the same on portal, And You will get ${community_points} Community Points .`,
-              },
-            };
+        accessToken = await response.data.access_token;
 
-            let mail = MailGenerator.generate(response2);
 
-            var mailOptions = {
-              from: "contributions123@gmail.com",
 
-              to: str,
 
-              subject: "New Contribution is submitted  ",
+        // console.log("Access Token " + accessToken);
 
-              html: mail,
-            };
+      })
 
-            transporter.sendMail(mailOptions, function (error, info) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log(
-                  " Contribution Submission Email sent: " + info.response
-                );
-              }
-            });
-            var transporter = nodemailer.createTransport({
-              service: "gmail",
-              auth: {
-                user: "contributions123@gmail.com",
-                pass: "hnlywmfafqejjbqi",
-              },
-            });
+      .catch(function (error) {
 
-            var mailOptions = {
-              from: "contributions123@gmail.com",
-              to: "contributions123@gmail.com",
-              subject: "New Contribution is submitted  ",
-              text:
-                "Dear Admin , Your team Member " +
-                user.fname +
-                " is contributed towards  " +
-                contributionType +
-                ". Kindly Check.",
-            };
+        console.log(error);
 
-            transporter.sendMail(mailOptions, function (error, info) {
-              if (error) {
-                console.log(error);
-              } else {
-                console.log(
-                  " Admin Submssion notification Email sent: " + info.response
-                );
-              }
-            });
-          } else {
-          }
+      });
 
-          var c = await contribute.find();
-        } catch (error) {
-          console.log({ status: "error", data: error });
-        }
-      }
-    }
-    console.log("New Contributions:");
-    console.log(newMessages);
 
-    return c;
-  };
+
+
+    return accessToken;
+
+  };
+
+
+
+
+  searchGmail = async (searchItem) => {
+
+    var config1 = {
+
+      method: "get",
+
+      url:
+
+        "https://www.googleapis.com/gmail/v1/users/me/messages?q=" + searchItem,
+
+      headers: {
+
+        Authorization: `Bearer ${await this.accessToken} `,
+
+      },
+
+    };
+
+
+
+
+    var Ids = [];
+
+    await axios(config1)
+
+      .then(async function (response) {
+
+        var details = await response.data["messages"];
+
+
+
+
+        Ids.push(...details.map((detail) => detail.id));
+
+        //console.log(Ids);
+
+      })
+
+      .catch(function (error) {
+
+        console.log(error);
+
+      });
+
+
+
+
+    return Ids;
+
+  };
+
+
+
+
+  readGmailContent = async (messageId) => {
+
+    var config = {
+
+      method: "get",
+
+      url: `https://gmail.googleapis.com/gmail/v1/users/me/messages/${messageId}`,
+
+      headers: {
+
+        Authorization: `Bearer ${await this.accessToken}`,
+
+      },
+
+    };
+
+
+
+
+    var data = {};
+
+
+
+
+    await axios(config)
+
+      .then(async function (response) {
+
+        data = await response.data;
+
+      })
+
+      .catch(function (error) {
+
+        console.log(error);
+
+      });
+
+
+
+
+    return data;
+
+  };
+
+
+
+
+  readInboxContent = async (searchText) => {
+
+    const threadId = await this.searchGmail(searchText);
+
+
+
+
+    var newMessages = [];
+
+
+
+
+    console.log("Loading.....Kindly Wait");
+
+    for (let i = 0; i < threadId.length; i++) {
+
+      const message = await this.readGmailContent(threadId[i]);
+
+      const encodedMessage = await message.payload.body.data;
+
+
+
+
+      if (encodedMessage) {
+
+        //1. email body
+
+        const decodedStr = Buffer.from(encodedMessage, "base64").toString(
+
+          "ascii"
+
+        );
+
+        const decodedStr1 = decodedStr.split(/\r?\n/).slice(1).join(" ");
+
+
+
+
+        //2. contribution type
+
+        const contributionType1 = decodedStr
+
+          .split(/Contribution_Type:/i)[1]
+
+          .split("\r\n")[0]
+
+          .trim();
+
+        var contributionType = "";
+
+        const type = [
+
+          "Case Study Submission",
+
+          "Interviews",
+
+          "Webinar",
+
+          "Support",
+
+          "Mentoring",
+
+          "Utility",
+
+          "Asset",
+
+          "Session",
+
+        ];
+
+        const includesValue = type.some((element) => {
+
+          return element.toLowerCase() === contributionType1.toLowerCase();
+
+        });
+
+        if (includesValue) {
+
+          contributionType = contributionType1.toLowerCase();
+
+        } else contributionType = "others";
+
+        //3. email Id
+
+        var header = message.payload.headers;
+
+        for (let i = 0; i < header.length; i++) {
+
+          if (header[i].name === "From") {
+
+            var str = header[i].value;
+
+            str = str.substring(str.indexOf("<") + 1, str.lastIndexOf(">"));
+
+          }
+
+          if (header[i].name === "Date") {
+
+            var curr_date = header[i].value;
+
+          }
+
+        }
+
+
+
+
+        //4. user
+
+        const user = await User.findOne({ email: str });
+
+
+
+
+        //5.community_points
+
+        const p = await Type.findOne({ contribution_type: contributionType });
+
+        const community_points = p.community_points;
+
+
+
+
+        //6. date
+
+        let dates = moment(curr_date).format("D/MM/YYYY");
+
+
+
+
+        //7.quaters
+
+        const d = new Date(curr_date);
+
+        const month = [
+
+          "January",
+
+          "February",
+
+          "March",
+
+          "April",
+
+          "May",
+
+          "June",
+
+          "July",
+
+          "August",
+
+          "September",
+
+          "October",
+
+          "November",
+
+          "December",
+
+        ];
+
+        let month_name = month[d.getMonth()];
+
+
+
+
+        var quater = 0;
+
+        if (
+
+          month_name === "April" ||
+
+          month_name === "May" ||
+
+          month_name === "June"
+
+        ) {
+
+          quater = "Q1";
+
+        } else if (
+
+          month_name === "July" ||
+
+          month_name === "August" ||
+
+          month_name === "September"
+
+        ) {
+
+          quater = "Q2";
+
+        } else if (
+
+          month_name === "October" ||
+
+          month_name === "November" ||
+
+          month_name === "December"
+
+        ) {
+
+          quater = "Q3";
+
+        } else if (
+
+          month_name === "January" ||
+
+          month_name === "February" ||
+
+          month_name === "March"
+
+        ) {
+
+          quater = "Q4";
+
+        }
+
+
+
+
+        const oldUser = await contribute.findOne({
+
+          contribution_type: contributionType,
+
+          email: str,
+
+        });
+
+
+
+
+        //pushing data into db
+
+        try {
+
+          if (!oldUser && user) {
+
+            const contributionDetails = {
+
+              contribution_type: contributionType,
+
+              body: decodedStr1,
+
+              email: str,
+
+              date: dates,
+
+              fullDate: curr_date,
+
+              quater,
+
+              community_points,
+
+              userFName: user.fname,
+
+              userLName: user.lname,
+
+            };
+
+
+
+
+            //store details in object
+
+            await contribute.create(contributionDetails);
+
+
+
+
+            //Pushing contribution into user
+
+
+
+
+            const doc = await contribute.findOne(contributionDetails);
+
+            user.contributions.push(doc);
+
+
+
+
+            user.save();
+
+            //console.log("User Details: "+user);
+
+
+
+
+            // New Contributions
+
+            newMessages.push(contributionDetails);
+
+            var transporter = nodemailer.createTransport({
+
+              service: "gmail",
+
+              auth: {
+
+                user: "contributions123@gmail.com",
+
+                pass: "hnlywmfafqejjbqi",
+
+              },
+
+            });
+
+
+
+
+            let MailGenerator = new Mailgen({
+
+              theme: "default",
+
+
+
+
+              product: {
+
+                name: "Guild Contribution Tracker",
+
+
+
+
+                link: "https://mailgen.js/",
+
+              },
+
+            });
+
+
+
+
+            let response2 = {
+
+              body: {
+
+                intro: `Thank you ${user.fname} for submitting contribution of ${contributionType}. This is added against your name in the portal.
+
+                 
+
+                   You can review and edit the same on portal, And You will get ${community_points} Community Points .`,
+
+              },
+
+            };
+
+
+
+
+            let mail = MailGenerator.generate(response2);
+
+
+
+
+            var mailOptions = {
+
+              from: "contributions123@gmail.com",
+
+
+
+
+              to: str,
+
+
+
+
+              subject: "New Contribution is submitted  ",
+
+
+
+
+              html: mail,
+
+            };
+
+
+
+
+            transporter.sendMail(mailOptions, function (error, info) {
+
+              if (error) {
+
+                console.log(error);
+
+              } else {
+
+                console.log(
+
+                  " Contribution Submission Email sent: " + info.response
+
+                );
+
+              }
+
+            });
+
+            var transporter = nodemailer.createTransport({
+
+              service: "gmail",
+
+              auth: {
+
+                user: "contributions123@gmail.com",
+
+                pass: "hnlywmfafqejjbqi",
+
+              },
+
+            });
+
+
+
+
+            var mailOptions = {
+
+              from: "contributions123@gmail.com",
+
+              to: "contributions123@gmail.com",
+
+              subject: "New Contribution is submitted  ",
+
+              text:
+
+                "Dear Admin , Your team Member " +
+
+                user.fname +
+
+                " is contributed towards  " +
+
+                contributionType +
+
+                ". Kindly Check.",
+
+            };
+
+
+
+
+            transporter.sendMail(mailOptions, function (error, info) {
+
+              if (error) {
+
+                console.log(error);
+
+              } else {
+
+                console.log(
+
+                  " Admin Submssion notification Email sent: " + info.response
+
+                );
+
+              }
+
+            });
+
+          } else {
+
+          }
+
+
+
+
+          var c = await contribute.find();
+
+        } catch (error) {
+
+          console.log({ status: "error", data: error });
+
+        }
+
+      }
+
+    }
+
+    console.log("New Contributions:");
+
+    console.log(newMessages);
+
+
+
+
+    return c;
+
+  };
+
 }
+
+
+
 
 module.exports = new GmailAPI();
