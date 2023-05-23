@@ -8,7 +8,7 @@ import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import Select from "react-select";
 import { textAlign } from "@mui/system";
-const moment = require("moment-fquarter");
+
 
 function TotalContributionPoints() {
   const [userData, setUserData] = useState("");
@@ -156,7 +156,7 @@ function TotalContributionPoints() {
         <div className="card-1">
           <Card style={{ width: "18rem", height: "12rem" }}>
             <Card.Body>
-              <Carousel interval={null}>
+              <Carousel interval={2000}>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
