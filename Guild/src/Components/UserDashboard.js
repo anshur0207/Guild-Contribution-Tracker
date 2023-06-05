@@ -21,7 +21,7 @@ export default function Dashboard() {
            <Navbar />
 
            
-           <h1 style={{textAlign:'center',marginTop:'50px', color:"white"}}>This is User Dashboard </h1>
+           <h1 style={{textAlign:'center',marginTop:'50px', color:"white"}}>This&nbsp; is &nbsp;User&nbsp; Dashboard </h1>
            <div className="home-bannerImage-container" >
           <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
         </div>
@@ -30,7 +30,7 @@ export default function Dashboard() {
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
-        <Card.Title>Your Contribution</Card.Title>
+        <Card.Title>Your&nbsp; Contribution</Card.Title>
         {/* <Card.Text>
           Mail Data
         </Card.Text> */}
@@ -45,7 +45,7 @@ export default function Dashboard() {
       
       <Card.Body>
         
-        <Card.Title>Your Points</Card.Title>
+        <Card.Title>Your&nbsp; Points</Card.Title>
         {/* <Card.Text>
           Mail Data
         </Card.Text> */}

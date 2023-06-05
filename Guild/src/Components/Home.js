@@ -114,7 +114,7 @@ const Home = () => {
             <div className="home-text-section">
               <h1 className="primary-heading">Guild Contribution Tracker</h1>
               <p className="primary-text">
-                Want to get Community Points ? &nbsp;&nbsp;&nbsp;&nbsp;Just
+                Want&nbsp; to&nbsp; get&nbsp; Community&nbsp; Points ? &nbsp;&nbsp;&nbsp;Just
                 Contribute
               </p>
 
@@ -153,7 +153,7 @@ const Home = () => {
         <div className="home-text-section">
           <h1 className="primary-heading">Guild Contribution Tracker</h1>
           <p className="primary-text">
-            Want to get Community Points ? &nbsp;&nbsp;&nbsp;&nbsp;Just
+            Want &nbsp; to &nbsp; get &nbsp; Community  &nbsp;Points ? &nbsp;&nbsp;&nbsp;Just
             Contribute
           </p>
           <a href="/sign-in" style={{ textDecoration: "none" }}>

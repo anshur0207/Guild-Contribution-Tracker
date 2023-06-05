@@ -510,26 +510,24 @@ export default function UserContribution({ getAllData }) {
       <Navbar />
       <div className="home-bannerImage-container"></div>
       <h1 style={{ textAlign: "center", color: "white", marginTop: "3.5rem" }}>
-        Your Contributions
+        Your &nbsp; Contributions
       </h1>
       {/* <h4 style={{ textAlign: "center", color: "white", marginTop: "3.5rem" }}>Total Contribution points : {userData.points}</h4> */}
       <div className="container ">
         <MDBTable align="middle" style={{ color: "white", marginTop: "5rem" }}>
           <MDBTableHead>
             <tr>
-              <th scope="col" style={{ textAlign: "center" }}>
-                EMAIL
-              </th>
+              
 
               <th scope="col" style={{ textAlign: "center" }}>
-                CONTRIBUTION TYPE
+                Contribution &nbsp; Type
               </th>
               <th scope="col" style={{ textAlign: "center" }}>
                 Date
               </th>
 
               <th scope="col" style={{ textAlign: "center" }}>
-                STATUS
+                Status
               </th>
 
               <th scope="col" style={{ textAlign: "center",width:"5rem" }}>
@@ -551,32 +549,7 @@ export default function UserContribution({ getAllData }) {
               if (userData.email === i.email) {
                 return (
                   <tr style={{ textAlign: "center" }}>
-                    <td>
-                      <div className=" align-items-center">
-                        {/* <img
-
-                    src='https://mdbootstrap.com/img/new/avatars/8.jpg'
-
-                    alt=''
-
-                    style={{ width: '45px', height: '45px' }}
-
-                    className='rounded-circle'
-
-                  /> */}
-
-                        <div className="ms-3" style={{ marginLeft: "2rem" }}>
-                          <p
-                            className=" fw-bold mb-1 "
-                            style={{ textAlign: "center" }}
-                          >
-                            {i.userFName} &nbsp;&nbsp;&nbsp;&nbsp;{i.userLName}
-                          </p>
-
-                          <p className="text-muted mb-0">{i.email}</p>
-                        </div>
-                      </div>
-                    </td>
+                    
 
                     <td>
                       <p
@@ -640,9 +613,17 @@ export default function UserContribution({ getAllData }) {
                           Edit
                         </button>
                       ) : i.status === "Pending" ? (
-                        <button type="button" class="btn btn-primary" disabled>
-                          Edit
-                        </button>
+                        <Button
+                        onClick={() => {
+                          setType(i.contribution_type);
+
+                          setEmail(i.email);
+                          setBody(i.body);
+                          handleOpen();
+                        }}
+                      >
+                        Edit
+                      </Button>
                       ) : (
                         <Button
                           onClick={() => {

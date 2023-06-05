@@ -14,6 +14,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import greentick from "../Assets/greentick.png";
 import redcross from "../Assets/redcross.png"
+import disabled from "../Assets/disabled.png"
 
 
 import Form from "react-bootstrap/Form";
@@ -63,10 +64,11 @@ export default function MailData({ getAllUser }) {
   //         // alert(data.data);
   //         console.log("Data is Deleted");
   //         changePoints(email);
-  //         //window.location.reload(true);
+          
          
   //       });
   //   } else {
+      
   //   }
   // };
 
@@ -258,10 +260,37 @@ export default function MailData({ getAllUser }) {
                     >
                       Approve
                     </button> */}
-                     <img src={greentick} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="green tick"
+
+                          {(i.status === "Approved") || (i.status === "Rejected")  ? (
+                             <img src={disabled} style={{width:"2rem", height:"2rem" }} alt="green tick"
+                            //  onClick={() =>
+                            //    chStatus(i.email, i.contribution_type, "Accept")}
+                              />
+                            
+                        
+                      ) : 
+                      
+                       (
+                        <div>
+                          <img src={greentick} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="green tick"
+                        onClick={() =>
+                          chStatus(i.email, i.contribution_type, "Accept")
+                        } />
+                        <img src={redcross} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="redcross" onClick={() =>
+                          chStatus(i.email, i.contribution_type, "Reject")
+                        } />
+                        
+                        </div>
+                        
+                        
+                       
+                      ) }
+                    
+                    
+                     {/* <img src={greentick} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="green tick"
                       onClick={() =>
                         chStatus(i.email, i.contribution_type, "Accept")
-                      } />
+                      } /> */}
                     {/* <button
                       className="btn btn-danger"
                       style={{
@@ -275,9 +304,23 @@ export default function MailData({ getAllUser }) {
                     >
                       Reject
                     </button> */}
-                    <img src={redcross} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="redcross" onClick={() =>
-                        chStatus(i.email, i.contribution_type, "Reject")
-                      } />
+
+{/* {(i.status === "Approved") ||(i.status === "Rejected")  ? (
+                            <img src={disabled} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="redcross"  />
+                            
+                        
+                      ) : 
+                      
+                     (
+                        <img src={redcross} style={{width:"2rem", height:"2rem" ,cursor:"pointer"}} alt="redcross" onClick={() =>
+                          chStatus(i.email, i.contribution_type, "Reject")
+                        } />
+                       
+                      )} */}
+
+
+
+                    
                     {/* <button
                       className="btn btn-warning"
                       style={{

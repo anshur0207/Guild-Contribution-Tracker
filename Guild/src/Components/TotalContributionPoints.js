@@ -446,7 +446,7 @@ function TotalContributionPoints() {
 
       <br></br>
       <h1 style={{ textAlign: "center", marginTop: "50px", color: "white" }}>
-        Points Summary: {userData.points}{" "}
+        Points &nbsp; Summary &nbsp;: &nbsp;{userData.points}{" "}
       </h1>
       <br></br>
 
@@ -454,9 +454,9 @@ function TotalContributionPoints() {
         <Table striped>
           <thead style={{ color: "white" }}>
             <tr style={{ textAlign: "center" }}>
-              <th>Contribution Type</th>
+              <th>Contribution &nbsp; Type</th>
 
-              <th>Points Credited</th>
+              <th>Points &nbsp; Credited</th>
 
               <th>Date</th>
             </tr>
