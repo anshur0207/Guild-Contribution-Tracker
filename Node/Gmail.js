@@ -1323,7 +1323,7 @@ class GmailAPI {
 
                   console.log(
 
-                    "User doesnot exist Email sent: " +
+                    "User does not exist Email sent: " +
 
                       str +
 
