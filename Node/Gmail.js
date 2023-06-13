@@ -104,7 +104,7 @@ class GmailAPI {
 
       refresh_token:
 
-       "1//0gLxFYWAPoxiMCgYIARAAGBASNwF-L9IrWTRqyrqeQr57D-J7ho3Ga41qaGFbLYCwDDCYQVsCA-v00Sp-O2h_4RUJKlcTihmGOfQ",
+      "1//0gLxFYWAPoxiMCgYIARAAGBASNwF-L9IrWTRqyrqeQr57D-J7ho3Ga41qaGFbLYCwDDCYQVsCA-v00Sp-O2h_4RUJKlcTihmGOfQ",
 
 
 
@@ -326,12 +326,19 @@ class GmailAPI {
 
 
         const mimeType = await message.payload.mimeType;
+       
+       
+
+        
 
         if (mimeType == "text/plain" || mimeType == "text/html") {
 
-          //1. email body
 
+          //1. email body
           const encodedMessage = await message.payload.body.data;
+
+
+          
 
           const decodedStr = Buffer.from(encodedMessage, "base64").toString(
 
@@ -1497,6 +1504,7 @@ class GmailAPI {
           });
 
         }
+      
 
       } else {
 

@@ -21,6 +21,9 @@
     "mongoose": "^7.0.5",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.22",
-    "qs": "^6.11.1"
+    "qs": "^6.11.1",
+    
+      "type": "module"
+    
   }
 }

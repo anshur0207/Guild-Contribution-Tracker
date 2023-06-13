@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 
+
 app.use(cors());
 
 app.set("view engine", "ejs");
@@ -68,6 +69,7 @@ const Mails = mongoose.model("Contribution");
 const User = mongoose.model("UserInfo");
 
 app.post("/register", async (req, res) => {
+  
   const { fname, lname, email, password, userType } = req.body;
 
   const encryptedPassword = await bcrypt.hash(password, 10);
@@ -102,19 +104,74 @@ app.post("/register", async (req, res) => {
         pass: "hnlywmfafqejjbqi",
       },
     });
+    let MailGenerator = new Mailgen({
+      theme: "default",
+
+      product: {
+        name: "Guild Contribution Tracker",
+
+        link: "https://mailgen.js/",
+      },
+    });
+
+    let response3 = {
+      body: {
+
+        intro: `Thank you  for Register with our website Guild Contribution tracker ! 
+        Kindly Start Contributing And get community Points.<br><br>
+
+
+        <b>Please follow the Below format for Contribution.</b><br><br>
+
+        
+       1)Body: First Line Should be Contribution_type.<br>
+       2)Add Some Content to your Body.<br>
+       3)Before Sending the mail choose Plain Text Mode.<br>
+       4)Avoid Attachments and HTML format.<br><br>
+       
+
+      <b> Below is the Given example:-</b><br>
+       Contribution_type: Utility<br>
+
+      This is my Content for the Contribution Type.<br>
+      Thanks <br>
+
+     
+
+     `
+
+
+
+
+
+
+      },
+    };
+
+    let mail = MailGenerator.generate(response3);
 
     var mailOptions = {
       from: "contributions123@gmail.com",
 
       to: email,
 
-      subject: "Thank You For Register with us",
+      subject: "Thank You For Registration",
 
-      text:
-        "Hi" +
-        fname +
-        ",Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
+      html: mail,
     };
+
+    // var mailOptions = {
+    //   from: "contributions123@gmail.com",
+
+    //   to: email,
+
+    //   subject: "Thank You For Register with us",
+
+    //   text:
+    //     "Hi " +
+    //     fname +
+    //     ",Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
+    // };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
