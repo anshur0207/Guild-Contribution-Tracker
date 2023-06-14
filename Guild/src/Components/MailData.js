@@ -169,22 +169,22 @@ export default function MailData({ getAllUser }) {
       <Navbar />
       <div className="home-bannerImage-container"></div>
       <h1 style={{ textAlign: "center", color: "white", marginTop: "3.5rem" }}>
-        All Data fetched By Database
+       All &nbsp;  Contributions
       </h1>
 
       <div className="container " style={{ textAlign: "center" }}>
         <MDBTable align="middle" style={{ color: "white", marginTop: "5rem" }}>
           <MDBTableHead>
             <tr>
-              <th scope="col">EMAIL</th>
-              <th scope="col">CONTRIBUTION TYPE</th>
-              <th scope="col" style={{ textAlign: "center" }}>STATUS</th>
+              <th scope="col">Email</th>
+              <th scope="col">Contribution Type</th>
+              <th scope="col" style={{ textAlign: "center" }}>Status</th>
 
               <th scope="col" style={{ textAlign: "center" ,width:"5rem"}}>
-                ACTIONS
+                Actions
               </th>
-              <th style={{ textAlign: "center" }}>FEEDBACK</th>
-              <th style={{ textAlign: "center" }}>VIEW</th>
+              <th style={{ textAlign: "center" }}>Feedback</th>
+              <th style={{ textAlign: "center" }}>View</th>
 
             </tr>
           </MDBTableHead>

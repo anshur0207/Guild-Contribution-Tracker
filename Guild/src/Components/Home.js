@@ -4,9 +4,10 @@ import BannerImage from "../Assets/home-banner-image.png";
 import NavBarSignup from "./Navbar";
 import { FiArrowRight } from "react-icons/fi";
 import Work from "./Work";
-
+import Roadmap from "./roadmap";
 import Footer from "./Footer";
 import { useEffect } from "react";
+import Roadmap2 from "./roadMap2";
 
 const Home = () => {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -94,7 +95,9 @@ const Home = () => {
               />
             </div>
           </div>
+          
           <Work />
+          
          
           <Footer />
         </div>
@@ -120,7 +123,8 @@ const Home = () => {
 
               <a
                 style={{ textDecoration: "none" }}
-                href="mailto:Contributions123@gmail.com?subject=Contribution Towards Guild Contribution tracker !&body=Contribution_Type:"
+                // href="mailto:Contributions123@gmail.com?subject=Contribution Towards Guild Contribution tracker !&body=Contribution_Type:"
+                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=contributions123@gmail.com&!&body=Contribution_Type:"
               >
                 <button className="secondary-button">
                   Contribute <FiArrowRight />
@@ -135,6 +139,7 @@ const Home = () => {
               />
             </div>
           </div>
+          <Roadmap />
           <Work />
           
           <Footer />
@@ -170,6 +175,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <Roadmap2 />
       <Work />
      
       <Footer />

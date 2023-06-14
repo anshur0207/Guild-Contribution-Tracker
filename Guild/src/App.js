@@ -4,6 +4,9 @@ import React from "react";
 import ResetPass from "./Components/ResetPass";
 import Checkmail from "./Components/CheckMail";
 import Work from "./Components/Work";
+import RoadMap from "./Components/roadmap";
+import RoadMap2 from "./Components/roadMap2";
+
 
 
 
@@ -45,6 +48,9 @@ function App() {
         <Route exact path="/userdetails" element={<UserDetails />}></Route>
         <Route exact path="/CheckMail" element={<Checkmail/>}></Route>
         <Route exact path="/Work" element={<Work />}></Route>
+        <Route exact path="/RoadMap" element={<RoadMap />}></Route>
+        <Route exact path="/RoadMap2" element={<RoadMap2 />}></Route>
+       
         
         <Route exact path="/ResetPass" element={<ResetPass />}></Route>
         <Route exact path="/Dashboard" element={<Dashboard />}></Route>

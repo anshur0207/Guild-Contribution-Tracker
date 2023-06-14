@@ -104,6 +104,7 @@ export default function SignUp() {
               name="UserType"
               value="User"
               onChange={(e) => setUserType(e.target.value)}
+              defaultChecked
             />
            <label for="option-1" class="option option-1">
      <div class="dot"></div>
@@ -185,7 +186,7 @@ export default function SignUp() {
             </button>
           </div>
           <p className="forgot-password text-center">
-            Already registered <a href="/sign-in">sign in?</a>
+            Already registered <a href="/sign-in"> &nbsp; Sign In</a>
           </p>
         </form>
 

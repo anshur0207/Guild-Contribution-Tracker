@@ -475,6 +475,7 @@ nav {
 }
 
 .auth-inner {
+  z-index: 1;
   width: 850px;
   margin: auto;
   background: #ffffff;

@@ -19,7 +19,8 @@ import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 
 import { Link } from "react-router-dom";
 const logout=()=>{
-  window.localStorage.clear();
+  localStorage.removeItem('token')
+  localStorage.removeItem('loggedIn')
   window.location.href="./sign-in";
 };
 
