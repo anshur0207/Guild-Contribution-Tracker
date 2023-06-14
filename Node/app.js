@@ -124,17 +124,17 @@ app.post("/register", async (req, res) => {
         <b>Please follow the Below format for Contribution.</b><br><br>
 
         
-       1)Body: First Line Should be Contribution_type.<br>
+       1)Body: First Line Should be Contribution Type.<br>
        2)Add Some Content to your Body.<br>
        3)Before Sending the mail choose Plain Text Mode.<br>
        4)Avoid Attachments and HTML format.<br><br>
        
 
       <b> Below is the Given example:-</b><br>
-       Contribution_type: Utility<br>
+       
 
-      This is my Content for the Contribution Type.<br>
-      Thanks <br>
+     <br>
+     <a href="https://ibb.co/vPNxsh2"><img src="https://i.ibb.co/MVzD8fq/Screenshot-2023-06-13-at-2-10-21-PM.png" alt="mail image demo" border="0"></a>
 
      
 
@@ -156,6 +156,7 @@ app.post("/register", async (req, res) => {
       to: email,
 
       subject: "Thank You For Registration",
+      logo: 'https://blog.hubspot.com/hubfs/image8-2.jpg',
 
       html: mail,
     };
