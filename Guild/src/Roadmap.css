@@ -1,0 +1,387 @@
+body {
+	font-family: "Heebo", sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 15px;
+	line-height: 1.5;
+	color: #5f5f5f;
+	letter-spacing: 1px;
+}
+
+h2,
+h4 {
+	font-family: "Dosis", sans-serif;
+	font-style: normal;
+	margin-bottom: 10px;
+	font-weight: 500;
+	color: #1c1d3e;
+}
+.pos-r {
+	position: relative;
+}
+section {
+	padding: 80px 0;
+}
+.section-title {
+	margin-bottom: 50px;
+	position: relative;
+}
+.section-title p {
+	font-size: 16px;
+}
+.title-effect {
+	width: 50px;
+	height: 50px;
+	top: 0;
+	position: absolute;
+	left: 0;
+	opacity: 0.5;
+	animation: rotation 12.8s steps(1) 0s infinite;
+}
+.text-center .title-effect {
+	left: 50%;
+	margin-left: -25px;
+}
+.text-center .section-title h6 {
+	padding: 15px 0;
+}
+
+.title-effect .bar {
+	background: #2575fc;
+}
+.title-effect .bar-top {
+	width: 100%;
+	height: 7px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: left top;
+	transform: scale(0, 1);
+	animation: bar-top 3.2s linear 0s infinite;
+}
+.title-effect .bar-right {
+	width: 7px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform-origin: left top;
+	transform: scale(1, 0);
+	animation: bar-right 3.2s linear 0s infinite;
+}
+.title-effect .bar-bottom {
+	width: 100%;
+	height: 7px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	transform-origin: right top;
+	transform: scale(0, 1);
+	animation: bar-bottom 3.2s linear 0s infinite;
+}
+.title-effect .bar-left {
+	width: 7px;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	transform-origin: left bottom;
+	transform: scale(1, 0);
+	animation: bar-left 3.2s linear 0s infinite;
+}
+
+.title {
+	position: relative;
+	color: #1c1d3e;
+	margin-bottom: 0;
+}
+.section-title h2 {
+	margin-bottom: 15px;
+}
+
+/* ------------------------
+    How It Work
+------------------------*/
+.work-process {
+	position: relative;
+}
+.step-num {
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 12px 20px 0 rgba(117, 178, 240, 0.4);
+	color: #005bea;
+	display: inline-block;
+	font-size: 18px;
+	font-weight: 600;
+	height: 50px;
+	right: 0;
+	line-height: 55px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 50px;
+}
+.theme-bg .work-process h4,
+.theme-bg .work-process p {
+	color: #ffffff;
+}
+.step-icon {
+	background: #ffffff;
+	width: 140px;
+	height: 140px;
+	position: relative;
+	border: 3px solid #fafaff;
+	border-radius: 50%;
+	line-height: 140px;
+	font-size: 40px;
+	text-align: center;
+	color: #1c1d3e;
+}
+.step-icon span {
+	position: relative;
+}
+.step-icon span::after,
+.step-icon span::before {
+	border-radius: 50%;
+	content: "";
+	height: 40px;
+	position: absolute;
+	width: 40px;
+	z-index: -1;
+}
+.step-icon span::after {
+	background: #cdf3f6;
+	height: 25px;
+	left: -10px;
+	top: 5px;
+	width: 25px;
+}
+.step-icon span::before {
+	background: #d4f8e6;
+	bottom: 0;
+	right: -10px;
+}
+.dark-bg .step-icon {
+	color: rgba(255, 255, 255, 0.9);
+	background: none;
+}
+.dark-bg .step-desc h4 {
+	color: #2575fc;
+}
+.dark-bg .step-icon {
+	border-color: rgba(255, 255, 255, 0.1);
+}
+.dark-bg .step-desc p {
+	color: rgba(255, 255, 255, 0.7);
+}
+.step-num-box {
+	position: relative;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+.work-process .box-loader {
+	position: absolute;
+	top: 30%;
+	right: -15%;
+	left: inherit;
+}
+.work-process.style-2 {
+	padding: 0;
+	display: flex;
+	align-items: center;
+}
+.work-process.style-2:before {
+	display: none;
+}
+.work-process.style-2 .step-num-box {
+	margin-bottom: 0;
+	margin-right: 30px;
+}
+.work-process.style-3 {
+	padding: 70px 30px 0;
+}
+.work-process.style-3 .step-num {
+	background: none;
+	box-shadow: none;
+	color: rgba(255, 255, 255, 0.1);
+	font-size: 120px;
+	height: auto;
+	left: 50%;
+	line-height: 120px;
+	margin-bottom: 0;
+	position: absolute;
+	top: 0;
+	transform: translateX(-50%);
+	width: auto;
+}
+#svg-container {
+	position: absolute;
+	width: 100%;
+	left: 52%;
+	z-index: -1;
+	transform: translateX(-50%);
+	width: 75%;
+}
+#svgC {
+	margin: 0 auto;
+	width: 100%;
+}
+
+/* ------------------------
+    box-loader
+------------------------*/
+.box-loader {
+	border-radius: 100%;
+	margin: 0 auto;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+}
+.box-loader span {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	background: #2575fc;
+	margin: 0 5px;
+	opacity: 0;
+}
+.box-loader span:nth-child(1) {
+	animation: opacitychange 1s ease-in-out infinite;
+}
+.box-loader span:nth-child(2) {
+	animation: opacitychange 1s ease-in-out 0.33s infinite;
+}
+.box-loader span:nth-child(3) {
+	animation: opacitychange 1s ease-in-out 0.66s infinite;
+}
+
+/*--rotation--*/
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(90deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	75% {
+		transform: rotate(270deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes bar-top {
+	0% {
+		transform: scale(0, 1);
+	}
+	12.5% {
+		transform: scale(1, 1);
+	}
+	87.5% {
+		transform: scale(1, 1);
+	}
+	100% {
+		transform: scale(0, 1);
+	}
+}
+@keyframes bar-right {
+	0% {
+		transform: scale(1, 0);
+	}
+	12.5% {
+		transform: scale(1, 0);
+	}
+	25% {
+		transform: scale(1, 1);
+	}
+	75% {
+		transform: scale(1, 1);
+	}
+	87.5% {
+		transform: scale(1, 0);
+	}
+	100% {
+		transform: scale(1, 0);
+	}
+}
+@keyframes bar-bottom {
+	0% {
+		transform: scale(0, 1);
+	}
+	25% {
+		transform: scale(0, 1);
+	}
+	37.5% {
+		transform: scale(1, 1);
+	}
+	62.5% {
+		transform: scale(1, 1);
+	}
+	75% {
+		transform: scale(0, 1);
+	}
+	100% {
+		transform: scale(0, 1);
+	}
+}
+@keyframes bar-left {
+	0% {
+		transform: scale(1, 0);
+	}
+	37.5% {
+		transform: scale(1, 0);
+	}
+	50% {
+		transform: scale(1, 1);
+	}
+	62.5% {
+		transform: scale(1, 0);
+	}
+	100% {
+		transform: scale(1, 0);
+	}
+}
+
+/*--opacitychange--*/
+
+@keyframes opacitychange {
+	0%,
+	100% {
+		opacity: 0;
+	}
+
+	60% {
+		opacity: 1;
+	}
+}
+
+/* responsive */
+@media (max-width: 1200px) {
+	#svg-container {
+		width: 85%;
+	}
+}
+@media (max-width: 992px) {
+	.md-mt-5 {
+		margin-top: 50px !important;
+	}
+	/*Step*/
+	.work-process .box-loader {
+		display: none;
+	}
+	.step-desc p {
+		max-width: 300px;
+		margin: 0 auto;
+	}
+	#svg-container {
+		width: 100%;
+		transform: rotate(90deg);
+		left: 0;
+		top: 50%;
+	}
+}

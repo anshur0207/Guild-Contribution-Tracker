@@ -124,7 +124,7 @@ const Home = () => {
               <a
                 style={{ textDecoration: "none" }}
                 // href="mailto:Contributions123@gmail.com?subject=Contribution Towards Guild Contribution tracker !&body=Contribution_Type:"
-                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=contributions123@gmail.com&!&body=Contribution_Type:"
+                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=contributions123@gmail.com&!&body=Contribution_Type:" target="blank"
               >
                 <button className="secondary-button">
                   Contribute <FiArrowRight />
@@ -139,6 +139,7 @@ const Home = () => {
               />
             </div>
           </div>
+          {/* <h1 style={{textAlign:"center",fontSize:"5rem",marginTop:"10rem", marginBottom:"-13rem",color: "rgb(142, 17, 166)"}}>How it Works? </h1> */}
           <Roadmap />
           <Work />
           
@@ -170,11 +171,12 @@ const Home = () => {
         <div className="home-image-section">
           <img
             src={BannerImage}
-            style={{ marginTop: "100px", marginLeft: "50px" }}
+            style={{ marginTop: "10rem", marginLeft: "50px" }}
             alt=""
           />
         </div>
       </div>
+      
       <Roadmap2 />
       <Work />
      
