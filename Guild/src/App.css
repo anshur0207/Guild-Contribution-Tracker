@@ -948,7 +948,7 @@ section {
 
 
 
-.container {
+.container-1 {
   position: relative;
   display: flex;
   justify-content: center;
@@ -958,7 +958,7 @@ section {
   padding: 100px 50px;
 }
 
-.container .card {
+.container-1 .card1 {
   position: relative;
   display: flex;
   justify-content: center;
@@ -972,6 +972,7 @@ section {
   box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
   color:rgb(142, 17, 166);
 }
+
 .content h2{
  justify-content: center;
   color:white;

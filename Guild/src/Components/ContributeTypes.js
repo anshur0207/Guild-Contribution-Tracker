@@ -9,8 +9,8 @@ export default class ContributeTypes extends Component {
        
       <div>
         <h1 style={{color:"white",textAlign:"center",fontSize:"5rem"}}>Choose Any Contribution Type</h1>
-        <div className="container">
-        <div className="card" >
+        <div className="container-1">
+        <div className="card1" >
           <div className="content" style={{textAlign:"center"}}>
           <a
                 style={{ textDecoration: "none" }}
@@ -18,7 +18,7 @@ export default class ContributeTypes extends Component {
               > <h2>Utility</h2></a>
           </div>
         </div>
-        <div className="card">
+        <div className="card1">
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -26,7 +26,7 @@ export default class ContributeTypes extends Component {
               > <h2>Session</h2></a>
           </div>
         </div>
-        <div className="card">
+        <div className="card1">
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -35,7 +35,7 @@ export default class ContributeTypes extends Component {
               </a>
             </div>
         </div>
-        <div className="card" >
+        <div className="card1" >
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -43,7 +43,7 @@ export default class ContributeTypes extends Component {
               > <h2>Mentoring</h2></a>
           </div>
         </div>
-        <div className="card" >
+        <div className="card1" >
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -51,7 +51,7 @@ export default class ContributeTypes extends Component {
               ><h2>Case Study</h2></a>
           </div>
         </div>
-        <div className="card">
+        <div className="card1">
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -59,7 +59,7 @@ export default class ContributeTypes extends Component {
               ><h2>Webinar</h2></a>
           </div>
         </div>
-        <div className="card">
+        <div className="card1">
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -67,7 +67,7 @@ export default class ContributeTypes extends Component {
               ><h2>Support</h2></a>
           </div>
         </div>
-        <div className="card" >
+        <div className="card1" >
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
@@ -75,7 +75,7 @@ export default class ContributeTypes extends Component {
               ><h2>Asset</h2></a>
           </div>
         </div>
-        <div className="card" >
+        <div className="card1" >
           <div className="content">
           <a
                 style={{ textDecoration: "none" }}
