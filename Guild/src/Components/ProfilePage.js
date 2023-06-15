@@ -20,7 +20,7 @@ export default function ProfilePage({ userData }) {
     
         <div className='login-bg' style={{backgroundColor:"black"}}>
 
-            <section style={{ backgroundColor: '#eee' }}></section>
+           
             <Navbar />
             <div className="home-bannerImage-container">
           <img src={BannerBackground} style={{ position: 'relative',height:"50rem" }} alt="" />
