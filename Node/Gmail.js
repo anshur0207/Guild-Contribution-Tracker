@@ -282,18 +282,18 @@ class GmailAPI {
               quater = "Q4";
             }
 
-            const oldUser = await contribute.findOne({
-              contribution_type: contributionType,
+            // const oldUser = await contribute.findOne({
+            //   contribution_type: contributionType,
 
-              email: str,
-            });
+            //   email: str,
+            // });
 
             //pushing data into db
 
             try {
               if (user) {
                 if (decodedStr1 && contributionType1) {
-                  if (!oldUser) {
+                  if (true) {
                     console.log(i + " " + mimeType);
 
                     const contributionDetails = {

@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
 
-
 app.use(cors());
 
 app.set("view engine", "ejs");
@@ -26,7 +25,8 @@ const MongoClient = require("mongodb").MongoClient;
 
 const databasename = "test";
 
-const mongourl = "mongodb+srv://anshu:anshu@cluster0.tulmyqc.mongodb.net/";
+const mongourl =
+  "mongodb+srv://anshu:anshu@cluster0.tulmyqc.mongodb.net/";
 
 require("./contributionType");
 
@@ -69,7 +69,6 @@ const Mails = mongoose.model("Contribution");
 const User = mongoose.model("UserInfo");
 
 app.post("/register", async (req, res) => {
-  
   const { fname, lname, email, password, userType } = req.body;
 
   const encryptedPassword = await bcrypt.hash(password, 10);
@@ -104,75 +103,19 @@ app.post("/register", async (req, res) => {
         pass: "hnlywmfafqejjbqi",
       },
     });
-    let MailGenerator = new Mailgen({
-      theme: "default",
-
-      product: {
-        name: "Guild Contribution Tracker",
-
-        link: "https://mailgen.js/",
-      },
-    });
-
-    let response3 = {
-      body: {
-
-        intro: `Thank you  for Register with our website Guild Contribution tracker ! 
-        Kindly Start Contributing And get community Points.<br><br>
-
-
-        <b>Please follow the Below format for Contribution.</b><br><br>
-
-        
-       1)Body: First Line Should be Contribution Type.<br>
-       2)Add Some Content to your Body.<br>
-       3)Before Sending the mail choose Plain Text Mode.<br>
-       4)Avoid Attachments and HTML format.<br><br>
-       
-
-      <b> Below is the Given example:-</b><br>
-       
-
-     <br>
-     <a href="https://ibb.co/vPNxsh2"><img src="https://i.ibb.co/MVzD8fq/Screenshot-2023-06-13-at-2-10-21-PM.png" alt="mail image demo" border="0"></a>
-
-     
-
-     `
-
-
-
-
-
-
-      },
-    };
-
-    let mail = MailGenerator.generate(response3);
 
     var mailOptions = {
       from: "contributions123@gmail.com",
 
       to: email,
 
-      subject: "Thank You For Registration",
-      logo: 'https://blog.hubspot.com/hubfs/image8-2.jpg',
+      subject: "Thank You For Register with us",
 
-      html: mail,
+      text:
+        "Hi" +
+        fname +
+        ",Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
     };
-
-    // var mailOptions = {
-    //   from: "contributions123@gmail.com",
-
-    //   to: email,
-
-    //   subject: "Thank You For Register with us",
-
-    //   text:
-    //     "Hi " +
-    //     fname +
-    //     ",Thanku for Register with our website Guild Contribution tracker ! Kindly Start Contributing And get community Points. Thank you, Team :- Guild Contribution tracker ",
-    // };
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
@@ -430,10 +373,8 @@ app.post("/deleteUsers", async (req, res) => {
 
 // app.post("/deleteContribution", async (req, res) => {
 //   try {
-//     const { id } = req.body; 
+//     const { id } = req.body;
 //     const deleteMails = await Mails.deleteOne({ _id: id });
-
-   
 
 //     res.send({ status: "Ok", data: deleteMails});
 
@@ -444,7 +385,7 @@ app.post("/deleteUsers", async (req, res) => {
 // });
 
 app.post("/changeStatus", async (req, res) => {
-  const { email, contribution_type, status } = req.body;
+  const { id, email, contribution_type, status } = req.body;
 
   try {
     // const contribution=await Mails.findOne({email,contribution_type});
@@ -461,7 +402,7 @@ app.post("/changeStatus", async (req, res) => {
 
     // console.log("No Contribution found");
 
-    const filter = { email, contribution_type };
+    const filter = { _id: id };
 
     var users = await User.findOne({ email });
 
@@ -738,11 +679,11 @@ app.post("/changePoints", async (req, res) => {
 });
 
 app.post("/updateContribution", async (req, res) => {
-  const { body, contribution_type, email } = req.body;
+  const { id, body } = req.body;
 
   try {
     const doc = await Mails.findOneAndUpdate(
-      { email, contribution_type },
+      { _id: id },
 
       { body, status: "Pending" },
 
@@ -756,11 +697,11 @@ app.post("/updateContribution", async (req, res) => {
 });
 
 app.post("/updateNotes", async (req, res) => {
-  const { notes, contribution_type, email } = req.body;
+  const { id, notes } = req.body;
 
   try {
     const doc = await Mails.findOneAndUpdate(
-      { email, contribution_type },
+      { _id: id },
 
       { notes },
 
