@@ -6,6 +6,8 @@ import ResetPass from "./Components/ResetPass";
 import Work from "./Components/Work";
 import RoadMap from "./Components/roadmap";
 import RoadMap2 from "./Components/roadMap2";
+import ContributeTypes from "./Components/ContributeTypes";
+
 
 
 
@@ -50,6 +52,8 @@ function App() {
         <Route exact path="/Work" element={<Work />}></Route>
         <Route exact path="/RoadMap" element={<RoadMap />}></Route>
         <Route exact path="/RoadMap2" element={<RoadMap2 />}></Route>
+        <Route exact path="ContributeTypes" element={<ContributeTypes />}></Route>
+        
        
         
         <Route exact path="/ResetPass" element={<ResetPass />}></Route>

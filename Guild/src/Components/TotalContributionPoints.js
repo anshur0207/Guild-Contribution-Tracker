@@ -118,7 +118,7 @@ import Footer from "./Footer";
 
 import Table from "react-bootstrap/Table";
 
-import Button from "react-bootstrap/Button";
+
 
 import Card from "react-bootstrap/Card";
 
@@ -126,7 +126,6 @@ import Carousel from "react-bootstrap/Carousel";
 
 import Select from "react-select";
 
-import { textAlign } from "@mui/system";
 
 function TotalContributionPoints() {
   const [userData, setUserData] = useState("");
@@ -377,7 +376,7 @@ function TotalContributionPoints() {
               <Card.Text style={{ marginTop: "2rem" }}>
                 <br></br>
 
-                <h2>
+                <h2 style={{color:"black"}}>
                   Current Year:&nbsp; &nbsp; {userData.curr_yr_points}
                   <br></br>
                   Previous Year: &nbsp; &nbsp; {userData.prev_yr_points}

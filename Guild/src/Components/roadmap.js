@@ -30,7 +30,7 @@ export default class roadmap extends Component {
 		<div>
 			<section className="text-center pos-r">
         <div className="container">
-          <div className="row" style={{marginTop:"15rem"}}>
+          <div className="row" style={{marginTop:"10rem"}}>
             <div className="col-lg-12 col-md-10 ml-auto mr-auto">
               <div className="section-title">
                 
@@ -59,7 +59,7 @@ export default class roadmap extends Component {
                 </div>
                 <div className="step-desc" style={{color:"white"}}>
                   <h4>Click Contribute</h4>
-                  <p className="mb-0">Just Click on Contribute button Then Mention the Contribution Type then write the body of your Contribution and just Send.</p>
+                  <p className="mb-0">Just Click on Contribute button Then Mention the Contribution Type and write the body of your Contribution and Finally select Plain Text Mode before Sending.</p>
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ export default class roadmap extends Component {
                 </div>
                 <div className="step-desc "style={{color:"white"}}>
                   <h4>Wait For Approval</h4>
-                  <p className="mb-0">Now Just wait for the Approval of Contribution from the Manager or Admin.</p>
+                  <p className="mb-0">Now Just wait for the Approval of Contribution from the Manager or Admin.If it is Accepted/Rejected you will notified by an Email.</p>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@ export default class roadmap extends Component {
                 </div>
                 <div className="step-desc" style={{color:"white"}}>
                   <h4>Get Reward Points</h4>
-                  <p className="mb-0">Hurray you get *** Rewards Points in your Wallet.</p>
+                  <p className="mb-0">After Approval you get &nbsp;Rewards Points.</p>
                 </div>
               </div>
             </div>

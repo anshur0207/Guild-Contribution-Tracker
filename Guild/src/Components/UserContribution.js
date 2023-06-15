@@ -390,13 +390,13 @@ export default function UserContribution({ getAllData }) {
 
   const [userData, setUserData] = useState("");
 
-  const [admin, setAdmin] = useState(false);
-
   const [body, setBody] = useState("");
 
   const [type, setType] = useState("");
 
   const [email, setEmail] = useState("");
+
+  const [id, setId] = useState("");
 
   const handleSubmit = () => {
     console.log("contribution_type" + type);
@@ -415,11 +415,8 @@ export default function UserContribution({ getAllData }) {
       },
 
       body: JSON.stringify({
+        id,
         body,
-
-        contribution_type: type,
-
-        email,
       }),
     })
       .then((res) => res.json())
@@ -451,10 +448,6 @@ export default function UserContribution({ getAllData }) {
 
       .then((data) => {
         console.log(data, "userData");
-
-        if (data.data.userType === "Admin") {
-          setAdmin(true);
-        }
 
         setUserData(data.data);
 
@@ -517,8 +510,6 @@ export default function UserContribution({ getAllData }) {
         <MDBTable align="middle" style={{ color: "white", marginTop: "5rem" }}>
           <MDBTableHead>
             <tr>
-              
-
               <th scope="col" style={{ textAlign: "center" }}>
                 Contribution &nbsp; Type
               </th>
@@ -530,7 +521,7 @@ export default function UserContribution({ getAllData }) {
                 Status
               </th>
 
-              <th scope="col" style={{ textAlign: "center",width:"5rem" }}>
+              <th scope="col" style={{ textAlign: "center", width: "5rem" }}>
                 Actions
               </th>
 
@@ -549,8 +540,6 @@ export default function UserContribution({ getAllData }) {
               if (userData.email === i.email) {
                 return (
                   <tr style={{ textAlign: "center" }}>
-                    
-
                     <td>
                       <p
                         className="fw-normal mb-1"
@@ -614,21 +603,21 @@ export default function UserContribution({ getAllData }) {
                         </button>
                       ) : i.status === "Pending" ? (
                         <Button
-                        onClick={() => {
-                          setType(i.contribution_type);
-
-                          setEmail(i.email);
-                          setBody(i.body);
-                          handleOpen();
-                        }}
-                      >
-                        Edit
-                      </Button>
+                          onClick={() => {
+                            setType(i.contribution_type);
+                            setId(i._id);
+                            setEmail(i.email);
+                            setBody(i.body);
+                            handleOpen();
+                          }}
+                        >
+                          Edit
+                        </Button>
                       ) : (
                         <Button
                           onClick={() => {
                             setType(i.contribution_type);
-
+                            setId(i._id);
                             setEmail(i.email);
                             setBody(i.body);
                             handleOpen();
@@ -647,7 +636,7 @@ export default function UserContribution({ getAllData }) {
                         <Box sx={style}>
                           <Form
                             onSubmit={() => {
-                              handleSubmit(i.contribution_type, i.email);
+                              handleSubmit();
                             }}
                           >
                             {/* <button

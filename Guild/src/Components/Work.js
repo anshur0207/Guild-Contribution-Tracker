@@ -45,7 +45,7 @@ const Work = () => {
             <div className="info-boxes-img-container">
               <img src={data.image} style={{ height: "30vh" }} alt="" />
             </div>
-            <h2>{data.title}</h2>
+            <h2 style={{color:"black"}} >{data.title}</h2>
             <p>{data.text}</p>
           </div>
         ))}

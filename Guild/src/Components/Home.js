@@ -8,6 +8,7 @@ import Roadmap from "./roadmap";
 import Footer from "./Footer";
 import { useEffect } from "react";
 import Roadmap2 from "./roadMap2";
+import ContributeTypes from "./ContributeTypes";
 
 const Home = () => {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -123,7 +124,6 @@ const Home = () => {
 
               <a
                 style={{ textDecoration: "none" }}
-                // href="mailto:Contributions123@gmail.com?subject=Contribution Towards Guild Contribution tracker !&body=Contribution_Type:"
                 href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=contributions123@gmail.com&!&body=Contribution_Type:" target="blank"
               >
                 <button className="secondary-button">
@@ -141,6 +141,8 @@ const Home = () => {
           </div>
           {/* <h1 style={{textAlign:"center",fontSize:"5rem",marginTop:"10rem", marginBottom:"-13rem",color: "rgb(142, 17, 166)"}}>How it Works? </h1> */}
           <Roadmap />
+          <ContributeTypes />
+         
           <Work />
           
           <Footer />
@@ -178,6 +180,7 @@ const Home = () => {
       </div>
       
       <Roadmap2 />
+     
       <Work />
      
       <Footer />

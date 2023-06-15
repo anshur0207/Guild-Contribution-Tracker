@@ -61,7 +61,7 @@ export default class roadmap2 extends Component {
 		<div>
 			<section className="text-center pos-r">
         <div className="container">
-          <div className="row" style={{marginTop:"15rem"}}>
+          <div className="row" style={{marginTop:"10rem"}}>
             <div className="col-lg-12 col-md-10 ml-auto mr-auto">
               <div className="section-title">
                 
